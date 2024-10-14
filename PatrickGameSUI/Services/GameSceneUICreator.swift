@@ -22,12 +22,6 @@ class GameSceneUICreator: SceneUICreator {
         //addBg()
         addButtons()
         addCoinsLabel()
-        addCar()
-        addCurrentWordNode()
-        addLettersToScene()
-        setAlphaForCameraElements()
-        setObstacleNodes()
-        fillSceneWithCoins(numCoins: 10)
         
     }
     
@@ -36,26 +30,7 @@ class GameSceneUICreator: SceneUICreator {
         gameScene.camera?.children.forEach({$0.alpha = 0.85})
     }
     
-    private func addCar() {
-        guard let gameScene = scene else { return }
-        let carHeight = gameScene.size.height / 15
-        let carPosition = CGPoint(x: gameScene.size.width/2, y: carHeight/2)
-        let car = Car(height: carHeight, position: carPosition)
-        gameScene.car = car
-        gameScene.addChild(car.spriteNode)
-        
-    }
     
-    private func addCurrentWordNode() {
-        guard let gameScene = scene else { return }
-        let sceneWidthScaleCoefficient: CGFloat = 0.8
-        let size = CGSize(width: gameScene.size.width * sceneWidthScaleCoefficient, height: gameScene.size.height / 20)
-        let position = CGPoint(x: gameScene.size.width/2 - size.width/2, y: gameScene.size.height * 0.8)
-        let wordProvider = WordProvider()
-        let wordNode = CurrentWordNode(size: size, position: position, wordProvider: wordProvider)
-        gameScene.addChild(wordNode)
-        gameScene.currentWordNode = wordNode
-    }
     
     private func setObstacleNodes() {
         
@@ -91,22 +66,6 @@ class GameSceneUICreator: SceneUICreator {
         gameScene.addChild(bg)
     }
     
-    private func addLettersToScene() {
-        
-        guard let gameScene = scene else { return }
-        var currentWord = gameScene.currentWordNode.word
-        print(currentWord)
-        let letterSpots = gameScene.children.filter({$0.name == UIElementsNames.letterSpot.rawValue})
-        letterSpots.map({$0.position}).forEach { letterPosition in
-            
-            let letterNode = LetterNode(height: gameScene.size.height/20, letterValue: String(currentWord.removeFirst()))
-            letterNode.position = letterPosition
-            gameScene.addChild(letterNode)
-        }
-        
-        
-    }
-
     
     private func adjustScaleAndCameraConstraints1() {
         guard let gameScene = scene else { return }

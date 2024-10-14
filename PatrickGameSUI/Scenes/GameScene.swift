@@ -4,35 +4,12 @@ import GameplayKit
 
 
 class GameScene: SKScene {
-    weak var gameOverDelegate: GameOverDelegate?
-    weak var homeButtonDelegate: HomeButtonDelegate?
-    
-    var player: Player!
-    var receivedDamageNode: OverheatingNode!
-    var gasolineNode: OverheatingNode!
+    //weak var gameOverDelegate: GameOverDelegate?
+    //weak var homeButtonDelegate: HomeButtonDelegate?
     
     var uiCreator: SceneUICreator
     var touchHandler: SceneTouchHandler
     var contactHandler: SceneContactHandler
-    
-    var mainLabel: RoundedLabelNode!
-    var weakMonstersRemainLabel: SKLabelNodeWithSprite!
-    var strongMonstersRemainLabel: SKLabelNodeWithSprite!
-    var playerNameLabel: RoundedLabelNode!
-    var monsterNameLabel: RoundedLabelNode!
-    
-    var weakMonsters: [BaseMonster] = [] {
-        didSet {
-            weakMonstersRemainLabel.labelNode.text = String(weakMonsters.count)
-        }
-    }
-    var strongMonsters: [BaseMonster] = [] {
-        didSet {
-            strongMonstersRemainLabel.labelNode.text = String(strongMonsters.count)
-        }
-    }
-    
-    var boss: BaseMonster!
     
     override init(size: CGSize) {
         self.uiCreator = DependencyFactory.createSceneUICreator(type: .gameScene)
@@ -58,7 +35,7 @@ class GameScene: SKScene {
 
 extension GameScene {
     
-    override func update(_ currentTime: TimeInterval) {
+    /*override func update(_ currentTime: TimeInterval) {
         camera?.children.compactMap({$0 as? Updatable}).forEach({$0.update()})
         children.compactMap({$0 as? Updatable}).forEach({$0.update()})
         GameStateManager.shared.update(deltaTime: currentTime, scene: self)
@@ -93,5 +70,5 @@ extension GameScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         touchHandler.handleTouch(touch: touch)
-    }
+    }*/
 }

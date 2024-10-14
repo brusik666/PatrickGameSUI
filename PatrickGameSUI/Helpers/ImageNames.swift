@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum ImageNames: String {
+    
+    case playButton, settingsButton, shopButton, dailyBonusButton
+    case background
+}

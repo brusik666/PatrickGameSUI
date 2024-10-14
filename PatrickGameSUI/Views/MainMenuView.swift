@@ -9,10 +9,52 @@ import SwiftUI
 
 struct MainMenuView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationSplitView {
+            ZStack {
+                 BackgroundImage()
+                VStack(spacing: 15){
+                    HStack {
+                        Spacer()
+                        NavigationLink {
+                            DailyBonusView()
+                        } label: {
+                            Image(ImageNames.dailyBonusButton.rawValue)
+                        }
+                    }
+                    
+                    NavigationLink {
+                        LevelsListView()
+                    } label: {
+                        Image(ImageNames.playButton.rawValue)
+                    }
+                    
+                    NavigationLink {
+                        GameSettingsView()
+                    } label: {
+                        Image(ImageNames.settingsButton.rawValue)
+                    }
+                    
+                    NavigationLink {
+                        GameShopView()
+                    } label: {
+                        Image(ImageNames.shopButton.rawValue)
+                    }
+                }
+            }
+        } detail: {
+            Text("MENU")
+        }
     }
 }
 
 #Preview {
     MainMenuView()
+}
+
+struct BackgroundImage: View {
+    var body: some View {
+        Image(ImageNames.background.rawValue)
+            .resizable()
+            .ignoresSafeArea()
+    }
 }
