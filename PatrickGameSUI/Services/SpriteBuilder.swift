@@ -43,7 +43,7 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
         return self
     }
     
-    func setPhysicsBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false, isTexured: Bool) -> SpriteBuilder {
+    func setPhysicsBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false, isTexured: Bool, hasPresizeCollision: Bool = false) -> SpriteBuilder {
         guard let textur = texture,
               let size = size else { return self }
         if isTexured {
@@ -52,6 +52,7 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
             self.physicsBody = SKPhysicsBody(rectangleOf: size)
         }
         self.physicsBody?.mass = mass
+        self.physicsBody?.usesPreciseCollisionDetection = hasPresizeCollision
         //self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.isDynamic = isDynamic
         self.physicsBody?.affectedByGravity = affectedByGravity

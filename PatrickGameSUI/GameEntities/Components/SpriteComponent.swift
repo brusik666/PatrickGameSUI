@@ -1,5 +1,5 @@
 //
-//  DependencyFactory.swift
+//  SpriteComponent.swift
 //  PatrickGameSUI
 //
 //  Created by Brusik on 10/16/24.

@@ -25,7 +25,3 @@ class GameStateManager {
     }
 
 }
-
-enum GameStates {
-    case preInitial, initial, gameStarted, gameFinished, bird
-}
