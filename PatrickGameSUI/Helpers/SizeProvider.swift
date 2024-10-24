@@ -16,14 +16,5 @@ struct SizeProvider {
         let size = CGSize(width: width, height: texture.size().height * ratio)
         return size
     }
-    
-    static func buttonHeight(sceneHeight: CGFloat) -> CGFloat {
-        return sceneHeight * 0.09
-    }
-
-    
-    static func coinHeight(sceneHeight: CGFloat) -> CGFloat {
-        return sceneHeight * 0.1
-    }
 }
 

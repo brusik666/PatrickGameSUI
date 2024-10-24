@@ -18,10 +18,10 @@ extension DamageReceivable {
         isInContactWithGun = true
         if hp >= amount {
             hp -= amount
-            spriteNode.blinkAnimation()
+            //spriteNode.blinkAnimation()
             updateHPBars()
-            spriteNode.run(.sequence([.wait(forDuration: 0.5), .run {
-                self.isInContactWithGun = false
+            spriteNode.run(.sequence([.wait(forDuration: 0.5), .run { [weak self] in
+                self?.isInContactWithGun = false
             }]))
         } else {
             hp = 0

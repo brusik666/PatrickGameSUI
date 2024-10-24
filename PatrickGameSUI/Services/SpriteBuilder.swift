@@ -53,29 +53,6 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
         }
         self.physicsBody?.mass = mass
         self.physicsBody?.usesPreciseCollisionDetection = hasPresizeCollision
-        //self.physicsBody?.usesPreciseCollisionDetection = true
-        self.physicsBody?.isDynamic = isDynamic
-        self.physicsBody?.affectedByGravity = affectedByGravity
-        return self
-    }
-    
-    func setCirclePhysicBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false) -> SpriteBuilder {
-        guard let size = size else { return self}
-        self.physicsBody = SKPhysicsBody(circleOfRadius: size.height/2.2)
-        self.physicsBody?.mass = mass
-        self.physicsBody?.usesPreciseCollisionDetection = true
-        self.physicsBody?.isDynamic = isDynamic
-        self.physicsBody?.affectedByGravity = affectedByGravity
-        return self
-    }
-    
-    func setRoundedRectPhysicBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false) -> SpriteBuilder {
-        guard let size = size else { return self}
-        let cornerRadius: CGFloat = 10
-        let roundedRectPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: -size.width/2, y: 0), size: CGSize(width: size.width, height: size.height/2.5)), cornerRadius: cornerRadius)
-        self.physicsBody = SKPhysicsBody(polygonFrom: roundedRectPath.cgPath)
-        self.physicsBody?.mass = mass
-        self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.isDynamic = isDynamic
         self.physicsBody?.affectedByGravity = affectedByGravity
         return self

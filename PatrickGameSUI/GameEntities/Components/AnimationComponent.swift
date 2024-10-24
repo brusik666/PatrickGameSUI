@@ -5,4 +5,9 @@
 //  Created by Brusik on 10/18/24.
 //
 
-import Foundation
+import GameplayKit
+import SpriteKit
+
+class AnimationComponent: GKComponent {
+    //private let spriteNode: SKSpriteNode
+}

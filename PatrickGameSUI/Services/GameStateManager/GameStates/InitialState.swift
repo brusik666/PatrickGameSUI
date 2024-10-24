@@ -4,15 +4,13 @@ class InitialState: GameState {
     
     
     func enterState(scene: GameScene) {
+        let uiCreator = DependencyFactory.createSceneUICreator(type: .gameScene)
+        uiCreator.setScene(scene)
+        uiCreator.createUI()
         
-        scene.uiCreator.createUI()
-        let tutorNode = TutorialNode(text: "ASDASDASD")
-        tutorNode.name = "tutorialNode"
-        tutorNode.position = CGPoint(x: scene.size.width/2, y: scene.size.height/2)
-        scene.addChild(tutorNode)
-        tutorNode.startExplain {
-            GameStateManager.shared.transition(to: GameHasStartedState(), scene: scene)
-        }
+        let player = Player()
+        scene.entityManager?.player = player
+        scene.entityManager?.addEntity(entity: player)
         
     }
     
@@ -22,7 +20,7 @@ class InitialState: GameState {
     }
     
     func update(deltaTime: TimeInterval, scene: GameScene) {
-        //
+        scene.camera?.position = scene.entityManager?.player.component(ofType: SpriteComponent.self)?.node.position ?? .zero
     }
     
 }

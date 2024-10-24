@@ -10,11 +10,18 @@ import SpriteKit
 
 struct GameView: View {
     
-    private var xyu: SpriteV
-    
-    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geometry in
+            
+            SpriteView(scene: {
+                let gameScene = GameScene(size: geometry.size)
+                gameScene.view?.showsPhysics = true
+                gameScene.scaleMode = .aspectFill  // Ensure the scene resizes to fit the screen
+                return gameScene
+            }())
+                .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .ignoresSafeArea()
     }
 }
 

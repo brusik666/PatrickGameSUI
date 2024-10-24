@@ -18,26 +18,26 @@ struct MainMenuView: View {
                         NavigationLink {
                             DailyBonusView()
                         } label: {
-                            Image(ImageNames.dailyBonusButton.rawValue)
+                            Image(ImageName.Buttons.dailyBonusButton.rawValue)
                         }
                     }
                     
                     NavigationLink {
-                        LevelsListView()
+                        GameView()
                     } label: {
-                        Image(ImageNames.playButton.rawValue)
+                        Image(ImageName.Buttons.playButton.rawValue)
                     }
                     
                     NavigationLink {
                         GameSettingsView()
                     } label: {
-                        Image(ImageNames.settingsButton.rawValue)
+                        Image(ImageName.Buttons.settingsButton.rawValue)
                     }
                     
                     NavigationLink {
                         GameShopView()
                     } label: {
-                        Image(ImageNames.shopButton.rawValue)
+                        Image(ImageName.Buttons.shopButton.rawValue)
                     }
                 }
             }
@@ -53,7 +53,7 @@ struct MainMenuView: View {
 
 struct BackgroundImage: View {
     var body: some View {
-        Image(ImageNames.background.rawValue)
+        Image(ImageName.Backgrounds.background.rawValue)
             .resizable()
             .ignoresSafeArea()
     }

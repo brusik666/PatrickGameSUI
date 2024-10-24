@@ -7,8 +7,17 @@
 
 import Foundation
 
-enum ImageNames: String {
+enum ImageName {
     
-    case playButton, settingsButton, shopButton, dailyBonusButton
-    case background
+    enum Buttons: String {
+        case playButton, settingsButton, shopButton, dailyBonusButton
+    }
+    
+    enum Backgrounds: String {
+        case background
+    }
+    
+    enum Entities: String {
+        case player
+    }
 }

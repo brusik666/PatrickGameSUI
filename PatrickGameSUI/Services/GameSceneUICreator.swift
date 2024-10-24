@@ -4,5 +4,71 @@
 //
 //  Created by Brusik on 10/16/24.
 //
+import SpriteKit
 
-import Foundation
+protocol SceneUICreator {
+    func createUI()
+    func setScene(_ scene: GameScene)
+}
+
+class GameSceneUICreator: SceneUICreator {
+    
+    weak var scene: GameScene?
+    
+    func setScene(_ scene: GameScene) {
+        self.scene = scene
+    }
+
+    
+    func createUI() {
+        addBackgroundToScene()
+        addObstacleBlock()
+        
+        addCameraToScene()
+        
+    }
+    
+    private func addObstacleBlock() {
+        guard let gScene = scene else { return }
+        let size = CGSize(width: gScene.size.width * 10, height: gScene.size.height / 5)
+        let shapeNode = SKShapeNode(rectOf: size)
+        shapeNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+        shapeNode.fillColor = .brown
+        shapeNode.zPosition = 4
+        shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
+        shapeNode.physicsBody?.affectedByGravity = false
+        shapeNode.physicsBody?.isDynamic = false
+        shapeNode.position = CGPoint(x: gScene.size.width * 2, y: 0)
+        gScene.addChild(shapeNode)
+    }
+    
+    private func addBackgroundToScene() {
+        guard let gameScene = scene else { return }
+        let bgTextureName = ImageName.Backgrounds.background.rawValue
+        let bgTexture = SKTexture(imageNamed: bgTextureName)
+        for i in 1...10 {
+            let background = SpriteBuilder()
+                .setTexture(bgTexture)
+                .setSize(gameScene.size)
+                .setPosition(CGPoint(x: gameScene.frame.midX * CGFloat(i), y: gameScene.frame.midY))
+                .setZPosition(1)
+                .build()
+            
+            gameScene.addChild(background)
+        }
+    }
+
+    
+    private func addCameraToScene() {
+        guard let gameScene = scene else { return }
+        let constraints = [
+            SKConstraint.positionY(SKRange(lowerLimit: gameScene.frame.midY))
+        ]
+        let camera = SKCameraNode()
+        camera.constraints = constraints
+        camera.setScale(1)
+        gameScene.camera = camera
+        gameScene.addChild(camera)
+        camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)
+    }
+}
