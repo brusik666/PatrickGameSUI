@@ -15,7 +15,7 @@ class DependencyFactory {
         }
     }
     
-   /* static func createSceneTouchHandler(type: SceneType) -> SceneTouchHandler {
+    static func createSceneTouchHandler(type: SceneType) -> SceneTouchHandler {
         switch type {
         case .gameScene: return GameSceneTouchHandler()
         default: break
@@ -27,7 +27,7 @@ class DependencyFactory {
         case .gameScene: return GameSceneContactHandler()
         default: break
         }
-    }*/
+    }
     
     static func createEntityManager(scene: GameScene) -> EntityManager {
         return EntityManager(scene: scene)

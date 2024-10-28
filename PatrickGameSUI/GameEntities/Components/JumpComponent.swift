@@ -11,6 +11,9 @@ class JumpComponent: GKComponent {
     
     private var entityNode: SKNode?
     private var jumpVelocity: CGVector
+    private var superJumpVelocity: CGVector {
+        CGVector(dx: 0, dy: jumpVelocity.dy * 2)
+    }
     private var isGrounded = true
     private var maxJumps: Int
     private var jumpCount: Int
@@ -30,11 +33,14 @@ class JumpComponent: GKComponent {
         }
     }
     
-    func jump() {
+    func jump(isSuperJump: Bool) {
         guard let node = entityNode, let physicsBody = node.physicsBody else { return }
         print("sobralsya prigat")
+        let velocity = isSuperJump ? superJumpVelocity : jumpVelocity
         if isGrounded || jumpCount < maxJumps {
-            physicsBody.applyImpulse(jumpVelocity)
+            
+            
+            physicsBody.applyImpulse(velocity)
             print("prignul")
             isGrounded = false
             jumpCount += 1
@@ -42,6 +48,7 @@ class JumpComponent: GKComponent {
     }
     
     func landed() {
+        print("Landed")
         isGrounded = true
         jumpCount = 0
     }

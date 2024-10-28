@@ -34,6 +34,8 @@
 		EED235E62CAE90930082BFD0 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E52CAE90930082BFD0 /* GameSettingsView.swift */; };
 		EED235E82CAE90A00082BFD0 /* GameShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E72CAE90A00082BFD0 /* GameShopView.swift */; };
 		EED235EA2CAE91470082BFD0 /* DailyBonusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E92CAE91470082BFD0 /* DailyBonusView.swift */; };
+		EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */; };
+		EEEB755C2CCDF70D009CFC58 /* GameSceneTouchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */; };
 		EEF48EE82CBCC1D6001351C3 /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF48EDC2CBCC1D5001351C3 /* GameOverDelegate.swift */; };
 		EEF48EED2CBCC1D6001351C3 /* DamageReceivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF48EE32CBCC1D5001351C3 /* DamageReceivable.swift */; };
 		EEF48EEE2CBCC1D6001351C3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF48EE42CBCC1D5001351C3 /* GameState.swift */; };
@@ -72,6 +74,8 @@
 		EED235E52CAE90930082BFD0 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		EED235E72CAE90A00082BFD0 /* GameShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShopView.swift; sourceTree = "<group>"; };
 		EED235E92CAE91470082BFD0 /* DailyBonusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBonusView.swift; sourceTree = "<group>"; };
+		EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneContactHandler.swift; sourceTree = "<group>"; };
+		EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneTouchHandler.swift; sourceTree = "<group>"; };
 		EEF48EDC2CBCC1D5001351C3 /* GameOverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
 		EEF48EE32CBCC1D5001351C3 /* DamageReceivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DamageReceivable.swift; sourceTree = "<group>"; };
 		EEF48EE42CBCC1D5001351C3 /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				EE60DA5C2CBFA0D700EC516C /* GameSceneUICreator.swift */,
 				EE60DA5E2CBFA8B800EC516C /* EntityManager.swift */,
 				EE8C30982CC0AAF900161D85 /* DependencyFactory.swift */,
+				EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */,
+				EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -334,6 +340,7 @@
 				EEF48EED2CBCC1D6001351C3 /* DamageReceivable.swift in Sources */,
 				EEF48EEE2CBCC1D6001351C3 /* GameState.swift in Sources */,
 				EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */,
+				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
 				EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */,
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,
 				EE8C30922CC0AA3F00161D85 /* GameStateManager.swift in Sources */,
@@ -346,6 +353,7 @@
 				EE9AAD302CC741AC00E3CCCB /* PhysicsCategories.swift in Sources */,
 				EEF48EEF2CBCC1D6001351C3 /* Exploidable.swift in Sources */,
 				EEA3CD982CC37D7500C59D43 /* AnimationComponent.swift in Sources */,
+				EEEB755C2CCDF70D009CFC58 /* GameSceneTouchHandler.swift in Sources */,
 				EE8C308D2CC0A73000161D85 /* SpriteBuilder.swift in Sources */,
 				EED235EA2CAE91470082BFD0 /* DailyBonusView.swift in Sources */,
 				EE8C308F2CC0A77200161D85 /* SizeProvider.swift in Sources */,

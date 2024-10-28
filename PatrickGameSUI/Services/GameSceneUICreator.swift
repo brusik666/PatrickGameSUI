@@ -36,6 +36,7 @@ class GameSceneUICreator: SceneUICreator {
         shapeNode.fillColor = .brown
         shapeNode.zPosition = 4
         shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
+        shapeNode.physicsBody?.contactTestBitMask = PhysicsCategory.player
         shapeNode.physicsBody?.affectedByGravity = false
         shapeNode.physicsBody?.isDynamic = false
         shapeNode.position = CGPoint(x: gScene.size.width * 2, y: 0)
