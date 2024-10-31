@@ -56,13 +56,11 @@ extension GameScene: SKPhysicsContactDelegate {
 extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        print("TOUCHES BEGAN")
         touchHandler.handleTouch(touch: touch)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        print("Touches ended")
         touchHandler.handleTouch(touch: touch)
     }
 }

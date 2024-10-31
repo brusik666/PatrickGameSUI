@@ -4,12 +4,11 @@ import SpriteKit
 import UIKit
 
 class SpriteBuilder<NodeType: SKSpriteNode> {
-    var name: String?
-    var position: CGPoint?
-    var size: CGSize?
-    var texture: SKTexture?
-    var physicsBody: SKPhysicsBody?
-    var zPosition: CGFloat?
+    private var name: String?
+    private var position: CGPoint?
+    private var size: CGSize?
+    private var texture: SKTexture?
+    private var zPosition: CGFloat?
     
     func setName(_ name: String) -> SpriteBuilder {
         self.name = name
@@ -43,10 +42,34 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
         return self
     }
     
-    func setPhysicsBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false, isTexured: Bool, hasPresizeCollision: Bool = false) -> SpriteBuilder {
-        guard let textur = texture,
-              let size = size else { return self }
-        if isTexured {
+    func setZPosition(_ zPosition: CGFloat) -> SpriteBuilder {
+        self.zPosition = zPosition
+        return self
+    }
+    
+    func build() -> NodeType {
+        var spriteNode: NodeType
+        spriteNode = NodeType(texture: texture, size: size ?? .zero)
+        spriteNode.position = position ?? .zero
+        spriteNode.name = name
+        spriteNode.zPosition = zPosition ?? 0
+        return spriteNode
+    }
+
+
+}
+
+
+class PhysicBodyBuilder {
+    
+    private var physicsBody: SKPhysicsBody?
+    
+    
+    func configurePhysicsBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false, isTextured: Bool, hasPresizeCollision: Bool = false, spriteNode: SKSpriteNode, allowsRotation: Bool = false) -> PhysicBodyBuilder {
+        
+        guard let textur = spriteNode.texture else { return self }
+        let size = spriteNode.size
+        if isTextured {
             self.physicsBody = SKPhysicsBody(texture: textur, size: size)
         } else {
             self.physicsBody = SKPhysicsBody(rectangleOf: size)
@@ -58,7 +81,7 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
         return self
     }
     
-    func setPhysicsCategories(mask: UInt32, collision: [UInt32], contact: [UInt32]) -> SpriteBuilder {
+    func setPhysicsCategories(mask: UInt32, collision: [UInt32], contact: [UInt32]) -> PhysicBodyBuilder {
         self.physicsBody?.categoryBitMask = mask
         if !collision.isEmpty {
             self.physicsBody?.collisionBitMask = collision.reduce(0, |)
@@ -70,26 +93,7 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
         return self
     }
     
-    func setZPosition(_ zPosition: CGFloat) -> SpriteBuilder {
-        self.zPosition = zPosition
-        return self
+    func build() -> SKPhysicsBody? {
+        return physicsBody
     }
-    
-    func isUpdatable() {
-        
-    }
-
-    
-    func build() -> NodeType {
-        var spriteNode: NodeType
-        spriteNode = NodeType(texture: texture, size: size ?? .zero)
-        spriteNode.position = position ?? .zero
-        spriteNode.physicsBody = physicsBody
-        spriteNode.name = name
-        spriteNode.zPosition = zPosition ?? 0
-        return spriteNode
-    }
-
-
 }
-

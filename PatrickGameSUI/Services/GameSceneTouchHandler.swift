@@ -30,13 +30,8 @@ class GameSceneTouchHandler: SceneTouchHandler {
         let touchLocation = touch.location(in: gameScene)
         let touchedNode = gameScene.atPoint(touchLocation)
         
-        if let nodeName = touchedNode.name,
-           let action = touchActions[nodeName] {
-            action()
-        }
-        
         if touch.phase == .began {
-            handleTouchesBeganActions()
+            handleTouchesBeganActions(touchLocation: touchLocation)
             startTouchLocation = touchLocation
         } else if touch.phase == .ended {
             handleTouchesEndActions(endLocation: touchLocation)
@@ -44,9 +39,20 @@ class GameSceneTouchHandler: SceneTouchHandler {
     }
 
     
-    private func handleTouchesBeganActions() {
-        guard let gameScene = scene else { return }
+    private func handleTouchesBeganActions(touchLocation: CGPoint) {
         
+        guard let gameScene = scene,
+              let playerMoveComponent = gameScene.entityManager?.player.component(ofType: PlayerMovementComponent.self),
+              let sceneView = gameScene.view else { return }
+        
+        let screenTouchLocation = sceneView.convert(touchLocation, from: gameScene)
+
+        let screenWidth = sceneView.bounds.width
+        if screenTouchLocation.x < screenWidth / 2 {
+            playerMoveComponent.slowDown()
+        } else {
+            playerMoveComponent.increaseSpeed()
+        }
     }
     
     

@@ -25,25 +25,14 @@ class PlayerMovementComponent: GKComponent {
     
     override func didAddToEntity() {
         super.didAddToEntity()
-        print("PIZDA")
 
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
             self.entityNode = node
-            print("ZALUPA")
         }
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-
-        guard let node = entityNode, let physicsBody = node.physicsBody else { return }
-        let scaledForce = CGVector(dx: movementForce.dx * speedMultiplier, dy: movementForce.dy)
-        if physicsBody.velocity.dx < maxVelocity * speedMultiplier {
-            physicsBody.applyForce(scaledForce)
-        }
-        
-        if physicsBody.velocity.dx > maxVelocity * speedMultiplier {
-            physicsBody.velocity.dx = maxVelocity * speedMultiplier
-        }
+        move()
     }
     
     func stopPlayer() {
@@ -56,16 +45,30 @@ class PlayerMovementComponent: GKComponent {
     
     func increaseSpeed() {
         speedMultiplier = 2.0
+        print("SPEED UP")
     }
     
     
     func slowDown() {
         speedMultiplier = 0.5
+        print("SLOW DOWN")
     }
     
     
     func resetSpeed() {
         speedMultiplier = 1.0
+    }
+    
+    private func move() {
+        guard let node = entityNode, let physicsBody = node.physicsBody else { return }
+        let scaledForce = CGVector(dx: movementForce.dx * speedMultiplier, dy: movementForce.dy)
+        if physicsBody.velocity.dx < maxVelocity * speedMultiplier {
+            physicsBody.applyForce(scaledForce)
+        }
+        
+        if physicsBody.velocity.dx > maxVelocity * speedMultiplier {
+            physicsBody.velocity.dx = maxVelocity * speedMultiplier
+        }
     }
     
     required init?(coder: NSCoder) {
