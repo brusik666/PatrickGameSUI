@@ -14,7 +14,8 @@ struct GameView: View {
         GeometryReader { geometry in
             
             SpriteView(scene: {
-                let gameScene = GameScene(size: geometry.size)
+                let playerData = PlayerData()
+                let gameScene = GameScene(size: geometry.size, playerData: playerData)
                 gameScene.view?.showsPhysics = true
                 gameScene.scaleMode = .aspectFill  // Ensure the scene resizes to fit the screen
                 return gameScene

@@ -48,7 +48,6 @@ class JumpComponent: GKComponent {
     }
     
     func landed() {
-        print("Landed")
         isGrounded = true
         jumpCount = 0
     }

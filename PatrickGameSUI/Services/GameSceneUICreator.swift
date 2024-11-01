@@ -21,10 +21,23 @@ class GameSceneUICreator: SceneUICreator {
 
     
     func createUI() {
+        
         addBackgroundToScene()
         addObstacleBlock()
-        
         addCameraToScene()
+        addCoinsLabel()
+        
+    }
+    
+    private func addCoinsLabel() {
+        guard let gameScene = scene else { return }
+        
+        let coinsAmount = UserDefaults.standard.integer(forKey: UserDefaultsKeys.playerCoins.rawValue)
+        let label = SKLabelNodeWithSprite(text: String(coinsAmount), spriteImageName: "coin", spriteHeight: gameScene.size.height/20)
+        label.position = CGPoint(x: gameScene.size.width/2 - label.spriteNode.size.width * 2, y: gameScene.size.height/2 - label.spriteNode.size.height * 2)
+        label.name = "coinLabel"
+        label.zPosition = 5
+        gameScene.camera?.addChild(label)
         
     }
     
@@ -72,4 +85,6 @@ class GameSceneUICreator: SceneUICreator {
         gameScene.addChild(camera)
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)
     }
+    
+    
 }

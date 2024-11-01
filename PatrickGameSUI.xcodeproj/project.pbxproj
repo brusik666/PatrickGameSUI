@@ -3,11 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		EE596ED22CC9F3B900EBD473 /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */; };
+		EE6077432CD42A0800EE184F /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077422CD42A0800EE184F /* Meteor.swift */; };
+		EE6077452CD42B5300EE184F /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077442CD42B5300EE184F /* Coin.swift */; };
+		EE6077472CD42C3200EE184F /* CollectableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077462CD42C3200EE184F /* CollectableComponent.swift */; };
+		EE6077492CD42EF100EE184F /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077482CD42EF100EE184F /* PlayerData.swift */; };
 		EE60DA592CBF9C8D00EC516C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE60DA582CBF9C8D00EC516C /* Player.swift */; };
 		EE60DA5D2CBFA0D700EC516C /* GameSceneUICreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE60DA5C2CBFA0D700EC516C /* GameSceneUICreator.swift */; };
 		EE60DA5F2CBFA8B800EC516C /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE60DA5E2CBFA8B800EC516C /* EntityManager.swift */; };
@@ -34,6 +38,7 @@
 		EED235E62CAE90930082BFD0 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E52CAE90930082BFD0 /* GameSettingsView.swift */; };
 		EED235E82CAE90A00082BFD0 /* GameShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E72CAE90A00082BFD0 /* GameShopView.swift */; };
 		EED235EA2CAE91470082BFD0 /* DailyBonusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E92CAE91470082BFD0 /* DailyBonusView.swift */; };
+		EED9C2EC2CD583EB00CD5E34 /* ZPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED9C2EB2CD583EB00CD5E34 /* ZPositions.swift */; };
 		EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */; };
 		EEEB755C2CCDF70D009CFC58 /* GameSceneTouchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */; };
 		EEF48EE82CBCC1D6001351C3 /* GameOverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF48EDC2CBCC1D5001351C3 /* GameOverDelegate.swift */; };
@@ -47,6 +52,10 @@
 
 /* Begin PBXFileReference section */
 		EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
+		EE6077422CD42A0800EE184F /* Meteor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
+		EE6077442CD42B5300EE184F /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		EE6077462CD42C3200EE184F /* CollectableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectableComponent.swift; sourceTree = "<group>"; };
+		EE6077482CD42EF100EE184F /* PlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
 		EE60DA582CBF9C8D00EC516C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		EE60DA5C2CBFA0D700EC516C /* GameSceneUICreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneUICreator.swift; sourceTree = "<group>"; };
 		EE60DA5E2CBFA8B800EC516C /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
@@ -74,6 +83,7 @@
 		EED235E52CAE90930082BFD0 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		EED235E72CAE90A00082BFD0 /* GameShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShopView.swift; sourceTree = "<group>"; };
 		EED235E92CAE91470082BFD0 /* DailyBonusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyBonusView.swift; sourceTree = "<group>"; };
+		EED9C2EB2CD583EB00CD5E34 /* ZPositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZPositions.swift; sourceTree = "<group>"; };
 		EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneContactHandler.swift; sourceTree = "<group>"; };
 		EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneTouchHandler.swift; sourceTree = "<group>"; };
 		EEF48EDC2CBCC1D5001351C3 /* GameOverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +94,10 @@
 		EEF48EE72CBCC1D6001351C3 /* HomeButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeButtonDelegate.swift; sourceTree = "<group>"; };
 		EEFBBF342CC8B3C10075EDA4 /* PlayerMovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMovementComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EED9C2E72CD5838900CD5E34 /* Nodes */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Nodes; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		EE7856212CAE831F00BAAC09 /* Frameworks */ = {
@@ -101,6 +115,8 @@
 			children = (
 				EE60DA602CBFA8E700EC516C /* Components */,
 				EE60DA582CBF9C8D00EC516C /* Player.swift */,
+				EE6077422CD42A0800EE184F /* Meteor.swift */,
+				EE6077442CD42B5300EE184F /* Coin.swift */,
 			);
 			path = GameEntities;
 			sourceTree = "<group>";
@@ -126,6 +142,7 @@
 				EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */,
 				EEFBBF342CC8B3C10075EDA4 /* PlayerMovementComponent.swift */,
 				EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */,
+				EE6077462CD42C3200EE184F /* CollectableComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -175,6 +192,7 @@
 		EE7856352CAE84E200BAAC09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EED9C2E72CD5838900CD5E34 /* Nodes */,
 				EE7856292CAE831F00BAAC09 /* ContentView.swift */,
 				EE7856362CAE84FD00BAAC09 /* MainMenuView.swift */,
 				EED235E32CAE90750082BFD0 /* LevelsListView.swift */,
@@ -193,6 +211,8 @@
 				EE8C308E2CC0A77200161D85 /* SizeProvider.swift */,
 				EE7856392CAE859100BAAC09 /* ImageNames.swift */,
 				EE9AAD2F2CC741AC00E3CCCB /* PhysicsCategories.swift */,
+				EE6077482CD42EF100EE184F /* PlayerData.swift */,
+				EED9C2EB2CD583EB00CD5E34 /* ZPositions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -274,6 +294,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				EED9C2E72CD5838900CD5E34 /* Nodes */,
+			);
 			name = PatrickGameSUI;
 			productName = PatrickGameSUI;
 			productReference = EE7856242CAE831F00BAAC09 /* PatrickGameSUI.app */;
@@ -330,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE6077492CD42EF100EE184F /* PlayerData.swift in Sources */,
 				EE60DA5D2CBFA0D700EC516C /* GameSceneUICreator.swift in Sources */,
 				EE8C30992CC0AAF900161D85 /* DependencyFactory.swift in Sources */,
 				EEF48EF02CBCC1D6001351C3 /* Updatable.swift in Sources */,
@@ -343,10 +367,13 @@
 				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
 				EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */,
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,
+				EE6077452CD42B5300EE184F /* Coin.swift in Sources */,
 				EE8C30922CC0AA3F00161D85 /* GameStateManager.swift in Sources */,
 				EE7856372CAE84FD00BAAC09 /* MainMenuView.swift in Sources */,
 				EE82FC832CB0973D0096624C /* CustomToggleStyle.swift in Sources */,
 				EE78562A2CAE831F00BAAC09 /* ContentView.swift in Sources */,
+				EED9C2EC2CD583EB00CD5E34 /* ZPositions.swift in Sources */,
+				EE6077432CD42A0800EE184F /* Meteor.swift in Sources */,
 				EE60DA5F2CBFA8B800EC516C /* EntityManager.swift in Sources */,
 				EE78563A2CAE859100BAAC09 /* ImageNames.swift in Sources */,
 				EEF48EF12CBCC1D6001351C3 /* HomeButtonDelegate.swift in Sources */,
@@ -358,6 +385,7 @@
 				EED235EA2CAE91470082BFD0 /* DailyBonusView.swift in Sources */,
 				EE8C308F2CC0A77200161D85 /* SizeProvider.swift in Sources */,
 				EE7856282CAE831F00BAAC09 /* PatrickGameSUIApp.swift in Sources */,
+				EE6077472CD42C3200EE184F /* CollectableComponent.swift in Sources */,
 				EE60DA622CBFA8EE00EC516C /* SpriteComponent.swift in Sources */,
 				EEF48EE82CBCC1D6001351C3 /* GameOverDelegate.swift in Sources */,
 				EED235E62CAE90930082BFD0 /* GameSettingsView.swift in Sources */,

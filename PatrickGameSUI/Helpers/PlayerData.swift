@@ -1,5 +1,5 @@
 //
-//  PlayerProgress.swift
+//  PlayerData.swift
 //  PatrickGameSUI
 //
 //  Created by Brusik on 10/31/24.
@@ -7,15 +7,18 @@
 
 import Foundation
 
-class PlayerProgress {
+class PlayerData {
     
     private(set) var collectedCoins: Int {
         didSet {
             UserDefaults.standard.set(collectedCoins, forKey: UserDefaultsKeys.playerCoins.rawValue)
+            coinsUpdated?(collectedCoins)
         }
     }
     private(set) var powerUps: [PowerUpType]
     private(set) var lives: Int
+    
+    var coinsUpdated: ((Int) -> Void)?
     
     init() {
         self.lives = 3

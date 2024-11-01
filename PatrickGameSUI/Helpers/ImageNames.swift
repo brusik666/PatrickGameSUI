@@ -18,6 +18,6 @@ enum ImageName {
     }
     
     enum Entities: String {
-        case player
+        case player, meteor, coin
     }
 }

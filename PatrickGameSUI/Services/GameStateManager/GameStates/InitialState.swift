@@ -9,6 +9,8 @@ class InitialState: GameState {
         uiCreator.createUI()
         
         let player = Player()
+        let coin = Coin()
+        scene.entityManager?.addEntity(entity: coin)
         scene.entityManager?.player = player
         scene.entityManager?.addEntity(entity: player)
         

@@ -32,6 +32,15 @@ class GameSceneContactHandler: SceneContactHandler {
             gameScene.entityManager?.player.component(ofType: JumpComponent.self)?.landed()
             
         }
+        
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.player, categoryB: PhysicsCategory.coin) {
+            
+            if let entity = bodies.bodyB.node?.entity,
+               let collectableComponent = entity.component(ofType: CollectableComponent.self) {
+                collectableComponent.collect()
+            }
+        }
+    
     }
 
 

@@ -9,8 +9,8 @@ class SKLabelNodeWithSprite: SKNode {
     
     init(text: String, spriteImageName: String, spriteHeight: CGFloat) {
         labelNode = SKLabelNode(text: text)
-        labelNode.fontSize = 28
-        labelNode.fontName = UIElementsNames.fontName.rawValue
+        labelNode.fontSize = 50
+        //labelNode.fontName = UIElementsNames.fontName.rawValue
         labelNode.fontColor = .white
         spriteNode = SKSpriteNode(imageNamed: spriteImageName)
         spriteNode.size.height = spriteHeight
@@ -22,7 +22,7 @@ class SKLabelNodeWithSprite: SKNode {
         
         addChild(spriteNode)
         addChild(labelNode)
-        zPosition = ZPositions.cameraElements.rawValue
+        //zPosition = ZPositions.cameraElements.rawValue
         labelNode.position.x = -spriteNode.size.width / 2 - labelNode.frame.size.width / 2
     }
     
