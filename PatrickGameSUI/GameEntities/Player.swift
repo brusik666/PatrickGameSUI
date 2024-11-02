@@ -19,7 +19,8 @@ class Player: GKEntity {
         
         spriteComponent.node.entity = self
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
-            .configurePhysicsBody(isDynamic: true, affectedByGravity: true, isTextured: true, spriteNode: spriteComponent.node, allowsRotation: false)
+            .configurePhysicsBody(isDynamic: true, affectedByGravity: true, isTextured: true, spriteNode: spriteComponent.node, allowsRotation: false
+            )
             .setPhysicsCategories(mask: PhysicsCategory.player, collision: [PhysicsCategory.obstacles], contact: [])
             .build()
         

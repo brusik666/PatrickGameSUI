@@ -78,6 +78,7 @@ class PhysicBodyBuilder {
         self.physicsBody?.usesPreciseCollisionDetection = hasPresizeCollision
         self.physicsBody?.isDynamic = isDynamic
         self.physicsBody?.affectedByGravity = affectedByGravity
+        self.physicsBody?.allowsRotation = allowsRotation
         return self
     }
     

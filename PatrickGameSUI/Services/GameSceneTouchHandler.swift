@@ -1,10 +1,3 @@
-//
-//  GameSceneTouchHandler.swift
-//  PatrickGameSUI
-//
-//  Created by Brusik on 10/26/24.
-//
-
 import SpriteKit
 
 protocol SceneTouchHandler {
@@ -16,6 +9,7 @@ class GameSceneTouchHandler: SceneTouchHandler {
     
     private weak var scene: GameScene?
     private var startTouchLocation: CGPoint?
+    private var isSwipe: Bool = false
     lazy private var touchActions: [String: () -> Void] = [
         "" : {}
     ]
@@ -28,39 +22,34 @@ class GameSceneTouchHandler: SceneTouchHandler {
     func handleTouch(touch: UITouch) {
         guard let gameScene = scene else { return }
         let touchLocation = touch.location(in: gameScene)
-        let touchedNode = gameScene.atPoint(touchLocation)
         
         if touch.phase == .began {
-            handleTouchesBeganActions(touchLocation: touchLocation)
             startTouchLocation = touchLocation
+            isSwipe = false  // Reset the swipe flag
         } else if touch.phase == .ended {
             handleTouchesEndActions(endLocation: touchLocation)
         }
     }
-
-    
-    private func handleTouchesBeganActions(touchLocation: CGPoint) {
-        
-        guard let gameScene = scene,
-              let playerMoveComponent = gameScene.entityManager?.player.component(ofType: PlayerMovementComponent.self),
-              let sceneView = gameScene.view else { return }
-        
-        let screenTouchLocation = sceneView.convert(touchLocation, from: gameScene)
-
-        let screenWidth = sceneView.bounds.width
-        if screenTouchLocation.x < screenWidth / 2 {
-            playerMoveComponent.slowDown()
-        } else {
-            playerMoveComponent.increaseSpeed()
-        }
-    }
-    
-    
     
     private func handleTouchesEndActions(endLocation: CGPoint) {
         guard let startLocation = startTouchLocation else { return }
         let gesture = detectGesture(from: startLocation, to: endLocation)
-                
+        
+        if gesture != .none {
+            isSwipe = true  // Mark as swipe if a swipe gesture is detected
+        }
+        
+        // Handle swipe or tap actions based on `isSwipe` status
+        if isSwipe {
+            handleSwipeAction(for: gesture)
+        } else {
+            handleTapAction(at: endLocation)
+        }
+        
+        resetTouch()
+    }
+    
+    private func handleSwipeAction(for gesture: GestureDirection) {
         switch gesture {
         case .up:
             triggerJump(isSuperJump: false)
@@ -75,7 +64,22 @@ class GameSceneTouchHandler: SceneTouchHandler {
         case .none:
             break
         }
-        resetTouch()
+    }
+    
+    private func handleTapAction(at location: CGPoint) {
+        guard let gameScene = scene,
+              let playerMoveComponent = gameScene.entityManager?.player.component(ofType: PlayerMovementComponent.self),
+              let sceneView = gameScene.view else { return }
+        
+        let screenTouchLocation = sceneView.convert(location, from: gameScene)
+        let screenWidth = sceneView.bounds.width
+        
+        // Adjust speed based on tap location
+        if screenTouchLocation.x < screenWidth / 2 {
+            playerMoveComponent.slowDown()
+        } else {
+            playerMoveComponent.increaseSpeed()
+        }
     }
 }
 
@@ -91,6 +95,7 @@ extension GameSceneTouchHandler {
     
     private func resetTouch() {
         startTouchLocation = nil
+        isSwipe = false
     }
     
     private func detectGesture(from start: CGPoint, to end: CGPoint) -> GestureDirection {

@@ -11,15 +11,21 @@ import SpriteKit
 
 class PlayerMovementComponent: GKComponent {
     
+    enum MovementState {
+        case normal, speedUp, slowDown
+    }
+    
     private var entityNode: SKNode?
     private var movementForce: CGVector
     private var maxVelocity: CGFloat
     private var speedMultiplier: CGFloat
+    private var movementState: MovementState
     
     init(movementForce: CGVector, maxVelocity: CGFloat) {
         self.movementForce = movementForce
         self.maxVelocity = maxVelocity
         self.speedMultiplier = 1.0
+        self.movementState = .normal
         super.init()
     }
     
@@ -32,7 +38,7 @@ class PlayerMovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        //move()
+        move()
     }
     
     func stopPlayer() {
@@ -44,19 +50,37 @@ class PlayerMovementComponent: GKComponent {
     
     
     func increaseSpeed() {
-        speedMultiplier = 2.0
+        guard movementState == .normal else { return }
+        movementState = .speedUp
+        speedMultiplier = 5.0
         print("SPEED UP")
+        Task {
+            await resetSpeedAfterDelay()
+        }
     }
     
     
     func slowDown() {
-        speedMultiplier = 0.5
+        guard movementState == .normal else { return }
+        movementState = .slowDown
+        speedMultiplier = 0.3
         print("SLOW DOWN")
+        Task {
+            await resetSpeedAfterDelay()
+        }
+    }
+    
+    private func resetSpeedAfterDelay() async {
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        resetSpeed()
     }
     
     
-    func resetSpeed() {
+    
+    
+    private func resetSpeed() {
         speedMultiplier = 1.0
+        movementState = .normal
     }
     
     private func move() {
