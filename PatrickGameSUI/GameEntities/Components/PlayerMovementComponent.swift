@@ -15,7 +15,7 @@ class PlayerMovementComponent: GKComponent {
         case normal, speedUp, slowDown
     }
     
-    private var entityNode: SKNode?
+    private var entityNode: SKSpriteNode?
     private var movementForce: CGVector
     private var maxVelocity: CGFloat
     private var speedMultiplier: CGFloat
@@ -34,6 +34,7 @@ class PlayerMovementComponent: GKComponent {
 
         if let node = entity?.component(ofType: SpriteComponent.self)?.node {
             self.entityNode = node
+            self.entityNode?.physicsBody?.linearDamping = 0.1
         }
     }
     
@@ -52,11 +53,16 @@ class PlayerMovementComponent: GKComponent {
     func increaseSpeed() {
         guard movementState == .normal else { return }
         movementState = .speedUp
-        speedMultiplier = 5.0
+        
+        //speedMultiplier = 5.0
         print("SPEED UP")
-        Task {
-            await resetSpeedAfterDelay()
-        }
+        
+        guard let sprite = entityNode,
+              let physicsBody = sprite.physicsBody else { return }
+        physicsBody.applyImpulse(CGVector(dx: 10000, dy: 0))
+         Task {
+             await resetSpeedAfterDelay()
+         }
     }
     
     
@@ -85,6 +91,8 @@ class PlayerMovementComponent: GKComponent {
     
     private func move() {
         guard let node = entityNode, let physicsBody = node.physicsBody else { return }
+        guard movementState == .normal || movementState == .slowDown else { return }
+            
         let scaledForce = CGVector(dx: movementForce.dx * speedMultiplier, dy: movementForce.dy)
         if physicsBody.velocity.dx < maxVelocity * speedMultiplier {
             physicsBody.applyForce(scaledForce)

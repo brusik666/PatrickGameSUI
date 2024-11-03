@@ -43,24 +43,27 @@ class GameSceneUICreator: SceneUICreator {
     
     private func addObstacleBlock() {
         guard let gScene = scene else { return }
-        let size = CGSize(width: gScene.size.width * 10, height: gScene.size.height / 5)
-        let shapeNode = SKShapeNode(rectOf: size)
-        shapeNode.physicsBody = SKPhysicsBody(rectangleOf: size)
-        shapeNode.fillColor = .brown
-        shapeNode.zPosition = 4
-        shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
-        shapeNode.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        shapeNode.physicsBody?.affectedByGravity = false
-        shapeNode.physicsBody?.isDynamic = false
-        shapeNode.position = CGPoint(x: gScene.size.width * 2, y: 0)
-        gScene.addChild(shapeNode)
+        let positionX = gScene.frame.midX
+        let size = CGSize(width: gScene.size.width * 0.7, height: gScene.size.height / 5)
+        (0...50).forEach { index in
+            let shapeNode = SKShapeNode(rectOf: size)
+            shapeNode.physicsBody = SKPhysicsBody(rectangleOf: size)
+            shapeNode.fillColor = .brown
+            shapeNode.zPosition = 4
+            shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
+            shapeNode.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            shapeNode.physicsBody?.affectedByGravity = false
+            shapeNode.physicsBody?.isDynamic = false
+            shapeNode.position = CGPoint(x: positionX + CGFloat(index) * gScene.size.width, y: 0)
+            gScene.addChild(shapeNode)
+        }
     }
     
     private func addBackgroundToScene() {
         guard let gameScene = scene else { return }
         let bgTextureName = ImageName.Backgrounds.background.rawValue
         let bgTexture = SKTexture(imageNamed: bgTextureName)
-        for i in 1...10 {
+        for i in 1...50 {
             let background = SpriteBuilder()
                 .setTexture(bgTexture)
                 .setSize(gameScene.size)

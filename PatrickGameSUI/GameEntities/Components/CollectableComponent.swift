@@ -29,9 +29,11 @@ class CollectableComponent: GKComponent {
     
     func collect() {
         guard !collected,
-              let gameScene = entity?.component(ofType: SpriteComponent.self)?.node.scene as? GameScene else { return }
+              let spriteNode = entity?.component(ofType: SpriteComponent.self)?.node,
+              let gameScene = spriteNode.scene as? GameScene else { return }
         
         collected = true
+        spriteNode.physicsBody = nil
         
         switch type {
         case .coin:

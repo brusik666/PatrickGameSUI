@@ -15,7 +15,7 @@ class Player: GKEntity {
         super.init()
         
         let playerSpriteTexture = SKTexture(imageNamed: "player")
-        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 150, position: CGPoint(x: 100, y: 600))
+        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 100, position: CGPoint(x: 100, y: 600))
         
         spriteComponent.node.entity = self
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
