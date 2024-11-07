@@ -14,4 +14,5 @@ struct PhysicsCategory {
     static let player: UInt32 = 0x1 << 1
     static let obstacles: UInt32 = 0x2 << 1
     static let coin: UInt32 = 0x3 << 1
+    static let meteor: UInt32 = 0x4 << 1
 }

@@ -44,6 +44,7 @@ class JumpComponent: GKComponent {
             print("prignul")
             isGrounded = false
             jumpCount += 1
+            print(jumpCount)
         }
     }
     

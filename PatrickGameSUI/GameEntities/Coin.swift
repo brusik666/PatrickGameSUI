@@ -15,10 +15,14 @@ class Coin: GKEntity {
         
         let spriteTexture = SKTexture(imageNamed: ImageName.Entities.coin.rawValue)
         let spriteComponent = SpriteComponent(texture: spriteTexture, height: 50, position: CGPoint(x: 350, y: 600))
-        spriteComponent.node.entity = self
-        spriteComponent.node.physicsBody = PhysicBodyBuilder()
-            .configurePhysicsBody(isDynamic: true, affectedByGravity: true ,isTextured: true, spriteNode: spriteComponent.node)
-            .setPhysicsCategories(mask: PhysicsCategory.coin, collision: [], contact: [PhysicsCategory.player])
+        let spriteNode = spriteComponent.node
+        spriteNode.entity = self
+        spriteNode.physicsBody = PhysicBodyBuilder()
+            .withTexture(spriteTexture, size: spriteNode.size)
+            .setMass(0.01)
+            .setAffectedByGravity(true)
+            .setIsDynamic(true)
+            .setPhysicsCategories(mask: PhysicsCategory.coin, collision: [PhysicsCategory.obstacles], contact: [PhysicsCategory.player])
             .build()
         addComponent(spriteComponent)
         

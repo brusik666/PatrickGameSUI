@@ -19,8 +19,12 @@ class Player: GKEntity {
         
         spriteComponent.node.entity = self
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
-            .configurePhysicsBody(isDynamic: true, affectedByGravity: true, isTextured: true, spriteNode: spriteComponent.node, allowsRotation: false
-            )
+            .withTexture(playerSpriteTexture, size: spriteComponent.node.size)
+            .setMass(10)
+            .setLinearDamping(0)
+            .setIsDynamic(true)
+            .setAllowsRotation(false)
+            .setAffectedByGravity(true)
             .setPhysicsCategories(mask: PhysicsCategory.player, collision: [PhysicsCategory.obstacles], contact: [])
             .build()
         
@@ -43,4 +47,8 @@ class Player: GKEntity {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+enum PlayerType {
+    case origin
 }

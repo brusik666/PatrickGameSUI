@@ -60,37 +60,66 @@ class SpriteBuilder<NodeType: SKSpriteNode> {
 }
 
 
+import SpriteKit
+
 class PhysicBodyBuilder {
     
     private var physicsBody: SKPhysicsBody?
     
+    func withRectangle(size: CGSize) -> PhysicBodyBuilder {
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        return self
+    }
     
-    func configurePhysicsBody(isDynamic: Bool, mass: CGFloat = 10.0, affectedByGravity: Bool = false, isTextured: Bool, hasPresizeCollision: Bool = false, spriteNode: SKSpriteNode, allowsRotation: Bool = false) -> PhysicBodyBuilder {
-        
-        guard let textur = spriteNode.texture else { return self }
-        let size = spriteNode.size
-        if isTextured {
-            self.physicsBody = SKPhysicsBody(texture: textur, size: size)
-        } else {
-            self.physicsBody = SKPhysicsBody(rectangleOf: size)
-        }
-        self.physicsBody?.mass = mass
-        self.physicsBody?.usesPreciseCollisionDetection = hasPresizeCollision
+    func withTexture(_ texture: SKTexture, size: CGSize) -> PhysicBodyBuilder {
+        self.physicsBody = SKPhysicsBody(texture: texture, size: size)
+        return self
+    }
+    
+    func setIsDynamic(_ isDynamic: Bool) -> PhysicBodyBuilder {
         self.physicsBody?.isDynamic = isDynamic
+        return self
+    }
+    
+    func setMass(_ mass: CGFloat) -> PhysicBodyBuilder {
+        self.physicsBody?.mass = mass
+        return self
+    }
+    
+    func setAffectedByGravity(_ affectedByGravity: Bool) -> PhysicBodyBuilder {
         self.physicsBody?.affectedByGravity = affectedByGravity
+        return self
+    }
+    
+    func setAllowsRotation(_ allowsRotation: Bool) -> PhysicBodyBuilder {
         self.physicsBody?.allowsRotation = allowsRotation
+        return self
+    }
+    
+    func setUsesPreciseCollisionDetection(_ usesPreciseCollisionDetection: Bool) -> PhysicBodyBuilder {
+        self.physicsBody?.usesPreciseCollisionDetection = usesPreciseCollisionDetection
+        return self
+    }
+    
+    func setFriction(_ friction: CGFloat) -> PhysicBodyBuilder {
+        self.physicsBody?.friction = friction
+        return self
+    }
+    
+    func setLinearDamping(_ linearDamping: CGFloat) -> PhysicBodyBuilder {
+        self.physicsBody?.linearDamping = linearDamping
+        return self
+    }
+    
+    func setRestitution(_ restitution: CGFloat) -> PhysicBodyBuilder {
+        self.physicsBody?.restitution = restitution
         return self
     }
     
     func setPhysicsCategories(mask: UInt32, collision: [UInt32], contact: [UInt32]) -> PhysicBodyBuilder {
         self.physicsBody?.categoryBitMask = mask
-        if !collision.isEmpty {
-            self.physicsBody?.collisionBitMask = collision.reduce(0, |)
-        }
-        
-        if !contact.isEmpty {
-            self.physicsBody?.contactTestBitMask = contact.reduce(0, |)
-        }
+        self.physicsBody?.collisionBitMask = collision.reduce(0, |)
+        self.physicsBody?.contactTestBitMask = contact.reduce(0, |)
         return self
     }
     

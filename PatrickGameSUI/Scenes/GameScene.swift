@@ -53,6 +53,7 @@ extension GameScene {
         playerData.coinsUpdated = { [weak self] newCount in
             self?.updateCoinLabel(with: newCount)
         }
+
     }
 }
 
@@ -86,6 +87,7 @@ extension GameScene {
         backgroundColor = .white
         GameStateManager.shared.transition(to: InitialState(), scene: self)
         view.showsPhysics = true
+        view.showsFPS = true
         name = "asd"
     }
     

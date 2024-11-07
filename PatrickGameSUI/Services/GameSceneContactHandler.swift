@@ -40,6 +40,13 @@ class GameSceneContactHandler: SceneContactHandler {
                 collectableComponent.collect()
             }
         }
+        
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.obstacles) {
+            if let entity = bodies.bodyA.node?.entity,
+               let explosionComponent = entity.component(ofType: ExplosionComponent.self) {
+                explosionComponent.exploid()
+            }
+        }
     
     }
 

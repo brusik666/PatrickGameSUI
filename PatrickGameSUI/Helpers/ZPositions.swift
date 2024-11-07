@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum ZPositions {
-    
+enum ZPositions: CGFloat {
+    case meteor = 5
 }

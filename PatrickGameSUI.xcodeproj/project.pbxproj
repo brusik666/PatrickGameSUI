@@ -34,6 +34,17 @@
 		EE9B86822CBC7DBD00540325 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = EE9B86812CBC7DBD00540325 /* Level1.sks */; };
 		EEA331E82CBC99C200DBFAFE /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA331E72CBC99C200DBFAFE /* GameView.swift */; };
 		EEA3CD982CC37D7500C59D43 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */; };
+		EEC1981F2CD9E506002FAFDE /* EntitiesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */; };
+		EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */; };
+		EEC198232CD9E51A002FAFDE /* ExplosionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */; };
+		EEC1982A2CD9E533002FAFDE /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198252CD9E533002FAFDE /* Rain.sks */; };
+		EEC1982B2CD9E533002FAFDE /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198262CD9E533002FAFDE /* Smoke.sks */; };
+		EEC1982C2CD9E533002FAFDE /* trail3.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198282CD9E533002FAFDE /* trail3.sks */; };
+		EEC1982D2CD9E533002FAFDE /* basicExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198242CD9E533002FAFDE /* basicExplosion.sks */; };
+		EEC1982E2CD9E533002FAFDE /* basicTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198272CD9E533002FAFDE /* basicTrail.sks */; };
+		EEC198322CD9E578002FAFDE /* ExplosionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198312CD9E578002FAFDE /* ExplosionComponent.swift */; };
+		EEC2A1572CD9F7A900E44CA4 /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC2A1562CD9F7A900E44CA4 /* spark.sks */; };
+		EEC2A1592CD9F90900E44CA4 /* ParticleTrailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2A1582CD9F90900E44CA4 /* ParticleTrailComponent.swift */; };
 		EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E32CAE90750082BFD0 /* LevelsListView.swift */; };
 		EED235E62CAE90930082BFD0 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E52CAE90930082BFD0 /* GameSettingsView.swift */; };
 		EED235E82CAE90A00082BFD0 /* GameShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED235E72CAE90A00082BFD0 /* GameShopView.swift */; };
@@ -79,6 +90,17 @@
 		EE9B86812CBC7DBD00540325 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		EEA331E72CBC99C200DBFAFE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
+		EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesFactory.swift; sourceTree = "<group>"; };
+		EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionCreator.swift; sourceTree = "<group>"; };
+		EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorDropper.swift; sourceTree = "<group>"; };
+		EEC198242CD9E533002FAFDE /* basicExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicExplosion.sks; sourceTree = "<group>"; };
+		EEC198252CD9E533002FAFDE /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
+		EEC198262CD9E533002FAFDE /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
+		EEC198272CD9E533002FAFDE /* basicTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicTrail.sks; sourceTree = "<group>"; };
+		EEC198282CD9E533002FAFDE /* trail3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trail3.sks; sourceTree = "<group>"; };
+		EEC198312CD9E578002FAFDE /* ExplosionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionComponent.swift; sourceTree = "<group>"; };
+		EEC2A1562CD9F7A900E44CA4 /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
+		EEC2A1582CD9F90900E44CA4 /* ParticleTrailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleTrailComponent.swift; sourceTree = "<group>"; };
 		EED235E32CAE90750082BFD0 /* LevelsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsListView.swift; sourceTree = "<group>"; };
 		EED235E52CAE90930082BFD0 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
 		EED235E72CAE90A00082BFD0 /* GameShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShopView.swift; sourceTree = "<group>"; };
@@ -124,6 +146,9 @@
 		EE60DA5A2CBFA0A200EC516C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */,
+				EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */,
+				EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */,
 				EE8C30902CC0AA1300161D85 /* GameStateManager */,
 				EE8C308C2CC0A73000161D85 /* SpriteBuilder.swift */,
 				EE60DA5C2CBFA0D700EC516C /* GameSceneUICreator.swift */,
@@ -138,11 +163,13 @@
 		EE60DA602CBFA8E700EC516C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EEC198312CD9E578002FAFDE /* ExplosionComponent.swift */,
 				EE60DA612CBFA8EE00EC516C /* SpriteComponent.swift */,
 				EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */,
 				EEFBBF342CC8B3C10075EDA4 /* PlayerMovementComponent.swift */,
 				EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */,
 				EE6077462CD42C3200EE184F /* CollectableComponent.swift */,
+				EEC2A1582CD9F90900E44CA4 /* ParticleTrailComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -247,6 +274,7 @@
 		EEA3CD932CC37CAD00C59D43 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EEC198292CD9E533002FAFDE /* Particles */,
 				EEA3CD942CC37CB500C59D43 /* Atlases */,
 			);
 			path = Resources;
@@ -265,6 +293,19 @@
 			children = (
 			);
 			path = PlayerAtlas;
+			sourceTree = "<group>";
+		};
+		EEC198292CD9E533002FAFDE /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				EEC198242CD9E533002FAFDE /* basicExplosion.sks */,
+				EEC198252CD9E533002FAFDE /* Rain.sks */,
+				EEC198262CD9E533002FAFDE /* Smoke.sks */,
+				EEC198272CD9E533002FAFDE /* basicTrail.sks */,
+				EEC2A1562CD9F7A900E44CA4 /* spark.sks */,
+				EEC198282CD9E533002FAFDE /* trail3.sks */,
+			);
+			path = Particles;
 			sourceTree = "<group>";
 		};
 		EEF48EF22CBCC1DF001351C3 /* Protocols */ = {
@@ -341,8 +382,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE78562F2CAE832100BAAC09 /* Preview Assets.xcassets in Resources */,
+				EEC2A1572CD9F7A900E44CA4 /* spark.sks in Resources */,
 				EE78562C2CAE832100BAAC09 /* Assets.xcassets in Resources */,
 				EE9B86822CBC7DBD00540325 /* Level1.sks in Resources */,
+				EEC1982A2CD9E533002FAFDE /* Rain.sks in Resources */,
+				EEC1982B2CD9E533002FAFDE /* Smoke.sks in Resources */,
+				EEC1982C2CD9E533002FAFDE /* trail3.sks in Resources */,
+				EEC1982D2CD9E533002FAFDE /* basicExplosion.sks in Resources */,
+				EEC1982E2CD9E533002FAFDE /* basicTrail.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +411,8 @@
 				EEF48EED2CBCC1D6001351C3 /* DamageReceivable.swift in Sources */,
 				EEF48EEE2CBCC1D6001351C3 /* GameState.swift in Sources */,
 				EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */,
+				EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */,
+				EEC198232CD9E51A002FAFDE /* ExplosionCreator.swift in Sources */,
 				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
 				EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */,
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,
@@ -374,6 +423,7 @@
 				EE78562A2CAE831F00BAAC09 /* ContentView.swift in Sources */,
 				EED9C2EC2CD583EB00CD5E34 /* ZPositions.swift in Sources */,
 				EE6077432CD42A0800EE184F /* Meteor.swift in Sources */,
+				EEC1981F2CD9E506002FAFDE /* EntitiesFactory.swift in Sources */,
 				EE60DA5F2CBFA8B800EC516C /* EntityManager.swift in Sources */,
 				EE78563A2CAE859100BAAC09 /* ImageNames.swift in Sources */,
 				EEF48EF12CBCC1D6001351C3 /* HomeButtonDelegate.swift in Sources */,
@@ -387,9 +437,11 @@
 				EE7856282CAE831F00BAAC09 /* PatrickGameSUIApp.swift in Sources */,
 				EE6077472CD42C3200EE184F /* CollectableComponent.swift in Sources */,
 				EE60DA622CBFA8EE00EC516C /* SpriteComponent.swift in Sources */,
+				EEC2A1592CD9F90900E44CA4 /* ParticleTrailComponent.swift in Sources */,
 				EEF48EE82CBCC1D6001351C3 /* GameOverDelegate.swift in Sources */,
 				EED235E62CAE90930082BFD0 /* GameSettingsView.swift in Sources */,
 				EE60DA592CBF9C8D00EC516C /* Player.swift in Sources */,
+				EEC198322CD9E578002FAFDE /* ExplosionComponent.swift in Sources */,
 				EED235E82CAE90A00082BFD0 /* GameShopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
