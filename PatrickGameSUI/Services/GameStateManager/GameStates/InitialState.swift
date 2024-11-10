@@ -2,7 +2,11 @@ import SpriteKit
 
 class InitialState: GameState {
     
-    var meteorCreator: MeteorDropper!
+    let meteorDropper: MeteorDroppingService
+    
+    init(meteorDropper: MeteorDroppingService) {
+        self.meteorDropper = meteorDropper
+    }
     
     func enterState(scene: GameScene) {
         let uiCreator = DependencyFactory.createSceneUICreator(type: .gameScene)
@@ -10,17 +14,12 @@ class InitialState: GameState {
         uiCreator.createUI()
         
         let player = EntitiesFactory.createPlayerEntity(type: .origin)
-        let meteorPosition = CGPoint(x: scene.frame.maxX * 0.8, y: scene.size.height)
-        let meteor = EntitiesFactory.createMeteorEntity(type: .mediumMeteor, position: meteorPosition)
+
         let coin = Coin()
-        scene.entityManager?.addEntity(entity: meteor)
         scene.entityManager?.addEntity(entity: coin)
         scene.entityManager?.player = player
         scene.entityManager?.addEntity(entity: player)
-        guard let playerNode = player.component(ofType: SpriteComponent.self)?.node else { return }
-        meteorCreator = MeteorDropper(scene: scene, player: playerNode, meteorTypes: [.bigMeteor, .mediumMeteor, .smallMeteor], dropInterval: 1, maxMeteors: 100)
-        
-        
+        meteorDropper.startDropMeteors()
     }
     
     func exitState(scene: GameScene) {
@@ -29,7 +28,7 @@ class InitialState: GameState {
     }
     
     func update(deltaTime: TimeInterval, scene: GameScene) {
-        scene.camera?.position = scene.entityManager?.player.component(ofType: SpriteComponent.self)?.node.position ?? .zero
+        scene.camera?.position = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
     }
     
 }

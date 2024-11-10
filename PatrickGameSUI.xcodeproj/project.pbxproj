@@ -36,7 +36,6 @@
 		EEA3CD982CC37D7500C59D43 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */; };
 		EEC1981F2CD9E506002FAFDE /* EntitiesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */; };
 		EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */; };
-		EEC198232CD9E51A002FAFDE /* ExplosionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */; };
 		EEC1982A2CD9E533002FAFDE /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198252CD9E533002FAFDE /* Rain.sks */; };
 		EEC1982B2CD9E533002FAFDE /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198262CD9E533002FAFDE /* Smoke.sks */; };
 		EEC1982C2CD9E533002FAFDE /* trail3.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198282CD9E533002FAFDE /* trail3.sks */; };
@@ -91,7 +90,6 @@
 		EEA331E72CBC99C200DBFAFE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
 		EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesFactory.swift; sourceTree = "<group>"; };
-		EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionCreator.swift; sourceTree = "<group>"; };
 		EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorDropper.swift; sourceTree = "<group>"; };
 		EEC198242CD9E533002FAFDE /* basicExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicExplosion.sks; sourceTree = "<group>"; };
 		EEC198252CD9E533002FAFDE /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 		EE60DA5A2CBFA0A200EC516C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				EEC198202CD9E51A002FAFDE /* ExplosionCreator.swift */,
 				EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */,
 				EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */,
 				EE8C30902CC0AA1300161D85 /* GameStateManager */,
@@ -412,7 +409,6 @@
 				EEF48EEE2CBCC1D6001351C3 /* GameState.swift in Sources */,
 				EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */,
 				EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */,
-				EEC198232CD9E51A002FAFDE /* ExplosionCreator.swift in Sources */,
 				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
 				EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */,
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,

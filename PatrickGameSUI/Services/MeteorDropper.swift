@@ -1,29 +1,34 @@
 import SpriteKit
 import GameplayKit
 
-class MeteorDropper {
+protocol MeteorDroppingService {
+    func startDropMeteors()
+    func removeMeteor(_ meteor: Meteor)
+}
+
+class MeteorDropper: MeteorDroppingService {
     private let scene: GameScene
-    private let player: SKNode // Reference to the player node or a way to get player position
+    private var entityManager: EntityController?
     private var meteorTypes: [MeteorType]
     private var dropInterval: TimeInterval
     private var maxMeteors: Int
     private var activeMeteors: [Meteor] = []
     
-    init(scene: GameScene, player: SKNode, meteorTypes: [MeteorType], dropInterval: TimeInterval, maxMeteors: Int) {
+    init(scene: GameScene, meteorTypes: [MeteorType], dropInterval: TimeInterval, maxMeteors: Int) {
         self.scene = scene
-        self.player = player
         self.meteorTypes = meteorTypes
         self.dropInterval = dropInterval
         self.maxMeteors = maxMeteors
-        setupDropTimer()
+        self.entityManager = scene.entityManager
     }
     
-    private func setupDropTimer() {
+    func startDropMeteors() {
         let dropAction = SKAction.run { [weak self] in
             guard let self = self else { return }
-            // Get the player's current position
-            let playerPosition = self.player.position
-            self.dropMeteorWithAngle(playerPosition: playerPosition)
+            if let playerPosition = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position {
+                self.dropMeteor(playerPosition: playerPosition)
+            }
+            
         }
         
         let waitAction = SKAction.wait(forDuration: dropInterval)
@@ -31,35 +36,26 @@ class MeteorDropper {
         scene.run(SKAction.repeatForever(sequence))
     }
     
-    private func dropMeteorWithAngle(playerPosition: CGPoint) {
+    private func dropMeteor(playerPosition: CGPoint) {
         guard activeMeteors.count < maxMeteors else { return }
         
-        // Randomly select a meteor type
         let meteorType = meteorTypes.randomElement()!
         
-        // Set spawn position relative to the player’s current position
         let spawnRange: CGFloat = 400
         let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
-        let startY = playerPosition.y + scene.size.height // Drop from above the player
+        let startY = playerPosition.y + scene.size.height
         
         let startPosition = CGPoint(x: startX, y: startY)
         
-        // Create meteor entity using the factory
         let meteor = EntitiesFactory.createMeteorEntity(type: meteorType, position: startPosition)
-        
+        entityManager?.addEntity(entity: meteor)
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            scene.addChild(spriteNode)
             
-            // Apply initial impulse with stronger horizontal push
             let initialHorizontalImpulse = CGFloat.random(in: -meteorType.speed * 200...meteorType.speed * 20)
-            let initialVerticalImpulse = -meteorType.speed * 20
-            spriteNode.physicsBody?.applyImpulse(CGVector(dx: initialHorizontalImpulse, dy: initialVerticalImpulse))
-            
-            // Apply continuous force to sustain the angle
-            let continuousForce = SKAction.applyForce(CGVector(dx: initialHorizontalImpulse / 2, dy: initialVerticalImpulse / 2), duration: 5.0)
-            spriteNode.run(continuousForce)
-            
+            let initialVerticalImpulse = -meteorType.speed * 200
+            spriteNode.physicsBody?.applyImpulse(CGVector(dx: -5000, dy: -2500))
             activeMeteors.append(meteor)
+            
         }
     }
 
@@ -68,7 +64,7 @@ class MeteorDropper {
     
     // Optional: Clean up meteors that fall out of view or are no longer needed
     func removeMeteor(_ meteor: Meteor) {
-        meteor.component(ofType: SpriteComponent.self)?.node.removeFromParent()
         activeMeteors.removeAll { $0 == meteor }
+        entityManager?.removeEntity(entity: meteor)
     }
 }

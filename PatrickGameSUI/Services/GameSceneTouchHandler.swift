@@ -68,7 +68,7 @@ class GameSceneTouchHandler: SceneTouchHandler {
     
     private func handleTapAction(at location: CGPoint) {
         guard let gameScene = scene,
-              let playerMoveComponent = gameScene.entityManager?.player.component(ofType: PlayerMovementComponent.self),
+              let playerMoveComponent = gameScene.entityManager?.player?.component(ofType: PlayerMovementComponent.self),
               let sceneView = gameScene.view else { return }
         
         let screenTouchLocation = sceneView.convert(location, from: gameScene)
@@ -87,7 +87,7 @@ extension GameSceneTouchHandler {
     
     private func triggerJump(isSuperJump: Bool) {
         guard let scene = scene,
-              let jumpComponent = scene.entityManager?.player.component(ofType: JumpComponent.self) else { return }
+              let jumpComponent = scene.entityManager?.player?.component(ofType: JumpComponent.self) else { return }
         
         jumpComponent.jump(isSuperJump: isSuperJump)
         resetTouch()

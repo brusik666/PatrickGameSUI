@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class DependencyFactory {
     static func createSceneUICreator(type: SceneType) -> SceneUICreator {
@@ -29,8 +30,12 @@ class DependencyFactory {
         }
     }
     
-    static func createEntityManager(scene: GameScene) -> EntityManager {
+    static func createEntityManager(scene: GameScene) -> EntityController {
         return EntityManager(scene: scene)
+    }
+    
+    static func createMeteorDropper(scene: GameScene) -> MeteorDroppingService {
+        return MeteorDropper(scene: scene, meteorTypes: [.bigMeteor, .mediumMeteor, .smallMeteor], dropInterval: 1, maxMeteors: 5)
     }
     
     

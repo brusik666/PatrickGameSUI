@@ -32,8 +32,8 @@ class Meteor: GKEntity {
         let explosionComponent = ExplosionComponent(explosionType: .basicExplosion)
         addComponent(explosionComponent)
         
-        let trailComponent = ParticleTrailComponent(type: .basicTrail, targetNode: spriteNode)
-        addComponent(trailComponent)
+        //let trailComponent = ParticleTrailComponent(type: .basicTrail, targetNode: spriteNode)
+        //addComponent(trailComponent)
         
     }
     

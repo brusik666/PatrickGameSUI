@@ -7,7 +7,7 @@ class GameScene: SKScene {
     
     //weak var gameOverDelegate: GameOverDelegate?
     //weak var homeButtonDelegate: HomeButtonDelegate?
-    var entityManager: EntityManager?
+    var entityManager: EntityController?
     let playerData: PlayerData
     private var touchHandler: SceneTouchHandler
     private var contactHandler: SceneContactHandler
@@ -47,9 +47,6 @@ extension GameScene {
     
     override func didMove(to view: SKView) {
         setupSceneView(view)
-        camera?.children.forEach { node in
-            print(node.name)
-        }
         playerData.coinsUpdated = { [weak self] newCount in
             self?.updateCoinLabel(with: newCount)
         }
@@ -85,7 +82,8 @@ extension GameScene {
         physicsWorld.contactDelegate = self
        // physicsWorld.gravity = .zero
         backgroundColor = .white
-        GameStateManager.shared.transition(to: InitialState(), scene: self)
+        let meteorDropper = DependencyFactory.createMeteorDropper(scene: self)
+        GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper), scene: self)
         view.showsPhysics = true
         view.showsFPS = true
         name = "asd"

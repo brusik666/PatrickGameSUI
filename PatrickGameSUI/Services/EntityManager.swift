@@ -8,19 +8,27 @@
 import GameplayKit
 import SpriteKit
 
-class EntityManager {
+protocol EntityController {
+    func addEntity(entity: GKEntity)
+    func removeEntity(entity: GKEntity)
+    func update(_ deltaTime: TimeInterval)
+    var player: Player? {get set}
+}
+
+class EntityManager: EntityController {
     
     lazy var componentSystems: [GKComponentSystem] = {
         let spriteSystem = GKComponentSystem(componentClass: SpriteComponent.self)
         let playerMovementSystem = GKComponentSystem(componentClass: PlayerMovementComponent.self)
         let jumpSystem = GKComponentSystem(componentClass: JumpComponent.self)
-        return [spriteSystem, playerMovementSystem, jumpSystem]
+        let explosionComponent = GKComponentSystem(componentClass: ExplosionComponent.self)
+        return [spriteSystem, playerMovementSystem, jumpSystem, explosionComponent]
     }()
     
-    var entities = Set<GKEntity>()
-    var entitiesToRemove = Set<GKEntity>()
+    private var entities = Set<GKEntity>()
+    private var entitiesToRemove = Set<GKEntity>()
     private weak var scene: GameScene?
-    var player: Player!
+    var player: Player?
     
     init(scene: GameScene) {
         self.scene = scene
@@ -42,11 +50,16 @@ extension EntityManager {
     }
     
     func removeEntity(entity: GKEntity) {
-        if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
-            spriteNode.removeFromParent()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.entities.contains(entity) else { return }
+            print("SOSI")
+            if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
+                spriteNode.removeFromParent()
+            }
+            print("XYU")
+            self.entities.remove(entity)
+            self.entitiesToRemove.insert(entity)
         }
-        entities.remove(entity)
-        entitiesToRemove.insert(entity)
     }
     
     func update(_ deltaTime: TimeInterval) {

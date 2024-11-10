@@ -39,7 +39,7 @@ class PlayerMovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        move()
+        //move()
     }
     
     func stopPlayer() {

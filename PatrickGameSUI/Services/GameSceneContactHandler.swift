@@ -29,7 +29,7 @@ class GameSceneContactHandler: SceneContactHandler {
             
             guard let playerYPosition = bodies.bodyB.node?.position.y,
                   contact.contactPoint.y < playerYPosition else { return }
-            gameScene.entityManager?.player.component(ofType: JumpComponent.self)?.landed()
+            gameScene.entityManager?.player?.component(ofType: JumpComponent.self)?.landed()
             
         }
         
@@ -42,9 +42,15 @@ class GameSceneContactHandler: SceneContactHandler {
         }
         
         if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.obstacles) {
-            if let entity = bodies.bodyA.node?.entity,
-               let explosionComponent = entity.component(ofType: ExplosionComponent.self) {
-                explosionComponent.exploid()
+            if let meteorEntity = bodies.bodyA.node?.entity as? Meteor,
+               let explosionComponent = meteorEntity.component(ofType: ExplosionComponent.self) {
+                Task {
+                    await explosionComponent.exploid()
+                    //await scene?.entityManager?.removeEntity(entity: entity)
+                    if let currentState = GameStateManager.shared.currentState as? InitialState {
+                        currentState.meteorDropper.removeMeteor(meteorEntity)
+                    }
+                }
             }
         }
     

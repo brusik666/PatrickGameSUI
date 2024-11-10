@@ -35,13 +35,11 @@ class JumpComponent: GKComponent {
     
     func jump(isSuperJump: Bool) {
         guard let node = entityNode, let physicsBody = node.physicsBody else { return }
-        print("sobralsya prigat")
         let velocity = isSuperJump ? superJumpVelocity : jumpVelocity
         if isGrounded || jumpCount < maxJumps {
             
             
             physicsBody.applyImpulse(velocity)
-            print("prignul")
             isGrounded = false
             jumpCount += 1
             print(jumpCount)
