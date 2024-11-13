@@ -51,8 +51,6 @@ class MeteorDropper: MeteorDroppingService {
         entityManager?.addEntity(entity: meteor)
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
             
-            let initialHorizontalImpulse = CGFloat.random(in: -meteorType.speed * 200...meteorType.speed * 20)
-            let initialVerticalImpulse = -meteorType.speed * 200
             spriteNode.physicsBody?.applyImpulse(CGVector(dx: -5000, dy: -2500))
             activeMeteors.append(meteor)
             
@@ -64,7 +62,9 @@ class MeteorDropper: MeteorDroppingService {
     
     // Optional: Clean up meteors that fall out of view or are no longer needed
     func removeMeteor(_ meteor: Meteor) {
-        activeMeteors.removeAll { $0 == meteor }
-        entityManager?.removeEntity(entity: meteor)
+        if activeMeteors.contains(where: { $0 == meteor }) {
+            activeMeteors.removeAll { $0 == meteor }
+            entityManager?.removeEntity(entity: meteor)
+        }
     }
 }

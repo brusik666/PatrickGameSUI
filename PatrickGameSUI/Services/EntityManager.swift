@@ -38,10 +38,11 @@ class EntityManager: EntityController {
 extension EntityManager {
     func addEntity(entity: GKEntity) {
         entities.insert(entity)
+        print("Entity added to entities: \(entity)")
         
         if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
             scene?.addChild(spriteNode)
-            print("player added to scene")
+            print("Entity's sprite node added to scene: \(spriteNode)")
         }
 
         for componentSystem in componentSystems {
@@ -51,14 +52,17 @@ extension EntityManager {
     
     func removeEntity(entity: GKEntity) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self, self.entities.contains(entity) else { return }
-            print("SOSI")
+            guard let self = self, self.entities.contains(entity) else {
+                print("Attempted to remove entity not in entities: \(entity)")
+                return
+            }
             if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
                 spriteNode.removeFromParent()
+                print("Entity's sprite node removed from scene: \(spriteNode)")
             }
-            print("XYU")
             self.entities.remove(entity)
             self.entitiesToRemove.insert(entity)
+            print("Entity marked for removal: \(entity)")
         }
     }
     

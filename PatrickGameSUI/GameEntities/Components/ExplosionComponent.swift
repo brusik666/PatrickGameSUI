@@ -22,7 +22,7 @@ class ExplosionComponent: GKComponent {
     }
     
     // Helper function to run SKAction without any async behavior
-    func runExplosionAnimation(on particle: SKEmitterNode, with duration: CGFloat) {
+    func runExplosionAnimation(on particle: SKEmitterNode, with duration: CGFloat, completion: @escaping () -> Void) {
         let removeAction = SKAction.sequence([
             SKAction.wait(forDuration: duration),
             SKAction.removeFromParent()
@@ -31,8 +31,7 @@ class ExplosionComponent: GKComponent {
     }
 
     // Async function that awaits completion after running the animation
-    @MainActor
-    func exploid() async {
+    func exploid(completion: @escaping () -> Void) {
         let particleName = type.rawValue
         guard let particle = SKEmitterNode(fileNamed: particleName),
               let spriteNode = entity?.component(ofType: SpriteComponent.self)?.node else { return }
@@ -49,20 +48,7 @@ class ExplosionComponent: GKComponent {
 
         spriteNode.physicsBody = nil
 
-        // Run SKAction animation in a separate, synchronous function
-        runExplosionAnimation(on: particle, with: explodeDuration)
-
-        // Wait asynchronously for the explosion duration
-        try? await Task.sleep(nanoseconds: UInt64(explodeDuration * 1_000_000_000))
-    }
-
-    
-    private func removeEntity() {
-        if let entity = self.entity,
-           let gameScene = entity.component(ofType: SpriteComponent.self)?.node.scene as? GameScene {
-            gameScene.entityManager?.removeEntity(entity: entity)
-            print("removed")
-        }
+        particle.run(.sequence([.wait(forDuration: 2), .removeFromParent()]), completion: completion)
     }
     
     required init?(coder: NSCoder) {
