@@ -25,8 +25,22 @@ class GameSceneUICreator: SceneUICreator {
         addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
-        addCoinsLabel()
+        addAllLabels()
         
+    }
+    
+    private func addAllLabels() {
+        addMainLabel()
+        addCoinsLabel()
+    }
+    
+    private func addMainLabel() {
+        guard let gameScene = scene else { return }
+        let label = RoundedLabelNode(text: "")
+        label.isHidden = true
+        label.position = .zero
+        gameScene.mainLabel = label
+        gameScene.camera?.addChild(label)
     }
     
     private func addCoinsLabel() {

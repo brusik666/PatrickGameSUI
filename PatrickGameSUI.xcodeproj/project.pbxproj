@@ -35,6 +35,7 @@
 		EEA331E82CBC99C200DBFAFE /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA331E72CBC99C200DBFAFE /* GameView.swift */; };
 		EEA3CD982CC37D7500C59D43 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */; };
 		EEAE18902CE0714E009BB545 /* TextureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAE188F2CE0714E009BB545 /* TextureProvider.swift */; };
+		EEB04ECB2CE5748300C01350 /* GamePointsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB04ECA2CE5748300C01350 /* GamePointsManager.swift */; };
 		EEC1981F2CD9E506002FAFDE /* EntitiesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */; };
 		EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */; };
 		EEC1982A2CD9E533002FAFDE /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEC198252CD9E533002FAFDE /* Rain.sks */; };
@@ -91,6 +92,7 @@
 		EEA331E72CBC99C200DBFAFE /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		EEA3CD972CC37D7500C59D43 /* AnimationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
 		EEAE188F2CE0714E009BB545 /* TextureProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureProvider.swift; sourceTree = "<group>"; };
+		EEB04ECA2CE5748300C01350 /* GamePointsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePointsManager.swift; sourceTree = "<group>"; };
 		EEC1981E2CD9E506002FAFDE /* EntitiesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesFactory.swift; sourceTree = "<group>"; };
 		EEC198212CD9E51A002FAFDE /* MeteorDropper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorDropper.swift; sourceTree = "<group>"; };
 		EEC198242CD9E533002FAFDE /* basicExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = basicExplosion.sks; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				EEEB75592CCDF5C1009CFC58 /* GameSceneContactHandler.swift */,
 				EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */,
 				EEAE188F2CE0714E009BB545 /* TextureProvider.swift */,
+				EEB04ECA2CE5748300C01350 /* GamePointsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,
 				EE6077452CD42B5300EE184F /* Coin.swift in Sources */,
 				EE8C30922CC0AA3F00161D85 /* GameStateManager.swift in Sources */,
+				EEB04ECB2CE5748300C01350 /* GamePointsManager.swift in Sources */,
 				EE7856372CAE84FD00BAAC09 /* MainMenuView.swift in Sources */,
 				EE82FC832CB0973D0096624C /* CustomToggleStyle.swift in Sources */,
 				EE78562A2CAE831F00BAAC09 /* ContentView.swift in Sources */,

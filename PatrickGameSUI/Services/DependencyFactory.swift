@@ -38,6 +38,10 @@ class DependencyFactory {
         return MeteorDropper(scene: scene, meteorTypes: [.bigMeteor, .mediumMeteor, .smallMeteor], dropInterval: 1, maxMeteors: 5)
     }
     
+    static func createPointsCounter() -> PointsCounter {
+        return GamePointsCounter()
+    }
+    
     
 }
 

@@ -21,14 +21,6 @@ class ExplosionComponent: GKComponent {
         super.init()
     }
     
-    // Helper function to run SKAction without any async behavior
-    func runExplosionAnimation(on particle: SKEmitterNode, with duration: CGFloat, completion: @escaping () -> Void) {
-        let removeAction = SKAction.sequence([
-            SKAction.wait(forDuration: duration),
-            SKAction.removeFromParent()
-        ])
-        particle.run(removeAction)
-    }
 
     // Async function that awaits completion after running the animation
     func exploid(completion: @escaping () -> Void) {
@@ -48,7 +40,7 @@ class ExplosionComponent: GKComponent {
 
         spriteNode.physicsBody = nil
 
-        particle.run(.sequence([.wait(forDuration: 2), .removeFromParent()]), completion: completion)
+        particle.run(.sequence([.wait(forDuration: explodeDuration), .removeFromParent()]), completion: completion)
     }
     
     required init?(coder: NSCoder) {

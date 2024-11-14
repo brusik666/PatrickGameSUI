@@ -11,6 +11,7 @@ class GameScene: SKScene {
     let playerData: PlayerData
     private var touchHandler: SceneTouchHandler
     private var contactHandler: SceneContactHandler
+    var mainLabel: RoundedLabelNode!
     
     init(size: CGSize, playerData: PlayerData) {
         self.playerData = playerData
@@ -83,7 +84,8 @@ extension GameScene {
        // physicsWorld.gravity = .zero
         backgroundColor = .white
         let meteorDropper = DependencyFactory.createMeteorDropper(scene: self)
-        GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper), scene: self)
+        let pointsCounter = DependencyFactory.createPointsCounter()
+        GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper, pointsCounter: pointsCounter), scene: self)
         view.showsPhysics = true
         view.showsFPS = true
         name = "asd"
