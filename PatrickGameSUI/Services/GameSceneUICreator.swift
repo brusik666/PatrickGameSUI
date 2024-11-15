@@ -22,9 +22,10 @@ class GameSceneUICreator: SceneUICreator {
     
     func createUI() {
         
-        addBackgroundToScene()
+        //addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
+        setupOutOfBoundsSensors()
         addAllLabels()
         
     }
@@ -103,5 +104,45 @@ class GameSceneUICreator: SceneUICreator {
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)
     }
     
-    
+    private func setupOutOfBoundsSensors() {
+        
+        guard let gameScene = scene,
+              let cameraNode = gameScene.camera else { return }
+        let offset: CGFloat = 150
+        let sensorWidth: CGFloat = 30
+        
+        func createSensorPhysicsBody() -> SKPhysicsBody? {
+            let physicBodySize = CGSize(width: gameScene.frame.width, height: sensorWidth)
+            return PhysicBodyBuilder()
+                .withRectangle(size: physicBodySize)
+                .setIsDynamic(true)
+                .setAffectedByGravity(false)
+                .setMass(10000000)
+                .setAllowsRotation(false)
+                .setPhysicsCategories(mask: PhysicsCategory.meteorSensor, collision: [], contact: [PhysicsCategory.meteor])
+                .build()
+        }
+
+        let bottomSensor = SKSpriteNode()
+        bottomSensor.size = CGSize(width: gameScene.frame.width, height: sensorWidth)
+        bottomSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
+        bottomSensor.position = CGPoint(x: 0, y: -offset)
+        bottomSensor.physicsBody = createSensorPhysicsBody()
+        cameraNode.addChild(bottomSensor)
+        
+        let leftSensor = SKSpriteNode()
+        leftSensor.size = CGSize(width: sensorWidth, height: gameScene.frame.height)
+        leftSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
+        leftSensor.position = CGPoint(x: -gameScene.frame.width / 2 - offset, y: 0)
+        leftSensor.physicsBody = createSensorPhysicsBody()
+        cameraNode.addChild(leftSensor)
+        
+        // Right Sensor
+        let rightSensor = SKSpriteNode()
+        rightSensor.size = CGSize(width: sensorWidth, height: gameScene.frame.height)
+        rightSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
+        rightSensor.position = CGPoint(x: gameScene.frame.width / 2 + offset, y: 0)
+        rightSensor.physicsBody = createSensorPhysicsBody()
+        cameraNode.addChild(rightSensor)
+    }
 }

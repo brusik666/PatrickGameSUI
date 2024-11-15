@@ -17,8 +17,8 @@ class InitialState: GameState {
         
         let player = EntitiesFactory.createPlayerEntity(type: .origin)
 
-        let coin = Coin()
-        scene.entityManager?.addEntity(entity: coin)
+        //let coin = Coin()
+        //scene.entityManager?.addEntity(entity: coin)
         scene.entityManager?.player = player
         scene.entityManager?.addEntity(entity: player)
         meteorDropper.startDropMeteors()
@@ -32,11 +32,11 @@ class InitialState: GameState {
     
     func update(deltaTime: TimeInterval, scene: GameScene) {
         scene.camera?.position = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
+        
     }
     
     private func startTimerActions(scene: GameScene) {
         scene.mainLabel.position.y += scene.size.height * 0.4
-        print(scene.mainLabel.position)
         scene.mainLabel.text = ""
         scene.mainLabel.isHidden = false
         var pointsCollected = 0

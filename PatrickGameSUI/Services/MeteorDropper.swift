@@ -12,7 +12,12 @@ class MeteorDropper: MeteorDroppingService {
     private var meteorTypes: [MeteorType]
     private var dropInterval: TimeInterval
     private var maxMeteors: Int
-    private var activeMeteors: [Meteor] = []
+    private var activeMeteors: Set<Meteor> = [] {
+        didSet {
+            print(activeMeteors.count, "active meteors")
+        }
+    }
+    private var meteorPool: Set<Meteor> = []
     
     init(scene: GameScene, meteorTypes: [MeteorType], dropInterval: TimeInterval, maxMeteors: Int) {
         self.scene = scene
@@ -40,20 +45,38 @@ class MeteorDropper: MeteorDroppingService {
         guard activeMeteors.count < maxMeteors else { return }
         
         let meteorType = meteorTypes.randomElement()!
+        let meteor = getMeteor(ofType: meteorType, playerPosition: playerPosition)
         
-        let spawnRange: CGFloat = 400
-        let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
-        let startY = playerPosition.y + scene.size.height
-        
-        let startPosition = CGPoint(x: startX, y: startY)
-        
-        let meteor = EntitiesFactory.createMeteorEntity(type: meteorType, position: startPosition)
-        entityManager?.addEntity(entity: meteor)
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            
             spriteNode.physicsBody?.applyImpulse(CGVector(dx: -5000, dy: -2500))
-            activeMeteors.append(meteor)
-            
+            activeMeteors.insert(meteor) // Add to activeMeteors set
+        }
+    }
+    
+    private func getMeteor(ofType type: MeteorType, playerPosition: CGPoint) -> Meteor {
+        let meteor: Meteor
+        if let pooledMeteor = meteorPool.popFirst() { // Get a meteor from the set if available
+            meteor = pooledMeteor
+            resetMeteor(meteor, playerPosition: playerPosition)
+        } else {
+            let spawnRange: CGFloat = 400
+            let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
+            let startY = playerPosition.y + scene.size.height
+            let startPosition = CGPoint(x: startX, y: startY)
+            meteor = EntitiesFactory.createMeteorEntity(type: type, position: startPosition)
+            entityManager?.addEntity(entity: meteor)
+        }
+        return meteor
+    }
+    
+    private func resetMeteor(_ meteor: Meteor, playerPosition: CGPoint) {
+        if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
+            let spawnRange: CGFloat = 400
+            let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
+            let startY = playerPosition.y + scene.size.height
+            spriteNode.position = CGPoint(x: startX, y: startY)
+            spriteNode.physicsBody?.velocity = .zero
+            spriteNode.isHidden = false
         }
     }
 
@@ -62,8 +85,12 @@ class MeteorDropper: MeteorDroppingService {
     
     // Optional: Clean up meteors that fall out of view or are no longer needed
     func removeMeteor(_ meteor: Meteor) {
-        if activeMeteors.contains(where: { $0 == meteor }) {
-            activeMeteors.removeAll { $0 == meteor }
+        if activeMeteors.contains(meteor) {
+            activeMeteors.remove(meteor)
+            meteorPool.insert(meteor)
+            if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
+                spriteNode.isHidden = true
+            }
             entityManager?.removeEntity(entity: meteor)
         }
     }

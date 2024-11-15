@@ -18,7 +18,7 @@ class JumpComponent: GKComponent {
     private var maxJumps: Int
     private var jumpCount: Int
     
-    init(jumpVelocity: CGVector, maxJumps: Int = 1) {
+    init(jumpVelocity: CGVector, maxJumps: Int = 2) {
         self.jumpVelocity = jumpVelocity
         self.maxJumps = maxJumps
         self.jumpCount = 0
@@ -42,7 +42,7 @@ class JumpComponent: GKComponent {
             physicsBody.applyImpulse(velocity)
             isGrounded = false
             jumpCount += 1
-            print(jumpCount)
+            print(jumpCount, "jump count")
         }
     }
     

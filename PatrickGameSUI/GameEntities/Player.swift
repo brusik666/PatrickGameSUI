@@ -15,7 +15,7 @@ class Player: GKEntity {
         super.init()
         
         let playerSpriteTexture = SKTexture(imageNamed: "player")
-        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 100, position: CGPoint(x: 100, y: 600))
+        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 100, position: CGPoint(x: 200, y: 600))
         
         spriteComponent.node.entity = self
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
@@ -32,7 +32,7 @@ class Player: GKEntity {
         addComponent(spriteComponent)
         
         let jumpVelocity = CGVector(dx: 0, dy: 5000)
-        let jumpComponent = JumpComponent(jumpVelocity: jumpVelocity, maxJumps: 1)
+        let jumpComponent = JumpComponent(jumpVelocity: jumpVelocity, maxJumps: 2)
         addComponent(jumpComponent)
         
         let movementForceVector = CGVector(dx: 5000, dy: 0)
