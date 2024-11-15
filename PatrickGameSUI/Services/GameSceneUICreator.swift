@@ -25,7 +25,7 @@ class GameSceneUICreator: SceneUICreator {
         //addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
-        setupOutOfBoundsSensors()
+        //setupOutOfBoundsSensors()
         addAllLabels()
         
     }
@@ -102,6 +102,12 @@ class GameSceneUICreator: SceneUICreator {
         gameScene.camera = camera
         gameScene.addChild(camera)
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)
+    }
+    
+    private func addMeteorRoomNode() {
+        guard let gameScene = scene,
+              let cameraNode = gameScene.camera else { return }
+        let meteorRoomNode = MeteorRoomNode()
     }
     
     private func setupOutOfBoundsSensors() {
