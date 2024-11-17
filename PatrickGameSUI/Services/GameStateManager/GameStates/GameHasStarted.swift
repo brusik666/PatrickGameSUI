@@ -16,3 +16,7 @@ class GameHasStartedState: GameState {
     
 }
 
+extension GameHasStartedState {
+    //
+}
+

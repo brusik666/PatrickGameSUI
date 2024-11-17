@@ -13,8 +13,8 @@ class Meteor: GKEntity {
     init(type: MeteorType, position: CGPoint) {
         super.init()
         
-        let spriteTexture = SKTexture(imageNamed: "dailyBonusButton")
-        let heigt = CGFloat.random(in: 25...100)
+        let spriteTexture = SKTexture(imageNamed: "meteor")
+        let heigt = CGFloat.random(in: 25...75)
         let spriteComponent = SpriteComponent(texture: spriteTexture, height: heigt, position: position)
         let spriteNode = spriteComponent.node
         spriteNode.entity = self
@@ -32,7 +32,7 @@ class Meteor: GKEntity {
         let explosionComponent = ExplosionComponent(explosionType: .basicExplosion)
         addComponent(explosionComponent)
         
-        //let trailComponent = ParticleTrailComponent(type: .basicTrail, targetNode: spriteNode)
+        let trailComponent = ParticleTrailComponent(type: .spark, targetNode: spriteNode)
         //addComponent(trailComponent)
         
     }

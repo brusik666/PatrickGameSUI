@@ -56,7 +56,7 @@ class GameSceneTouchHandler: SceneTouchHandler {
         case .superUp:
             triggerJump(isSuperJump: true)
         case .down:
-            break
+            triggerLand()
         case .left:
             break
         case .right:
@@ -93,13 +93,22 @@ extension GameSceneTouchHandler {
         resetTouch()
     }
     
+    private func triggerLand() {
+        guard let scene = scene,
+              let jumpComponent = scene.entityManager?.player?.component(ofType: JumpComponent.self) else { return }
+        
+        jumpComponent.land() // Call the land method on the JumpComponent
+        resetTouch() // Reset touch state after the action
+    }
+
+    
     private func resetTouch() {
         startTouchLocation = nil
         isSwipe = false
     }
     
     private func detectGesture(from start: CGPoint, to end: CGPoint) -> GestureDirection {
-        guard let gameScene = scene else { fatalError()}
+        guard let gameScene = scene else { fatalError() }
         let deltaY = end.y - start.y
         let deltaX = end.x - start.x
         let sceneHeight = gameScene.size.height
@@ -113,7 +122,7 @@ extension GameSceneTouchHandler {
             } else if deltaY > verticalThreshold {
                 return .up
             } else if deltaY < -verticalThreshold {
-                return .down
+                return .down // Detect downward swipe
             }
         } else {
             if deltaX > horizontalThreshold {
@@ -124,6 +133,7 @@ extension GameSceneTouchHandler {
         }
         return .none
     }
+
 }
 
 extension GameSceneTouchHandler {

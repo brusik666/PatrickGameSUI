@@ -9,4 +9,5 @@ import Foundation
 
 enum ZPositions: CGFloat {
     case meteor = 5
+    case cameraElements = 1000
 }

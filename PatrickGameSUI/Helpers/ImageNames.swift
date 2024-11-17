@@ -20,4 +20,12 @@ enum ImageName {
     enum Entities: String {
         case player, coin, smallMeteor, mediumMeteor, bigMeteor
     }
+    
+    enum AtlasesNames {
+        
+    }
+}
+
+enum AnimationNames: String {
+    case playerMovement
 }
