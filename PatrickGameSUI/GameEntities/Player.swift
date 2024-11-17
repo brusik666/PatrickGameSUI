@@ -14,17 +14,20 @@ class Player: GKEntity {
     override init() {
         super.init()
         
-        let playerSpriteTexture = SKTexture(imageNamed: "player")
-        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 100, position: CGPoint(x: 200, y: 600))
+        let playerSpriteTexture = SKTexture(imageNamed: "playerMovement0")
+        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 150, position: CGPoint(x: 200, y: 600))
         
         spriteComponent.node.entity = self
+        let physicBodySize = CGSize(width: spriteComponent.node.size.width/5, height: spriteComponent.node.size.height)
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
-            .withTexture(playerSpriteTexture, size: spriteComponent.node.size)
+            //.withTexture(playerSpriteTexture, size: spriteComponent.node.size)
+            .withRectangle(size: physicBodySize)
             .setMass(10)
             .setLinearDamping(0)
             .setIsDynamic(true)
             .setAllowsRotation(false)
             .setAffectedByGravity(true)
+            .setRestitution(0.0)
             .setPhysicsCategories(mask: PhysicsCategory.player, collision: [PhysicsCategory.obstacles], contact: [])
             .build()
         
@@ -35,11 +38,16 @@ class Player: GKEntity {
         let jumpComponent = JumpComponent(jumpVelocity: jumpVelocity, maxJumps: 2)
         addComponent(jumpComponent)
         
-        let movementForceVector = CGVector(dx: 5000, dy: 0)
-        let maxVelocity: CGFloat = 300
+        let movementForceVector = CGVector(dx: 7000, dy: 0)
+        let maxVelocity: CGFloat = 500
         let movementComponent = PlayerMovementComponent(movementForce: movementForceVector, maxVelocity: maxVelocity)
         addComponent(movementComponent)
         
+        let movementAtlas = TextureProvider.shared.getAtlas(named: AnimationNames.playerMovement.rawValue)
+        let animationComponent = AnimationComponent(spriteNode: spriteComponent.node, atlases: [AnimationNames.playerMovement.rawValue : movementAtlas])
+        addComponent(animationComponent)
+        
+        animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue)
         
         
     }

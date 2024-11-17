@@ -11,7 +11,6 @@ class TextureProvider {
     static let shared = TextureProvider()
 
     private var textureCache: [String: SKTexture] = [:]
-    
     // Private initializer to prevent external instantiation
     private init() {}
     
@@ -26,6 +25,11 @@ class TextureProvider {
         let texture = SKTexture(imageNamed: name)
         textureCache[name] = texture
         return texture
+    }
+    
+    func getAtlas(named name: String) -> SKTextureAtlas {
+        let atlas = SKTextureAtlas(named: name)
+        return atlas
     }
     
     // Method to preload textures

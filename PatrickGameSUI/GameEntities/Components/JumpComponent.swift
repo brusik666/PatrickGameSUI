@@ -46,6 +46,15 @@ class JumpComponent: GKComponent {
         }
     }
     
+    func land() {
+        guard let node = entityNode, let physicsBody = node.physicsBody else { return }
+        
+
+        let landingForce = CGVector(dx: 0, dy: -jumpVelocity.dy * 2.25)
+        physicsBody.applyImpulse(landingForce)
+        
+    }
+    
     func landed() {
         isGrounded = true
         jumpCount = 0

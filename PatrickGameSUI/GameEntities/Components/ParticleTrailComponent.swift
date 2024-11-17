@@ -11,6 +11,7 @@ import SpriteKit
 
 enum ParticleTrailType: String {
     case basicTrail
+    case spark
 }
 
 class ParticleTrailComponent: GKComponent {

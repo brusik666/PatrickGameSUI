@@ -17,6 +17,7 @@ struct GameView: View {
                 let playerData = PlayerData()
                 let gameScene = GameScene(size: geometry.size, playerData: playerData)
                 gameScene.view?.showsPhysics = true
+                gameScene.view?.showsFPS = true
                 gameScene.scaleMode = .aspectFill  // Ensure the scene resizes to fit the screen
                 return gameScene
             }())
