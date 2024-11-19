@@ -62,18 +62,21 @@ class GameSceneUICreator: SceneUICreator {
         let size = CGSize(width: gScene.size.width * 0.45, height: gScene.size.height / 10)
         let size1 = CGSize(width: gScene.size.width * 10, height: gScene.size.height / 10)
         let screenHeight = gScene.size.height
-        
-        let shapeNode = SKShapeNode(rectOf: size1)
-        shapeNode.physicsBody = SKPhysicsBody(rectangleOf: size1)
-        shapeNode.fillColor = .brown
-        shapeNode.zPosition = 4
-        shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
-        shapeNode.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        shapeNode.physicsBody?.affectedByGravity = false
-        shapeNode.physicsBody?.isDynamic = false
-        shapeNode.position = CGPoint(x: positionX * 5, y: 0)
-        gScene.addChild(shapeNode)
 
+        // Create a large obstacle at a fixed position
+        let largeObstacle = ObstaclesWithCoins(imageNamed: "onstacle")
+        largeObstacle.size = size1
+        largeObstacle.zPosition = 5
+        largeObstacle.physicsBody = SKPhysicsBody(rectangleOf: size1)
+        largeObstacle.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
+        largeObstacle.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        largeObstacle.physicsBody?.affectedByGravity = false
+        largeObstacle.physicsBody?.isDynamic = false
+        largeObstacle.physicsBody?.restitution = 0
+        largeObstacle.position = CGPoint(x: positionX * 5, y: 0)
+        gScene.addChild(largeObstacle)
+
+        // Create multiple obstacles with coins
         [-1, 1].forEach { screenOffset in
             switch screenOffset {
             case -1: positionX *= 1.2
@@ -82,22 +85,30 @@ class GameSceneUICreator: SceneUICreator {
             default: break
             }
             (0...50).forEach { index in
-                let shapeNode = SKShapeNode(rectOf: size)
-                shapeNode.physicsBody = SKPhysicsBody(rectangleOf: size)
-                shapeNode.fillColor = .brown
-                shapeNode.zPosition = 4
-                shapeNode.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
-                shapeNode.physicsBody?.contactTestBitMask = PhysicsCategory.player
-                shapeNode.physicsBody?.affectedByGravity = false
-                shapeNode.physicsBody?.isDynamic = false
-                shapeNode.position = CGPoint(
+                let obstacle = ObstaclesWithCoins(imageNamed: "obstacle")
+                obstacle.size = size
+                obstacle.zPosition = 5
+                obstacle.physicsBody = SKPhysicsBody(rectangleOf: size)
+                obstacle.physicsBody?.categoryBitMask = PhysicsCategory.obstacles
+                obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.player
+                obstacle.physicsBody?.affectedByGravity = false
+                obstacle.physicsBody?.isDynamic = false
+                obstacle.physicsBody?.restitution = 0
+                obstacle.position = CGPoint(
                     x: positionX + CGFloat(index) * gScene.size.width,
                     y: CGFloat(screenOffset) * screenHeight * 0.8
                 )
-                gScene.addChild(shapeNode)
+
+                // Optionally add coins to the obstacle
+                let coinSize = CGSize(width: 20, height: 20) // Adjust as needed
+                let coinImageName = "coin" // Replace with your coin asset name
+                //obstacle.addCoinsAcrossObstacle(coinSize: coinSize, entityManager: gScene.entityManager as! EntityManager)
+                
+                gScene.addChild(obstacle)
             }
         }
     }
+
 
     
     private func addBackgroundToScene() {
@@ -119,12 +130,12 @@ class GameSceneUICreator: SceneUICreator {
     
     private func addCameraToScene() {
         guard let gameScene = scene else { return }
-        let constraints = [
-            SKConstraint.positionY(SKRange(lowerLimit: gameScene.frame.midY))
-        ]
+        //let constraints = [
+          //  SKConstraint.positionY(SKRange(lowerLimit: gameScene.frame.midY))
+        //]
         let camera = SKCameraNode()
-        camera.constraints = constraints
-        camera.setScale(1.25)
+        //camera.constraints = constraints
+        camera.setScale(0.5)
         gameScene.camera = camera
         gameScene.addChild(camera)
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)
@@ -133,50 +144,12 @@ class GameSceneUICreator: SceneUICreator {
     private func addMeteorRoomNode() {
         guard let gameScene = scene,
               let cameraNode = gameScene.camera else { return }
-        let meteorRoomNode = MeteorRoomNode(sceneSize: gameScene.size)
+        let roomNodeSize = CGSize(width: gameScene.size.width * 1.1, height: gameScene.size.height * 1.1)
+        let meteorRoomNode = MeteorRoomNode(imageNamed: "xyu")
+        meteorRoomNode.name = "meteorRoomNode"
+        meteorRoomNode.isHidden = false
+        meteorRoomNode.size = roomNodeSize
         cameraNode.addChild(meteorRoomNode)
-    }
-    
-    private func setupOutOfBoundsSensors() {
-        
-        guard let gameScene = scene,
-              let cameraNode = gameScene.camera else { return }
-        let offset: CGFloat = 150
-        let sensorWidth: CGFloat = 30
-        
-        func createSensorPhysicsBody() -> SKPhysicsBody? {
-            let physicBodySize = CGSize(width: gameScene.frame.width, height: sensorWidth)
-            return PhysicBodyBuilder()
-                .withRectangle(size: physicBodySize)
-                .setIsDynamic(true)
-                .setAffectedByGravity(false)
-                .setMass(10000000)
-                .setAllowsRotation(false)
-                .setPhysicsCategories(mask: PhysicsCategory.meteorSensor, collision: [], contact: [PhysicsCategory.meteor])
-                .build()
-        }
-
-        let bottomSensor = SKSpriteNode()
-        bottomSensor.size = CGSize(width: gameScene.frame.width, height: sensorWidth)
-        bottomSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
-        bottomSensor.position = CGPoint(x: 0, y: -offset)
-        bottomSensor.physicsBody = createSensorPhysicsBody()
-        cameraNode.addChild(bottomSensor)
-        
-        let leftSensor = SKSpriteNode()
-        leftSensor.size = CGSize(width: sensorWidth, height: gameScene.frame.height)
-        leftSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
-        leftSensor.position = CGPoint(x: -gameScene.frame.width / 2 - offset, y: 0)
-        leftSensor.physicsBody = createSensorPhysicsBody()
-        cameraNode.addChild(leftSensor)
-        
-        // Right Sensor
-        let rightSensor = SKSpriteNode()
-        rightSensor.size = CGSize(width: sensorWidth, height: gameScene.frame.height)
-        rightSensor.texture = SKTexture(imageNamed: ImageName.Buttons.playButton.rawValue)
-        rightSensor.position = CGPoint(x: gameScene.frame.width / 2 + offset, y: 0)
-        rightSensor.physicsBody = createSensorPhysicsBody()
-        cameraNode.addChild(rightSensor)
     }
 
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE33284E2CECACB7003D4280 /* Move.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE33284D2CECACB7003D4280 /* Move.atlas */; };
+		EE3328502CECB04F003D4280 /* run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE33284F2CECB04F003D4280 /* run.atlas */; };
+		EE3328522CECB3DC003D4280 /* MeteorDetectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3328512CECB3DC003D4280 /* MeteorDetectionComponent.swift */; };
 		EE596ED22CC9F3B900EBD473 /* JumpComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */; };
 		EE6077432CD42A0800EE184F /* Meteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077422CD42A0800EE184F /* Meteor.swift */; };
 		EE6077452CD42B5300EE184F /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6077442CD42B5300EE184F /* Coin.swift */; };
@@ -29,6 +32,7 @@
 		EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C30942CC0AA6300161D85 /* InitialState.swift */; };
 		EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C30952CC0AA6300161D85 /* GameHasStarted.swift */; };
 		EE8C30992CC0AAF900161D85 /* DependencyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C30982CC0AAF900161D85 /* DependencyFactory.swift */; };
+		EE915CB62CE9A969004F078D /* CoinAttachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE915CB52CE9A969004F078D /* CoinAttachable.swift */; };
 		EE95B16F2CE813E300FA6DF3 /* playerMovement.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE95B16E2CE813E300FA6DF3 /* playerMovement.atlas */; };
 		EE9AAD302CC741AC00E3CCCB /* PhysicsCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AAD2F2CC741AC00E3CCCB /* PhysicsCategories.swift */; };
 		EE9B86712CBC7B7100540325 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B86702CBC7B7100540325 /* GameScene.swift */; };
@@ -64,6 +68,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE33284D2CECACB7003D4280 /* Move.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Move.atlas; sourceTree = "<group>"; };
+		EE33284F2CECB04F003D4280 /* run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = run.atlas; sourceTree = "<group>"; };
+		EE3328512CECB3DC003D4280 /* MeteorDetectionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorDetectionComponent.swift; sourceTree = "<group>"; };
 		EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpComponent.swift; sourceTree = "<group>"; };
 		EE6077422CD42A0800EE184F /* Meteor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meteor.swift; sourceTree = "<group>"; };
 		EE6077442CD42B5300EE184F /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
@@ -87,6 +94,7 @@
 		EE8C30942CC0AA6300161D85 /* InitialState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialState.swift; sourceTree = "<group>"; };
 		EE8C30952CC0AA6300161D85 /* GameHasStarted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHasStarted.swift; sourceTree = "<group>"; };
 		EE8C30982CC0AAF900161D85 /* DependencyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyFactory.swift; sourceTree = "<group>"; };
+		EE915CB52CE9A969004F078D /* CoinAttachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinAttachable.swift; sourceTree = "<group>"; };
 		EE95B16E2CE813E300FA6DF3 /* playerMovement.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = playerMovement.atlas; sourceTree = "<group>"; };
 		EE9AAD2F2CC741AC00E3CCCB /* PhysicsCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategories.swift; sourceTree = "<group>"; };
 		EE9B86702CBC7B7100540325 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 				EE596ED12CC9F3B900EBD473 /* JumpComponent.swift */,
 				EE6077462CD42C3200EE184F /* CollectableComponent.swift */,
 				EEC2A1582CD9F90900E44CA4 /* ParticleTrailComponent.swift */,
+				EE3328512CECB3DC003D4280 /* MeteorDetectionComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA3CD952CC37CC000C59D43 /* PlayerAtlas */,
+				EE33284F2CECB04F003D4280 /* run.atlas */,
 			);
 			path = Atlases;
 			sourceTree = "<group>";
@@ -297,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				EE95B16E2CE813E300FA6DF3 /* playerMovement.atlas */,
+				EE33284D2CECACB7003D4280 /* Move.atlas */,
 			);
 			path = PlayerAtlas;
 			sourceTree = "<group>";
@@ -322,6 +333,7 @@
 				EEF48EE52CBCC1D5001351C3 /* Exploidable.swift */,
 				EEF48EDC2CBCC1D5001351C3 /* GameOverDelegate.swift */,
 				EEF48EE62CBCC1D5001351C3 /* Updatable.swift */,
+				EE915CB52CE9A969004F078D /* CoinAttachable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -388,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE78562F2CAE832100BAAC09 /* Preview Assets.xcassets in Resources */,
+				EE33284E2CECACB7003D4280 /* Move.atlas in Resources */,
 				EEC2A1572CD9F7A900E44CA4 /* spark.sks in Resources */,
 				EE78562C2CAE832100BAAC09 /* Assets.xcassets in Resources */,
 				EE95B16F2CE813E300FA6DF3 /* playerMovement.atlas in Resources */,
@@ -395,6 +408,7 @@
 				EEC1982A2CD9E533002FAFDE /* Rain.sks in Resources */,
 				EEC1982B2CD9E533002FAFDE /* Smoke.sks in Resources */,
 				EEC1982C2CD9E533002FAFDE /* trail3.sks in Resources */,
+				EE3328502CECB04F003D4280 /* run.atlas in Resources */,
 				EEC1982D2CD9E533002FAFDE /* basicExplosion.sks in Resources */,
 				EEC1982E2CD9E533002FAFDE /* basicTrail.sks in Resources */,
 			);
@@ -408,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE6077492CD42EF100EE184F /* PlayerData.swift in Sources */,
+				EE3328522CECB3DC003D4280 /* MeteorDetectionComponent.swift in Sources */,
 				EE60DA5D2CBFA0D700EC516C /* GameSceneUICreator.swift in Sources */,
 				EE8C30992CC0AAF900161D85 /* DependencyFactory.swift in Sources */,
 				EEF48EF02CBCC1D6001351C3 /* Updatable.swift in Sources */,
@@ -421,6 +436,7 @@
 				EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */,
 				EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */,
 				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
+				EE915CB62CE9A969004F078D /* CoinAttachable.swift in Sources */,
 				EE8C30962CC0AA6300161D85 /* InitialState.swift in Sources */,
 				EE8C30972CC0AA6300161D85 /* GameHasStarted.swift in Sources */,
 				EE6077452CD42B5300EE184F /* Coin.swift in Sources */,

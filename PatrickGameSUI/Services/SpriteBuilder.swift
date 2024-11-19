@@ -71,6 +71,11 @@ class PhysicBodyBuilder {
         return self
     }
     
+    func withCircle(height: CGFloat) -> PhysicBodyBuilder {
+        self.physicsBody = SKPhysicsBody(circleOfRadius: height)
+        return self
+    }
+    
     func withTexture(_ texture: SKTexture, size: CGSize) -> PhysicBodyBuilder {
         self.physicsBody = SKPhysicsBody(texture: texture, size: size)
         return self

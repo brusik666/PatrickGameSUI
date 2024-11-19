@@ -4,6 +4,7 @@ import GameplayKit
 protocol MeteorDroppingService {
     func startDropMeteors()
     func removeMeteor(_ meteor: Meteor)
+    func update(deltaTime: TimeInterval)
 }
 
 class MeteorDropper: MeteorDroppingService {
@@ -41,6 +42,22 @@ class MeteorDropper: MeteorDroppingService {
         scene.run(SKAction.repeatForever(sequence))
     }
     
+    func update(deltaTime: TimeInterval) {
+        guard let meteorRoomNode = scene.camera?.children.first(where: { $0 is MeteorRoomNode }) else {
+            print("MeteorRoomNode not found!")
+            return
+        }
+        
+        activeMeteors.forEach { meteor in
+            if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
+                if !meteorRoomNode.contains(spriteNode) {
+                    //print(spriteNode.position, meteorRoomNode.position)
+                    //removeMeteor(meteor)
+                }
+            }
+        }
+    }
+    
     private func dropMeteor(playerPosition: CGPoint) {
         guard activeMeteors.count < maxMeteors else { return }
         
@@ -59,9 +76,9 @@ class MeteorDropper: MeteorDroppingService {
             meteor = pooledMeteor
             resetMeteor(meteor, playerPosition: playerPosition)
         } else {
-            let spawnRange: CGFloat = 400
-            let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
-            let startY = playerPosition.y + scene.size.height
+            let spawnRange: CGFloat = 700
+            let startX = CGFloat.random(in: (playerPosition.x + 400)...(playerPosition.x + spawnRange))
+            let startY = CGFloat.random(in: (playerPosition.y)...(playerPosition.y + scene.size.height))
             let startPosition = CGPoint(x: startX, y: startY)
             meteor = EntitiesFactory.createMeteorEntity(type: type, position: startPosition)
             entityManager?.addEntity(entity: meteor)

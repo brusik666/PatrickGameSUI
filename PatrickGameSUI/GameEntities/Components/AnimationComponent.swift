@@ -22,8 +22,11 @@ class AnimationComponent: GKComponent {
     private func setupAnimations(with atlases: [String: SKTextureAtlas]) {
         for (key, atlas) in atlases {
             let textures = atlas.textureNames.sorted().compactMap { atlas.textureNamed($0) }
-            let action = SKAction.repeatForever(SKAction.animate(with: textures, timePerFrame: 0.05))
-            animations[key] = action
+            //let action = SKAction.repeatForever(SKAction.animate(with: textures, timePerFrame: 0.05))
+            let action1 = SKAction.repeatForever(SKAction.animate(with: textures, timePerFrame: 0.04, resize: false, restore: true))
+            animations[key] = action1
+            
+            let asd = SKPhysicsBody()
 
         }
     }

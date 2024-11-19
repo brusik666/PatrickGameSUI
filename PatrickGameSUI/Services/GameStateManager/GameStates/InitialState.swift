@@ -23,6 +23,7 @@ class InitialState: GameState {
         scene.entityManager?.addEntity(entity: player)
         meteorDropper.startDropMeteors()
         startTimerActions(scene: scene)
+        
     }
     
     func exitState(scene: GameScene) {
@@ -32,7 +33,9 @@ class InitialState: GameState {
     
     func update(deltaTime: TimeInterval, scene: GameScene) {
         scene.camera?.position = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
-        
+        meteorDropper.update(deltaTime: deltaTime)
+        guard let node = scene.camera?.childNode(withName: "meteorRoomNode") as? MeteorRoomNode else { return }
+
     }
     
     private func startTimerActions(scene: GameScene) {

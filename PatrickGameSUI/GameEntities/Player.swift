@@ -14,8 +14,9 @@ class Player: GKEntity {
     override init() {
         super.init()
         
+        let playerHeight: CGFloat = 150
         let playerSpriteTexture = SKTexture(imageNamed: "playerMovement0")
-        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: 150, position: CGPoint(x: 200, y: 600))
+        let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: playerHeight, position: CGPoint(x: 200, y: 600))
         
         spriteComponent.node.entity = self
         let physicBodySize = CGSize(width: spriteComponent.node.size.width/5, height: spriteComponent.node.size.height)
@@ -43,11 +44,16 @@ class Player: GKEntity {
         let movementComponent = PlayerMovementComponent(movementForce: movementForceVector, maxVelocity: maxVelocity)
         addComponent(movementComponent)
         
-        let movementAtlas = TextureProvider.shared.getAtlas(named: AnimationNames.playerMovement.rawValue)
+        let movementAtlas = TextureProvider.shared.getAtlas(named: "run")
         let animationComponent = AnimationComponent(spriteNode: spriteComponent.node, atlases: [AnimationNames.playerMovement.rawValue : movementAtlas])
         addComponent(animationComponent)
         
         animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue)
+        
+        let detectionNodeHeightCoefficient: CGFloat = 1.2
+        let detectionNode = SKNode()
+        let meteorDetectionComponent = MeteorDetectionComponent(detectionNode: detectionNode, height: playerHeight * detectionNodeHeightCoefficient)
+        addComponent(meteorDetectionComponent)
         
         
     }

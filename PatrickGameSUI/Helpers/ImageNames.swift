@@ -29,3 +29,7 @@ enum ImageName {
 enum AnimationNames: String {
     case playerMovement
 }
+
+enum NodeName: String {
+    case meteorRoomNode
+}

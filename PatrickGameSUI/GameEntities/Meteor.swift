@@ -14,7 +14,7 @@ class Meteor: GKEntity {
         super.init()
         
         let spriteTexture = SKTexture(imageNamed: "meteor")
-        let heigt = CGFloat.random(in: 25...75)
+        let heigt = CGFloat.random(in: 35...100)
         let spriteComponent = SpriteComponent(texture: spriteTexture, height: heigt, position: position)
         let spriteNode = spriteComponent.node
         spriteNode.entity = self
