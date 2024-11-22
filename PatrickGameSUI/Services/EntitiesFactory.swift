@@ -13,8 +13,8 @@ class EntitiesFactory {
         return meteorEntity
     }
     
-    static func createPlayerEntity(type: PlayerType) -> Player {
-        let playerEntity = Player()
+    static func createPlayerEntity(type: PlayerType, height: CGFloat) -> Player {
+        let playerEntity = Player(height: height)
         return playerEntity
     }
 }

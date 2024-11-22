@@ -38,7 +38,7 @@ class ExplosionComponent: GKComponent {
         particle.particleColor = .systemRed
         spriteNode.scene?.addChild(particle)
 
-        spriteNode.physicsBody = nil
+        //spriteNode.physicsBody = nil
 
         particle.run(.sequence([.wait(forDuration: explodeDuration), .removeFromParent()]), completion: completion)
     }

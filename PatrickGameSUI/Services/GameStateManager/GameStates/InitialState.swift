@@ -15,7 +15,8 @@ class InitialState: GameState {
         uiCreator.setScene(scene)
         uiCreator.createUI()
         
-        let player = EntitiesFactory.createPlayerEntity(type: .origin)
+        let heightMultiplier: CGFloat = 4
+        let player = EntitiesFactory.createPlayerEntity(type: .origin, height: scene.size.height / heightMultiplier)
 
         //let coin = Coin()
         //scene.entityManager?.addEntity(entity: coin)
@@ -32,7 +33,13 @@ class InitialState: GameState {
     }
     
     func update(deltaTime: TimeInterval, scene: GameScene) {
-        scene.camera?.position = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
+        let playerPosition = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
+        
+        let cameraXPositionOffset = scene.size.width / 4
+        let cameraYPositionOffset = scene.size.height / 4
+        scene.camera?.position = CGPoint(
+            x: playerPosition.x + cameraXPositionOffset,
+            y: playerPosition.y + cameraYPositionOffset)
         meteorDropper.update(deltaTime: deltaTime)
         guard let node = scene.camera?.childNode(withName: "meteorRoomNode") as? MeteorRoomNode else { return }
 

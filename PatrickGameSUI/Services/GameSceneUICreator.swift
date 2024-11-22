@@ -22,7 +22,7 @@ class GameSceneUICreator: SceneUICreator {
     
     func createUI() {
         
-        //addBackgroundToScene()
+        addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
         //addMeteorRoomNode()
@@ -74,7 +74,9 @@ class GameSceneUICreator: SceneUICreator {
         largeObstacle.physicsBody?.affectedByGravity = false
         largeObstacle.physicsBody?.isDynamic = false
         largeObstacle.physicsBody?.restitution = 0
+        largeObstacle.physicsBody?.friction = 0.2
         largeObstacle.position = CGPoint(x: positionX * 5, y: 0)
+        
         gScene.addChild(largeObstacle)
 
         // Create multiple obstacles with coins
@@ -116,17 +118,19 @@ class GameSceneUICreator: SceneUICreator {
         guard let gameScene = scene else { return }
         let bgTextureName = ImageName.Backgrounds.background.rawValue
         let bgTexture = SKTexture(imageNamed: bgTextureName)
-        for i in 1...50 {
+        let bgWidth = bgTexture.size().width
+        
+        for i in 0..<50 {
             let background = SpriteBuilder()
                 .setTexture(bgTexture)
-                .setSize(gameScene.size)
-                .setPosition(CGPoint(x: gameScene.frame.midX * CGFloat(i), y: gameScene.frame.midY))
+                .setSize(CGSize(width: bgWidth, height: gameScene.size.height)) // Set the width of each background sprite
+                .setPosition(CGPoint(x: CGFloat(i) * bgWidth, y: gameScene.size.height / 2)) // Tile backgrounds horizontally
                 .setZPosition(1)
                 .build()
-            
             gameScene.addChild(background)
         }
     }
+
 
     
     private func addCameraToScene() {
@@ -136,7 +140,7 @@ class GameSceneUICreator: SceneUICreator {
         //]
         let camera = SKCameraNode()
         //camera.constraints = constraints
-        camera.setScale(1.5)
+        camera.setScale(1)
         gameScene.camera = camera
         gameScene.addChild(camera)
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)

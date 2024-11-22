@@ -47,7 +47,10 @@ class MeteorDropper: MeteorDroppingService {
     func update(deltaTime: TimeInterval) {
         // Remove meteors outside the screen or no longer visible
         activeMeteors.forEach { meteor in
+            
             if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
+                print(spriteNode.position.y, "met pos")
+                print(screenBounds.minY, "minY")
                 if spriteNode.position.y < screenBounds.minY {
                     removeMeteor(meteor)
                 }
@@ -57,6 +60,7 @@ class MeteorDropper: MeteorDroppingService {
     
     private func dropMeteor(playerPosition: CGPoint) {
         guard activeMeteors.count < maxMeteors else { return }
+        print(screenBounds, "screen bounds")
         
         let meteorType = meteorTypes.randomElement()!
         let meteor = getMeteor(ofType: meteorType)
@@ -79,6 +83,7 @@ class MeteorDropper: MeteorDroppingService {
             
             // Calculate force vector and apply impulse
             let vector = calculateForceVector(from: spawnPosition, to: targetPosition, forceMagnitude: 7000)
+            spriteNode.physicsBody?.applyAngularImpulse(0.5)
             spriteNode.physicsBody?.applyImpulse(vector)
             activeMeteors.insert(meteor)
         }

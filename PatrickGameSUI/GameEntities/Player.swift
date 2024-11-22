@@ -11,10 +11,10 @@ import GameplayKit
 
 class Player: GKEntity {
     
-    override init() {
+    init(height: CGFloat) {
         super.init()
         
-        let playerHeight: CGFloat = 150
+        let playerHeight: CGFloat = height
         let playerSpriteTexture = SKTexture(imageNamed: "playerMovement0")
         let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: playerHeight, position: CGPoint(x: 200, y: 600))
         

@@ -17,14 +17,14 @@ class Meteor: GKEntity {
         super.init()
         
         let spriteTexture = SKTexture(imageNamed: "meteor")
-        let heigt = CGFloat.random(in: 35...100)
+        let heigt = CGFloat.random(in: 35...50)
         let spriteComponent = SpriteComponent(texture: spriteTexture, height: heigt, position: position)
         let spriteNode = spriteComponent.node
         spriteNode.entity = self
         spriteNode.physicsBody = PhysicBodyBuilder()
             .withTexture(spriteTexture, size: spriteNode.size)
             .setMass(type.mass)
-            .setAllowsRotation(false)
+            .setAllowsRotation(true)
             .setAffectedByGravity(true)
             .setIsDynamic(true)
             .setPhysicsCategories(mask: PhysicsCategory.meteor, collision: [PhysicsCategory.obstacles, PhysicsCategory.player], contact: [PhysicsCategory.player, PhysicsCategory.obstacles])
