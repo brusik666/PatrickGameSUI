@@ -1,10 +1,3 @@
-//
-//  GameView.swift
-//  PatrickGameSUI
-//
-//  Created by Brusik on 10/13/24.
-//
-
 import SwiftUI
 import SpriteKit
 
@@ -12,21 +5,29 @@ struct GameView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
-            SpriteView(scene: {
-                let playerData = PlayerData()
-                let gameScene = GameScene(size: geometry.size, playerData: playerData)
-                gameScene.view?.showsPhysics = true
-                gameScene.view?.showsFPS = true
-                gameScene.scaleMode = .aspectFill  // Ensure the scene resizes to fit the screen
-                return gameScene
-            }())
+            SpriteKitView(size: geometry.size)
                 .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .ignoresSafeArea()
     }
 }
 
-#Preview {
-    GameView()
+struct SpriteKitView: UIViewRepresentable {
+    let size: CGSize
+    
+    func makeUIView(context: Context) -> SKView {
+        let skView = SKView()
+        skView.showsPhysics = true
+        skView.showsFPS = true
+        let playerData = PlayerData()
+        let gameScene = GameScene(size: size, playerData: playerData)
+        gameScene.scaleMode = .aspectFill
+        skView.presentScene(gameScene)
+        return skView
+    }
+    
+    func updateUIView(_ uiView: SKView, context: Context) {
+        // Update logic, if needed
+    }
 }
+

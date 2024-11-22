@@ -23,7 +23,8 @@ class EntityManager: EntityController {
         let jumpSystem = GKComponentSystem(componentClass: JumpComponent.self)
         let explosionComponent = GKComponentSystem(componentClass: ExplosionComponent.self)
         let animationComponentSystem = GKComponentSystem(componentClass: AnimationComponent.self)
-        return [spriteSystem, playerMovementSystem, jumpSystem, explosionComponent, animationComponentSystem]
+        let meteorDetectionComponentSystem = GKComponentSystem(componentClass: MeteorDetectionComponent.self)
+        return [spriteSystem, playerMovementSystem, jumpSystem, explosionComponent, animationComponentSystem, meteorDetectionComponentSystem]
     }()
     
     private var entities = Set<GKEntity>()

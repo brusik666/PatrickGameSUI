@@ -130,6 +130,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		EE5F245C2CED626100487065 /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
 		EED9C2E72CD5838900CD5E34 /* Nodes */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Nodes; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -207,6 +208,7 @@
 		EE7856262CAE831F00BAAC09 /* PatrickGameSUI */ = {
 			isa = PBXGroup;
 			children = (
+				EE5F245C2CED626100487065 /* Extensions */,
 				EEA3CD932CC37CAD00C59D43 /* Resources */,
 				EE60DA5A2CBFA0A200EC516C /* Services */,
 				EE60DA572CBF9C7900EC516C /* GameEntities */,
@@ -354,6 +356,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				EE5F245C2CED626100487065 /* Extensions */,
 				EED9C2E72CD5838900CD5E34 /* Nodes */,
 			);
 			name = PatrickGameSUI;

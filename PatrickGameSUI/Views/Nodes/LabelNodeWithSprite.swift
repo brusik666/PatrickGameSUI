@@ -9,9 +9,10 @@ class SKLabelNodeWithSprite: SKNode {
     
     init(text: String, spriteImageName: String, spriteHeight: CGFloat) {
         labelNode = SKLabelNode(text: text)
-        labelNode.fontSize = 50
+        labelNode.fontSize = 35
+        labelNode.fontName = "Helvetica-Bold"
         //labelNode.fontName = UIElementsNames.fontName.rawValue
-        labelNode.fontColor = .white
+        labelNode.fontColor = .purple
         spriteNode = SKSpriteNode(imageNamed: spriteImageName)
         spriteNode.size.height = spriteHeight
         spriteNode.size.width = spriteHeight

@@ -22,7 +22,9 @@ class MeteorDetectionComponent: GKComponent {
             print("Error: SpriteComponent or its node is missing.")
             return
         }
+        detectionNode.position = CGPoint.zero
         playerNode.addChild(detectionNode)
+        //detectionNode.scene?.physicsWorld.contactDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -32,10 +34,15 @@ class MeteorDetectionComponent: GKComponent {
     private func setupPhysicsBody(height: CGFloat) {
         let body = PhysicBodyBuilder()
             .withCircle(height: height)
-            .setIsDynamic(false)
+            .setIsDynamic(true)
             .setPhysicsCategories(mask: PhysicsCategory.meteorSensor, collision: [], contact: [PhysicsCategory.meteor])
             .setAffectedByGravity(false)
             .build()
         detectionNode.physicsBody = body
     }
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        detectionNode.position = CGPoint.zero
+    }
+    
 }

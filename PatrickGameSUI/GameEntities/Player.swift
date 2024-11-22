@@ -19,10 +19,9 @@ class Player: GKEntity {
         let spriteComponent = SpriteComponent(texture: playerSpriteTexture, height: playerHeight, position: CGPoint(x: 200, y: 600))
         
         spriteComponent.node.entity = self
-        let physicBodySize = CGSize(width: spriteComponent.node.size.width/5, height: spriteComponent.node.size.height)
         spriteComponent.node.physicsBody = PhysicBodyBuilder()
             //.withTexture(playerSpriteTexture, size: spriteComponent.node.size)
-            .withRectangle(size: physicBodySize)
+            .withCircle(height: playerHeight / 1.5)
             .setMass(10)
             .setLinearDamping(0)
             .setIsDynamic(true)
@@ -50,9 +49,10 @@ class Player: GKEntity {
         
         animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue)
         
-        let detectionNodeHeightCoefficient: CGFloat = 1.2
+        let detectionNodeHeightCoefficient: CGFloat = 1
+        let detectionNodeRadius = playerHeight * detectionNodeHeightCoefficient
         let detectionNode = SKNode()
-        let meteorDetectionComponent = MeteorDetectionComponent(detectionNode: detectionNode, height: playerHeight * detectionNodeHeightCoefficient)
+        let meteorDetectionComponent = MeteorDetectionComponent(detectionNode: detectionNode, height: detectionNodeRadius)
         addComponent(meteorDetectionComponent)
         
         

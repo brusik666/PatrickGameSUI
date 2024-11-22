@@ -75,6 +75,7 @@ extension GameScene {
         guard let touch = touches.first else { return }
         touchHandler.handleTouch(touch: touch)
     }
+
 }
 
 extension GameScene {
@@ -82,7 +83,7 @@ extension GameScene {
         view.isMultipleTouchEnabled = true
         physicsWorld.contactDelegate = self
        // physicsWorld.gravity = .zero
-        backgroundColor = .white
+        backgroundColor = .clear
         let meteorDropper = DependencyFactory.createMeteorDropper(scene: self)
         let pointsCounter = DependencyFactory.createPointsCounter()
         GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper, pointsCounter: pointsCounter), scene: self)

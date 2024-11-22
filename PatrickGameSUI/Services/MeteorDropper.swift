@@ -19,22 +19,24 @@ class MeteorDropper: MeteorDroppingService {
         }
     }
     private var meteorPool: Set<Meteor> = []
-    
+    private let screenBounds: CGRect
+    private let targetingProbability: CGFloat = 0.7 // 70% chance to target player
+
     init(scene: GameScene, meteorTypes: [MeteorType], dropInterval: TimeInterval, maxMeteors: Int) {
         self.scene = scene
         self.meteorTypes = meteorTypes
         self.dropInterval = dropInterval
         self.maxMeteors = maxMeteors
         self.entityManager = scene.entityManager
+        self.screenBounds = UIScreen.main.bounds // Use screen bounds to determine spawn positions
     }
     
     func startDropMeteors() {
         let dropAction = SKAction.run { [weak self] in
             guard let self = self else { return }
-            if let playerPosition = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position {
+            if let playerPosition = self.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position {
                 self.dropMeteor(playerPosition: playerPosition)
             }
-            
         }
         
         let waitAction = SKAction.wait(forDuration: dropInterval)
@@ -43,16 +45,11 @@ class MeteorDropper: MeteorDroppingService {
     }
     
     func update(deltaTime: TimeInterval) {
-        guard let meteorRoomNode = scene.camera?.children.first(where: { $0 is MeteorRoomNode }) else {
-            print("MeteorRoomNode not found!")
-            return
-        }
-        
+        // Remove meteors outside the screen or no longer visible
         activeMeteors.forEach { meteor in
             if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-                if !meteorRoomNode.contains(spriteNode) {
-                    //print(spriteNode.position, meteorRoomNode.position)
-                    //removeMeteor(meteor)
+                if spriteNode.position.y < screenBounds.minY {
+                    removeMeteor(meteor)
                 }
             }
         }
@@ -62,45 +59,51 @@ class MeteorDropper: MeteorDroppingService {
         guard activeMeteors.count < maxMeteors else { return }
         
         let meteorType = meteorTypes.randomElement()!
-        let meteor = getMeteor(ofType: meteorType, playerPosition: playerPosition)
+        let meteor = getMeteor(ofType: meteorType)
         
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            spriteNode.physicsBody?.applyImpulse(CGVector(dx: -5000, dy: -2500))
-            activeMeteors.insert(meteor) // Add to activeMeteors set
+            // Determine spawn position
+            let spawnX = CGFloat.random(in: screenBounds.minX...screenBounds.maxX)
+            let spawnPosition = CGPoint(x: spawnX, y: screenBounds.maxY)
+            spriteNode.position = spawnPosition
+            
+            // Determine target position
+            let targetPosition: CGPoint
+            if CGFloat.random(in: 0...1) < targetingProbability {
+                targetPosition = playerPosition // Target the player
+            } else {
+                // Random target position near the bottom
+                let randomX = CGFloat.random(in: screenBounds.minX...screenBounds.maxX)
+                targetPosition = CGPoint(x: randomX, y: screenBounds.minY)
+            }
+            
+            // Calculate force vector and apply impulse
+            let vector = calculateForceVector(from: spawnPosition, to: targetPosition, forceMagnitude: 7000)
+            spriteNode.physicsBody?.applyImpulse(vector)
+            activeMeteors.insert(meteor)
         }
     }
     
-    private func getMeteor(ofType type: MeteorType, playerPosition: CGPoint) -> Meteor {
+    private func getMeteor(ofType type: MeteorType) -> Meteor {
         let meteor: Meteor
-        if let pooledMeteor = meteorPool.popFirst() { // Get a meteor from the set if available
+        if let pooledMeteor = meteorPool.popFirst() {
             meteor = pooledMeteor
-            resetMeteor(meteor, playerPosition: playerPosition)
+            resetMeteor(meteor)
         } else {
-            let spawnRange: CGFloat = 700
-            let startX = CGFloat.random(in: (playerPosition.x + 400)...(playerPosition.x + spawnRange))
-            let startY = CGFloat.random(in: (playerPosition.y)...(playerPosition.y + scene.size.height))
-            let startPosition = CGPoint(x: startX, y: startY)
-            meteor = EntitiesFactory.createMeteorEntity(type: type, position: startPosition)
+            meteor = EntitiesFactory.createMeteorEntity(type: type, position: .zero)
             entityManager?.addEntity(entity: meteor)
         }
         return meteor
     }
     
-    private func resetMeteor(_ meteor: Meteor, playerPosition: CGPoint) {
+    private func resetMeteor(_ meteor: Meteor) {
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            let spawnRange: CGFloat = 400
-            let startX = CGFloat.random(in: (playerPosition.x + 200)...(playerPosition.x + spawnRange))
-            let startY = playerPosition.y + scene.size.height
-            spriteNode.position = CGPoint(x: startX, y: startY)
+            spriteNode.position = .zero
             spriteNode.physicsBody?.velocity = .zero
             spriteNode.isHidden = false
         }
     }
-
-
-
     
-    // Optional: Clean up meteors that fall out of view or are no longer needed
     func removeMeteor(_ meteor: Meteor) {
         if activeMeteors.contains(meteor) {
             activeMeteors.remove(meteor)
@@ -110,5 +113,16 @@ class MeteorDropper: MeteorDroppingService {
             }
             entityManager?.removeEntity(entity: meteor)
         }
+    }
+    
+    private func calculateForceVector(from startPosition: CGPoint, to targetPosition: CGPoint, forceMagnitude: CGFloat) -> CGVector {
+        let dx = targetPosition.x - startPosition.x
+        let dy = targetPosition.y - startPosition.y
+        
+        let distance = sqrt(dx * dx + dy * dy)
+        let normalizedDx = dx / distance
+        let normalizedDy = dy / distance
+        
+        return CGVector(dx: normalizedDx * forceMagnitude, dy: normalizedDy * forceMagnitude)
     }
 }

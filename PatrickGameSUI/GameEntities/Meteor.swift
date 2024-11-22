@@ -10,7 +10,10 @@ import  GameplayKit
 
 class Meteor: GKEntity {
     
+    let isExploidable: Bool
+    
     init(type: MeteorType, position: CGPoint) {
+        self.isExploidable = type.isExploidable
         super.init()
         
         let spriteTexture = SKTexture(imageNamed: "meteor")
@@ -21,7 +24,7 @@ class Meteor: GKEntity {
         spriteNode.physicsBody = PhysicBodyBuilder()
             .withTexture(spriteTexture, size: spriteNode.size)
             .setMass(type.mass)
-            .setAllowsRotation(true)
+            .setAllowsRotation(false)
             .setAffectedByGravity(true)
             .setIsDynamic(true)
             .setPhysicsCategories(mask: PhysicsCategory.meteor, collision: [PhysicsCategory.obstacles, PhysicsCategory.player], contact: [PhysicsCategory.player, PhysicsCategory.obstacles])
@@ -78,4 +81,14 @@ enum MeteorType {
             20
         }
     }
+    
+    var isExploidable: Bool {
+        switch self {
+        case .smallMeteor: true
+        case .mediumMeteor: true
+        case .bigMeteor: false
+        }
+    }
+    
+    
 }

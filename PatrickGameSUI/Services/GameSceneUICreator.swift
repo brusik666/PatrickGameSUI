@@ -25,7 +25,7 @@ class GameSceneUICreator: SceneUICreator {
         //addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
-        addMeteorRoomNode()
+        //addMeteorRoomNode()
         addAllLabels()
         
     }
@@ -40,6 +40,7 @@ class GameSceneUICreator: SceneUICreator {
         let label = RoundedLabelNode(text: "")
         label.isHidden = true
         label.position = .zero
+        label.position.y -= gameScene.size.height/15
         gameScene.mainLabel = label
         gameScene.camera?.addChild(label)
     }
@@ -48,7 +49,7 @@ class GameSceneUICreator: SceneUICreator {
         guard let gameScene = scene else { return }
         
         let coinsAmount = UserDefaults.standard.integer(forKey: UserDefaultsKeys.playerCoins.rawValue)
-        let label = SKLabelNodeWithSprite(text: String(coinsAmount), spriteImageName: "coin", spriteHeight: gameScene.size.height/20)
+        let label = SKLabelNodeWithSprite(text: String(coinsAmount), spriteImageName: "coin", spriteHeight: gameScene.size.height/14)
         label.position = CGPoint(x: gameScene.size.width/2 - label.spriteNode.size.width * 2, y: gameScene.size.height/2 - label.spriteNode.size.height * 2)
         label.name = "coinLabel"
         label.zPosition = 5
@@ -77,7 +78,7 @@ class GameSceneUICreator: SceneUICreator {
         gScene.addChild(largeObstacle)
 
         // Create multiple obstacles with coins
-        [-1, 1].forEach { screenOffset in
+        /*[-1, 1].forEach { screenOffset in
             switch screenOffset {
             case -1: positionX *= 1.2
             case 0: positionX += 1
@@ -106,7 +107,7 @@ class GameSceneUICreator: SceneUICreator {
                 
                 gScene.addChild(obstacle)
             }
-        }
+        }*/
     }
 
 
@@ -135,7 +136,7 @@ class GameSceneUICreator: SceneUICreator {
         //]
         let camera = SKCameraNode()
         //camera.constraints = constraints
-        camera.setScale(0.5)
+        camera.setScale(1.5)
         gameScene.camera = camera
         gameScene.addChild(camera)
         camera.position = CGPoint(x: gameScene.frame.midX, y: gameScene.frame.midY)

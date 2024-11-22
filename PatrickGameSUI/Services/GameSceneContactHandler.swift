@@ -44,6 +44,7 @@ class GameSceneContactHandler: SceneContactHandler {
         if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.obstacles) {
             if let meteorEntity = bodies.bodyA.node?.entity as? Meteor,
                let explosionComponent = meteorEntity.component(ofType: ExplosionComponent.self) {
+                guard meteorEntity.isExploidable else { return }
                 explosionComponent.exploid {
                     DispatchQueue.main.async {
                         //self.scene?.entityManager?.removeEntity(entity: meteorEntity)
@@ -63,12 +64,16 @@ class GameSceneContactHandler: SceneContactHandler {
             }
         }
         
-        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
+        /*if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
             guard let meteorEntity = bodies.bodyA.node?.entity as? Meteor else { return }
             if let currentState = GameStateManager.shared.currentState as? InitialState {
                 currentState.meteorDropper.removeMeteor(meteorEntity)
                 print("METEOR REMOVED FROM SENSOR")
             }
+        }*/
+        
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteorSensor, categoryB: PhysicsCategory.meteorSensor) {
+            
         }
     
     }
