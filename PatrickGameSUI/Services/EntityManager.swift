@@ -53,19 +53,17 @@ extension EntityManager {
     }
     
     func removeEntity(entity: GKEntity) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self, self.entities.contains(entity) else {
-                //print("Attempted to remove entity not in entities: \(entity)")
-                return
-            }
-            if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
-                spriteNode.removeFromParent()
-                //print("Entity's sprite node removed from scene: \(spriteNode)")
-            }
-            self.entities.remove(entity)
-            self.entitiesToRemove.insert(entity)
-            //print("Entity marked for removal: \(entity)")
+        guard entities.contains(entity) else {
+            //print("Attempted to remove entity not in entities: \(entity)")
+            return
         }
+        if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
+            spriteNode.removeFromParent()
+            //print("Entity's sprite node removed from scene: \(spriteNode)")
+        }
+        self.entities.remove(entity)
+        self.entitiesToRemove.insert(entity)
+        //print("Entity marked for removal: \(entity)")
     }
     
     func update(_ deltaTime: TimeInterval) {

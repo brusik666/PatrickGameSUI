@@ -30,6 +30,7 @@ class Meteor: GKEntity {
             .setPhysicsCategories(mask: PhysicsCategory.meteor, collision: [PhysicsCategory.obstacles, PhysicsCategory.player], contact: [PhysicsCategory.player, PhysicsCategory.obstacles])
             .build()
         spriteNode.zPosition = ZPositions.meteor.rawValue
+        //spriteNode.constraints = [SKConstraint.positionX(SKRange(lowerLimit: -300, upperLimit: 1200), y: SKRange(lowerLimit: -300, upperLimit: 700))]
         addComponent(spriteComponent)
         
         let explosionComponent = ExplosionComponent(explosionType: .basicExplosion)

@@ -50,7 +50,7 @@ class GameSceneContactHandler: SceneContactHandler {
                         //self.scene?.entityManager?.removeEntity(entity: meteorEntity)
                         if let currentState = GameStateManager.shared.currentState as? InitialState {
                             currentState.meteorDropper.removeMeteor(meteorEntity)
-                            print("METEOR REMOVED")
+                            print("METEOR REMOVED FROM CONTACT")
                         }
                     }
                 }

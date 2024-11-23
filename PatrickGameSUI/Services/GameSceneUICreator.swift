@@ -78,6 +78,7 @@ class GameSceneUICreator: SceneUICreator {
         largeObstacle.position = CGPoint(x: positionX * 5, y: 0)
         
         gScene.addChild(largeObstacle)
+        largeObstacle.addCoinsAcrossObstacle(coinSize: CGSize(width: 50, height: 50), coinImageName: "coin")
 
         // Create multiple obstacles with coins
         /*[-1, 1].forEach { screenOffset in
