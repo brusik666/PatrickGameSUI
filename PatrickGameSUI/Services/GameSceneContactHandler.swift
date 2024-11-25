@@ -50,7 +50,7 @@ class GameSceneContactHandler: SceneContactHandler {
                         //self.scene?.entityManager?.removeEntity(entity: meteorEntity)
                         if let currentState = GameStateManager.shared.currentState as? InitialState {
                             currentState.meteorDropper.removeMeteor(meteorEntity)
-                            print("METEOR REMOVED FROM CONTACT")
+                            //print("METEOR REMOVED FROM CONTACT")
                         }
                     }
                 }
@@ -64,23 +64,16 @@ class GameSceneContactHandler: SceneContactHandler {
             }
         }
         
-        /*if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
-            guard let meteorEntity = bodies.bodyA.node?.entity as? Meteor else { return }
-            if let currentState = GameStateManager.shared.currentState as? InitialState {
-                currentState.meteorDropper.removeMeteor(meteorEntity)
-                print("METEOR REMOVED FROM SENSOR")
-            }
-        }*/
-        
-        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteorSensor, categoryB: PhysicsCategory.meteorSensor) {
-            
-        }
     
     }
 
 
     func endContact(contact: SKPhysicsContact) {
         guard let gameScene = scene else { return }
+        
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
+            
+        }
     }
     
     

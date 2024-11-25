@@ -7,34 +7,6 @@ protocol MeteorDroppingService {
     func update(deltaTime: TimeInterval)
 }
 
-actor MeteorManager {
-    private var activeMeteors: Set<Meteor> = [] {
-        didSet {
-            print(activeMeteors.count, "Active Meteors")
-        }
-    }
-    private var meteorPool: Set<Meteor> = []
-    
-    func addMeteor(_ meteor: Meteor) {
-        activeMeteors.insert(meteor)
-    }
-    
-    func removeMeteor(_ meteor: Meteor) -> Bool {
-        if activeMeteors.remove(meteor) != nil {
-            meteorPool.insert(meteor)
-            return true
-        }
-        return false
-    }
-    
-    func getActiveMeteors() -> Set<Meteor> {
-        activeMeteors
-    }
-    
-    func getPooledMeteor(ofType type: MeteorType) -> Meteor? {
-        return meteorPool.popFirst()
-    }
-}
 
 class MeteorDropper: MeteorDroppingService {
     private let scene: GameScene
@@ -78,55 +50,56 @@ class MeteorDropper: MeteorDroppingService {
                     if await !visibleBounds.contains(spriteNode.position) {
                         if await meteorManager.removeMeteor(meteor) {
                             entityManager?.removeEntity(entity: meteor)
-                            print("Meteor removed from UPDATE")
+                            //print("Meteor removed from UPDATE")
                         }
                     }
                 }
             }
         }
     }
+
     @MainActor
     private func dropMeteor(playerPosition: CGPoint) async {
         let activeMeteors = await meteorManager.getActiveMeteors()
         guard activeMeteors.count < maxMeteors else { return }
         
         let meteorType = meteorTypes.randomElement()!
-        let meteor = await meteorManager.getPooledMeteor(ofType: meteorType) ?? EntitiesFactory.createMeteorEntity(type: meteorType, position: .zero)
+        let meteor = await meteorManager.getPooledMeteor(ofType: meteorType)
+            ?? EntitiesFactory.createMeteorEntity(type: meteorType, position: .zero)
+        
+        if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
+            spriteNode.removeFromParent() // Ensure it's removed before reuse
+            spriteNode.physicsBody?.velocity = .zero // Reset physics state
+            spriteNode.position = .zero // Reset position
+        }
+
         entityManager?.addEntity(entity: meteor)
         
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            // Determine spawn position
             let spawnX = CGFloat.random(in: playerPosition.x - scene.frame.midX...playerPosition.x + scene.frame.midX)
             let spawnPosition = CGPoint(x: spawnX, y: scene.frame.maxY)
             spriteNode.position = spawnPosition
-            print("SPAWN POSITION\(spawnPosition)")
             
-            // Determine target position
             let targetPosition: CGPoint
             if CGFloat.random(in: 0...1) < targetingProbability {
-                targetPosition = playerPosition // Target the player
-                print(targetPosition, "TARGET POSITION")
+                targetPosition = playerPosition
             } else {
                 let randomX = spawnX
                 targetPosition = CGPoint(x: randomX, y: scene.frame.minY)
-                print(targetPosition, "TARGET POSITION")
             }
             
-            // Apply force to meteor
             let vector = calculateForceVector(from: spawnPosition, to: targetPosition, forceMagnitude: 7000)
-            print(vector, "VECTOR")
-            spriteNode.physicsBody?.applyAngularImpulse(0.5)
             spriteNode.physicsBody?.applyImpulse(vector)
-            
             await meteorManager.addMeteor(meteor)
         }
     }
+
     
     func removeMeteor(_ meteor: Meteor) {
         Task {
             if await meteorManager.removeMeteor(meteor) {
                 entityManager?.removeEntity(entity: meteor)
-                print("Meteor removed manually")
+                //print("Meteor removed manually")
             }
         }
     }

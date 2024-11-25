@@ -55,7 +55,7 @@ class PlayerMovementComponent: GKComponent {
         movementState = .speedUp
         
         //speedMultiplier = 5.0
-        print("SPEED UP")
+        //print("SPEED UP")
         
         guard let sprite = entityNode,
               let physicsBody = sprite.physicsBody else { return }
@@ -70,7 +70,7 @@ class PlayerMovementComponent: GKComponent {
         guard movementState == .normal else { return }
         movementState = .slowDown
         speedMultiplier = 0.3
-        print("SLOW DOWN")
+        //print("SLOW DOWN")
         Task {
             await resetSpeedAfterDelay()
         }

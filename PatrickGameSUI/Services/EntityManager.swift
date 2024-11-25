@@ -27,55 +27,58 @@ class EntityManager: EntityController {
         return [spriteSystem, playerMovementSystem, jumpSystem, explosionComponent, animationComponentSystem, meteorDetectionComponentSystem]
     }()
     
-    private var entities = Set<GKEntity>()
-    private var entitiesToRemove = Set<GKEntity>()
+    private let entityContainer: EntityContainer
     private weak var scene: GameScene?
     var player: Player?
     
-    init(scene: GameScene) {
+    init(scene: GameScene, entityContainer: EntityContainer) {
         self.scene = scene
+        self.entityContainer = entityContainer
     }
 }
 
 extension EntityManager {
     func addEntity(entity: GKEntity) {
-        entities.insert(entity)
-        //print("Entity added to entities: \(entity)")
         
-        if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
-            scene?.addChild(spriteNode)
-           // print("Entity's sprite node added to scene: \(spriteNode)")
-        }
+        Task {
+            await entityContainer.add(entity: entity)
+            //print("Entity added to entities: \(entity)")
+            
+            if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
+                await scene?.addChild(spriteNode)
+               // print("Entity's sprite node added to scene: \(spriteNode)")
+            }
 
-        for componentSystem in componentSystems {
-            componentSystem.addComponent(foundIn: entity)
+            for componentSystem in componentSystems {
+                componentSystem.addComponent(foundIn: entity)
+            }
         }
     }
     
     func removeEntity(entity: GKEntity) {
-        guard entities.contains(entity) else {
-            //print("Attempted to remove entity not in entities: \(entity)")
-            return
+
+        Task {
+            if await entityContainer.contains(entity: entity) {
+                guard let spriteNode = entity.component(ofType: SpriteComponent.self)?.node  else { return }
+                await spriteNode.removeFromParent()
+                await entityContainer.markForRemoval(entity: entity)
+            }
         }
-        if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node {
-            spriteNode.removeFromParent()
-            //print("Entity's sprite node removed from scene: \(spriteNode)")
-        }
-        self.entities.remove(entity)
-        self.entitiesToRemove.insert(entity)
-        //print("Entity marked for removal: \(entity)")
     }
     
     func update(_ deltaTime: TimeInterval) {
-        for componentSystem in componentSystems {
-            componentSystem.update(deltaTime: deltaTime)
-        }
-        
-        for entityToRemove in entitiesToRemove {
+        Task {
             for componentSystem in componentSystems {
-                componentSystem.removeComponent(foundIn: entityToRemove)
+                componentSystem.update(deltaTime: deltaTime)
+            }
+            
+            for entityToRemove in await entityContainer.getEntitiesToRemove() {
+                for componentSystem in componentSystems {
+                    componentSystem.removeComponent(foundIn: entityToRemove)
+                }
+                
+                await entityContainer.remove(entity: entityToRemove)
             }
         }
-        entitiesToRemove.removeAll()
     }
 }

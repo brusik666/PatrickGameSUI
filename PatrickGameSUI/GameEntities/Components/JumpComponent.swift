@@ -50,7 +50,7 @@ class JumpComponent: GKComponent {
         guard let node = entityNode, let physicsBody = node.physicsBody else { return }
         
         // Apply downward landing force
-        let landingForce = CGVector(dx: 0, dy: -jumpVelocity.dy * 2.25)
+        let landingForce = CGVector(dx: 0, dy: -jumpVelocity.dy * 1.55)
         physicsBody.applyImpulse(landingForce)
         
         // Apply a speed increase (e.g., boost horizontal velocity)

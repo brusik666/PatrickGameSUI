@@ -59,10 +59,8 @@ class GameSceneUICreator: SceneUICreator {
     
     private func addObstacleBlock() {
         guard let gScene = scene else { return }
-        var positionX = gScene.frame.midX
-        let size = CGSize(width: gScene.size.width * 0.45, height: gScene.size.height / 10)
-        let size1 = CGSize(width: gScene.size.width * 10, height: gScene.size.height / 10)
-        let screenHeight = gScene.size.height
+        let positionX = gScene.frame.midX
+        let size1 = CGSize(width: gScene.size.width * 30, height: gScene.size.height / 10)
 
         // Create a large obstacle at a fixed position
         let largeObstacle = ObstaclesWithCoins(imageNamed: "onstacle")
@@ -75,7 +73,7 @@ class GameSceneUICreator: SceneUICreator {
         largeObstacle.physicsBody?.isDynamic = false
         largeObstacle.physicsBody?.restitution = 0
         largeObstacle.physicsBody?.friction = 0.2
-        largeObstacle.position = CGPoint(x: positionX * 5, y: 0)
+        largeObstacle.position = CGPoint(x: positionX * 15, y: 0)
         
         gScene.addChild(largeObstacle)
         largeObstacle.addCoinsAcrossObstacle(coinSize: CGSize(width: 50, height: 50), coinImageName: "coin")

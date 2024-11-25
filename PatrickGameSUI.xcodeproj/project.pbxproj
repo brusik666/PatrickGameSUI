@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE02763E2CF473A90006971F /* MeteorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE02763D2CF473A90006971F /* MeteorManager.swift */; };
+		EE0276402CF482D50006971F /* EntityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE02763F2CF482D50006971F /* EntityStorage.swift */; };
 		EE33284E2CECACB7003D4280 /* Move.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE33284D2CECACB7003D4280 /* Move.atlas */; };
 		EE3328502CECB04F003D4280 /* run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = EE33284F2CECB04F003D4280 /* run.atlas */; };
 		EE3328522CECB3DC003D4280 /* MeteorDetectionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3328512CECB3DC003D4280 /* MeteorDetectionComponent.swift */; };
@@ -68,6 +70,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE02763D2CF473A90006971F /* MeteorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorManager.swift; sourceTree = "<group>"; };
+		EE02763F2CF482D50006971F /* EntityStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityStorage.swift; sourceTree = "<group>"; };
 		EE33284D2CECACB7003D4280 /* Move.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Move.atlas; sourceTree = "<group>"; };
 		EE33284F2CECB04F003D4280 /* run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = run.atlas; sourceTree = "<group>"; };
 		EE3328512CECB3DC003D4280 /* MeteorDetectionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeteorDetectionComponent.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				EEEB755B2CCDF70D009CFC58 /* GameSceneTouchHandler.swift */,
 				EEAE188F2CE0714E009BB545 /* TextureProvider.swift */,
 				EEB04ECA2CE5748300C01350 /* GamePointsManager.swift */,
+				EE02763D2CF473A90006971F /* MeteorManager.swift */,
+				EE02763F2CF482D50006971F /* EntityStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -437,6 +443,7 @@
 				EEF48EED2CBCC1D6001351C3 /* DamageReceivable.swift in Sources */,
 				EEF48EEE2CBCC1D6001351C3 /* GameState.swift in Sources */,
 				EED235E42CAE90750082BFD0 /* LevelsListView.swift in Sources */,
+				EE02763E2CF473A90006971F /* MeteorManager.swift in Sources */,
 				EEC198222CD9E51A002FAFDE /* MeteorDropper.swift in Sources */,
 				EEEB755A2CCDF5C1009CFC58 /* GameSceneContactHandler.swift in Sources */,
 				EE915CB62CE9A969004F078D /* CoinAttachable.swift in Sources */,
@@ -447,6 +454,7 @@
 				EEB04ECB2CE5748300C01350 /* GamePointsManager.swift in Sources */,
 				EE7856372CAE84FD00BAAC09 /* MainMenuView.swift in Sources */,
 				EE82FC832CB0973D0096624C /* CustomToggleStyle.swift in Sources */,
+				EE0276402CF482D50006971F /* EntityStorage.swift in Sources */,
 				EE78562A2CAE831F00BAAC09 /* ContentView.swift in Sources */,
 				EED9C2EC2CD583EB00CD5E34 /* ZPositions.swift in Sources */,
 				EE6077432CD42A0800EE184F /* Meteor.swift in Sources */,

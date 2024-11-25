@@ -31,11 +31,12 @@ class DependencyFactory {
     }
     
     static func createEntityManager(scene: GameScene) -> EntityController {
-        return EntityManager(scene: scene)
+        let entityStorage = EntityStorage()
+        return EntityManager(scene: scene, entityContainer: entityStorage)
     }
     
     static func createMeteorDropper(scene: GameScene) -> MeteorDroppingService {
-        return MeteorDropper(scene: scene, meteorTypes: [.bigMeteor, .mediumMeteor, .smallMeteor], dropInterval: 0.5, maxMeteors: 10)
+        return MeteorDropper(scene: scene, meteorTypes: [.bigMeteor, .mediumMeteor, .smallMeteor], dropInterval: 0.35, maxMeteors: 50)
     }
     
     static func createPointsCounter() -> PointsCounter {
