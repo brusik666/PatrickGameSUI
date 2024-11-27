@@ -28,7 +28,7 @@ class ExplosionComponent: GKComponent {
         guard let particle = SKEmitterNode(fileNamed: particleName),
               let spriteNode = entity?.component(ofType: SpriteComponent.self)?.node else { return }
 
-        let explodeDuration: CGFloat = 0.25
+        let explodeDuration: CGFloat = 0.2
 
         particle.targetNode = spriteNode
         particle.position = spriteNode.position

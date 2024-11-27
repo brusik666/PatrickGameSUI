@@ -5,13 +5,14 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    //weak var gameOverDelegate: GameOverDelegate?
+    weak var gameOverDelegate: GameOverDelegate?
     //weak var homeButtonDelegate: HomeButtonDelegate?
     var entityManager: EntityController?
     let playerData: PlayerData
     private var touchHandler: SceneTouchHandler
     private var contactHandler: SceneContactHandler
     var mainLabel: RoundedLabelNode!
+    var messageLabel: RoundedLabelNode!
     
     init(size: CGSize, playerData: PlayerData) {
         self.playerData = playerData

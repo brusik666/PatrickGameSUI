@@ -8,16 +8,16 @@
 import SpriteKit
 
 protocol CoinAttachable {
-    func addCoinsAcrossObstacle(coinSize: CGSize, coinImageName: String)
+    func addCoinsAcrossObstacle(coinHeight: CGFloat, scene: GameScene)
 }
 
 extension CoinAttachable where Self: SKNode {
-    func addCoinsAcrossObstacle(coinSize: CGSize, coinImageName: String) {
+    func addCoinsAcrossObstacle(coinHeight: CGFloat, scene: GameScene) {
         guard let obstacleWidth = self.calculateObstacleWidth() else { return }
         
-        let coinWidth = coinSize.width
-        let gap = coinWidth / 2
-        let totalSpacing = coinWidth + gap
+        
+        let gap = coinHeight * 2
+        let totalSpacing = coinHeight + gap
         
         // Calculate the number of coins that fit with the defined gaps
         let numberOfCoins = Int(obstacleWidth / totalSpacing)
@@ -26,10 +26,10 @@ extension CoinAttachable where Self: SKNode {
         let startX = -CGFloat(numberOfCoins - 1) * totalSpacing / 2
         
         for i in 0..<numberOfCoins {
-            let coin = SKSpriteNode(imageNamed: coinImageName)
-            coin.size = coinSize
-            coin.position = CGPoint(x: startX + CGFloat(i) * totalSpacing, y: coinSize.height) // Adjust Y if needed
-            self.addChild(coin)
+            let coinPosition = CGPoint(x: startX + CGFloat(i) * totalSpacing, y: coinHeight)
+            let coin = EntitiesFactory.createCoinEntity(height: coinHeight, position: coinPosition)
+
+            scene.entityManager?.addEntity(entity: coin)
         }
     }
     

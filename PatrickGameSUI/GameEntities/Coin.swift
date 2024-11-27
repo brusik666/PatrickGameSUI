@@ -10,11 +10,11 @@ import GameplayKit
 
 class Coin: GKEntity {
     
-    override init() {
+    init(height: CGFloat, position: CGPoint) {
         super.init()
         
         let spriteTexture = SKTexture(imageNamed: ImageName.Entities.coin.rawValue)
-        let spriteComponent = SpriteComponent(texture: spriteTexture, height: 50, position: CGPoint(x: 350, y: 600))
+        let spriteComponent = SpriteComponent(texture: spriteTexture, height: height, position: position)
         let spriteNode = spriteComponent.node
         spriteNode.entity = self
         spriteNode.physicsBody = PhysicBodyBuilder()

@@ -28,10 +28,9 @@ class Player: GKEntity {
             .setAllowsRotation(false)
             .setAffectedByGravity(true)
             .setRestitution(0.0)
-            .setPhysicsCategories(mask: PhysicsCategory.player, collision: [PhysicsCategory.obstacles], contact: [])
+            .setPhysicsCategories(mask: PhysicsCategory.player, collision: [PhysicsCategory.obstacles], contact: [PhysicsCategory.coin, PhysicsCategory.meteor])
             .build()
-        
-        
+        //spriteComponent.node.physicsBody = nil
         addComponent(spriteComponent)
         
         let jumpVelocity = CGVector(dx: 0, dy: 5000)
@@ -49,12 +48,11 @@ class Player: GKEntity {
         
         animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue)
         
-        let detectionNodeHeightCoefficient: CGFloat = 1
+        let detectionNodeHeightCoefficient: CGFloat = 1.5
         let detectionNodeRadius = playerHeight * detectionNodeHeightCoefficient
         let detectionNode = SKNode()
         let meteorDetectionComponent = MeteorDetectionComponent(detectionNode: detectionNode, height: detectionNodeRadius)
         addComponent(meteorDetectionComponent)
-        
         
     }
     

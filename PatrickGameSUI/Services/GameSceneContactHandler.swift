@@ -17,6 +17,7 @@ protocol SceneContactHandler {
 class GameSceneContactHandler: SceneContactHandler {
     
     private weak var scene: GameScene?
+    private var meteorsSpritesInSensor: Set<SKSpriteNode> = []
     
     func setScene(_ scene: SKScene) {
         guard let scene = scene as? GameScene else { return }
@@ -64,6 +65,20 @@ class GameSceneContactHandler: SceneContactHandler {
             }
         }
         
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
+            if let meteorSprite = bodies.bodyA.node as? SKSpriteNode {
+                guard !meteorsSpritesInSensor.contains(meteorSprite) else { return }
+                meteorsSpritesInSensor.insert(meteorSprite)
+            }
+        }
+        
+        if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.player, categoryB: PhysicsCategory.meteor) {
+            print("PLAYER/METEOR")
+            if let meteorSprite = bodies.bodyB.node as? SKSpriteNode {
+                meteorsSpritesInSensor.remove(meteorSprite)
+            }
+        }
+        
     
     }
 
@@ -72,7 +87,13 @@ class GameSceneContactHandler: SceneContactHandler {
         guard let gameScene = scene else { return }
         
         if let bodies = hasContact(contact: contact, categoryA: PhysicsCategory.meteor, categoryB: PhysicsCategory.meteorSensor) {
-            
+            if let meteorSprite = bodies.bodyA.node as? SKSpriteNode,
+               meteorsSpritesInSensor.contains(meteorSprite) {
+                meteorsSpritesInSensor.remove(meteorSprite)
+                Task {
+                    await             SceneMessageLabelHandler.showMessage(label: gameScene.messageLabel, text: "PIZDA", presentationTime: 1)
+                }
+            }
         }
     }
     

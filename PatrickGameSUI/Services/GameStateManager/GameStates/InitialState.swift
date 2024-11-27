@@ -22,6 +22,7 @@ class InitialState: GameState {
         //scene.entityManager?.addEntity(entity: coin)
         scene.entityManager?.player = player
         scene.entityManager?.addEntity(entity: player)
+        //addMeteorSensorNodeToScene(scene: scene)
         meteorDropper.startDropMeteors()
         startTimerActions(scene: scene)
         
@@ -35,13 +36,15 @@ class InitialState: GameState {
     func update(deltaTime: TimeInterval, scene: GameScene) {
         let playerPosition = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
         
-        let cameraXPositionOffset = scene.size.width / 4
+        let cameraXPositionOffset = scene.size.width / 3
         let cameraYPositionOffset = scene.size.height / 4
         scene.camera?.position = CGPoint(
             x: playerPosition.x + cameraXPositionOffset,
             y: playerPosition.y + cameraYPositionOffset)
         meteorDropper.update(deltaTime: deltaTime)
-        guard let node = scene.camera?.childNode(withName: "meteorRoomNode") as? MeteorRoomNode else { return }
+        /*if let sensorNode = scene.childNode(withName: "sensorNode") {
+            sensorNode.position = playerPosition
+        }*/
 
     }
     
@@ -61,6 +64,19 @@ class InitialState: GameState {
             //GameStateManager.shared.transition(to: GameHasFinishedState(isWin: false), scene: scene)
         }]))
         
+    }
+    
+    private func addMeteorSensorNodeToScene(scene: GameScene) {
+        guard let playerNode = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node else {
+            print("Player sprite node is abscent")
+            return
+        }
+        
+        let heightCoefficient: CGFloat = 1.5
+        let sensorNode = MeteorDetectionNode(height: playerNode.size.height * heightCoefficient)
+        sensorNode.position = playerNode.position
+        sensorNode.name = "sensorNode"
+        scene.addChild(sensorNode)
     }
     
 }

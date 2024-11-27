@@ -17,4 +17,9 @@ class EntitiesFactory {
         let playerEntity = Player(height: height)
         return playerEntity
     }
+    
+    static func createCoinEntity(height: CGFloat, position: CGPoint) -> Coin {
+        let coin = Coin(height: height, position: position)
+        return coin
+    }
 }

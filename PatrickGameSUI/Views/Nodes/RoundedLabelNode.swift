@@ -3,18 +3,18 @@ import SpriteKit
 class RoundedLabelNode: SKLabelNode {
     private let backgroundNode: SKShapeNode
     
-    init(text: String) {
+    init(text: String, fontColor: UIColor, fontSize: CGFloat) {
         backgroundNode = SKShapeNode()
         super.init()
         
         self.text = text
         self.isHidden = false
-        self.fontSize = 35
+        self.fontSize = fontSize
         self.numberOfLines = 3
         //self.fontName = UIElementsNames.fontName.rawValue
         self.fontName = "Helvetica-Bold"
         //self.fontColor = UIColor.gameLabelsColor()
-        self.fontColor = UIColor.purple
+        self.fontColor = fontColor
         self.zPosition = ZPositions.cameraElements.rawValue
         
         backgroundNode.fillColor = .lightGray.withAlphaComponent(0.2)

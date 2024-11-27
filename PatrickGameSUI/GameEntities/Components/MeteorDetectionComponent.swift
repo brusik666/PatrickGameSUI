@@ -23,8 +23,11 @@ class MeteorDetectionComponent: GKComponent {
             return
         }
         detectionNode.position = CGPoint.zero
+        //guard let gameScene = playerNode.scene else { return }
+        //detectionNode.position = playerNode.position
         playerNode.addChild(detectionNode)
-        //detectionNode.scene?.physicsWorld.contactDelegate = self
+        print(playerNode.scene)
+        //gameScene.addChild(detectionNode)
     }
     
     required init?(coder: NSCoder) {
@@ -35,14 +38,16 @@ class MeteorDetectionComponent: GKComponent {
         let body = PhysicBodyBuilder()
             .withCircle(height: height)
             .setIsDynamic(true)
-            .setPhysicsCategories(mask: PhysicsCategory.meteorSensor, collision: [], contact: [PhysicsCategory.meteor])
+            .setPhysicsCategories(mask: PhysicsCategory.meteorSensor, collision: [], contact: [])
             .setAffectedByGravity(false)
             .build()
         detectionNode.physicsBody = body
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        detectionNode.position = CGPoint.zero
+        guard let playerNode = entity?.component(ofType: SpriteComponent.self)?.node else { return }
+
+        detectionNode.position = .zero
     }
     
 }

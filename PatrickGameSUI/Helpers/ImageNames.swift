@@ -30,6 +30,10 @@ enum AnimationNames: String {
     case playerMovement
 }
 
+enum ActionNames: String {
+    case infiniteRotation
+}
+
 enum NodeName: String {
     case meteorRoomNode
 }
