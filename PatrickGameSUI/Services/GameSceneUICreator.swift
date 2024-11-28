@@ -26,6 +26,7 @@ class GameSceneUICreator: SceneUICreator {
         addObstacleBlock()
         addCameraToScene()
         addAllLabels()
+        addCombinationProgressBarToScene()
         
     }
     
@@ -52,6 +53,17 @@ class GameSceneUICreator: SceneUICreator {
         label.position = .zero
         gameScene.messageLabel = label
         gameScene.camera?.addChild(label)
+    }
+    
+    private func addCombinationProgressBarToScene() {
+        guard let gameScene = scene else { return }
+        
+        let barSize = CGSize(width: gameScene.size.width * 0.2, height: gameScene.size.height * 0.07)
+        let barPosition = CGPoint(x: -gameScene.size.width / 2 + barSize.width, y: gameScene.size.height / 3)
+        let progressBar = ProgressBar(size: barSize, position: barPosition)
+        progressBar.zPosition = ZPositions.cameraElements.rawValue
+        gameScene.camera?.addChild(progressBar)
+        gameScene.combinationProgressBar = progressBar
     }
     
     private func addCoinsLabel() {

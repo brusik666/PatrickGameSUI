@@ -23,11 +23,8 @@ class MeteorDetectionComponent: GKComponent {
             return
         }
         detectionNode.position = CGPoint.zero
-        //guard let gameScene = playerNode.scene else { return }
-        //detectionNode.position = playerNode.position
         playerNode.addChild(detectionNode)
         print(playerNode.scene)
-        //gameScene.addChild(detectionNode)
     }
     
     required init?(coder: NSCoder) {

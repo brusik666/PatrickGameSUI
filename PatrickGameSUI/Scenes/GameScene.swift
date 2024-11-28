@@ -13,6 +13,7 @@ class GameScene: SKScene {
     private var contactHandler: SceneContactHandler
     var mainLabel: RoundedLabelNode!
     var messageLabel: RoundedLabelNode!
+    var combinationProgressBar: ProgressBar!
     
     init(size: CGSize, playerData: PlayerData) {
         self.playerData = playerData

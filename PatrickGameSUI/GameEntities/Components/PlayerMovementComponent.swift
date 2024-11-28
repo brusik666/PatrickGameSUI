@@ -53,14 +53,13 @@ class PlayerMovementComponent: GKComponent {
     func increaseSpeed() {
         guard movementState == .normal else { return }
         movementState = .speedUp
-        
-        //speedMultiplier = 5.0
-        //print("SPEED UP")
-        
+
         guard let sprite = entityNode,
               let physicsBody = sprite.physicsBody else { return }
         physicsBody.applyImpulse(CGVector(dx: 10000, dy: 0))
-        dashWithTrail(scene: entityNode!.scene!, runTextures: [])
+        if let animationComponent = entity?.component(ofType: AnimationComponent.self) {
+            animationComponent.playDashTrailEffect()
+        }
          Task {
              await resetSpeedAfterDelay()
          }
@@ -108,46 +107,5 @@ class PlayerMovementComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createDashTrail(texture: SKTexture, scene: SKScene) {
-        // Create a trail node with the current texture
-        let trailNode = SKSpriteNode(texture: texture)
-        trailNode.position = entityNode!.position
-        trailNode.size = entityNode!.size
-        trailNode.zPosition = entityNode!.zPosition - 1 // Place it behind the player
-        scene.addChild(trailNode)
-
-        // Apply fade and scale actions for the trail effect
-        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-        let scaleDown = SKAction.scale(to: 0.5, duration: 0.5)
-        let remove = SKAction.removeFromParent()
-        let trailEffect = SKAction.sequence([SKAction.group([fadeOut, scaleDown]), remove])
-
-        // Run the trail effect
-        trailNode.run(trailEffect)
-    }
-
-    // Trigger the dash trail effect in your update or action logic
-    func dashWithTrail(scene: SKScene, runTextures: [SKTexture]) {
-        let dashDuration = 0.5
-        let dashSpeed: CGFloat = 500
-
-        // Dash action
-        let dashAction = SKAction.moveBy(x: dashSpeed * CGFloat(dashDuration), y: 0, duration: dashDuration)
-
-        // Add a repeating trail effect during the dash
-        let trailInterval: TimeInterval = 0.1
-        let trailAction = SKAction.repeat(SKAction.sequence([
-            SKAction.run {
-                // Capture the player's current texture from the run animation
-                if let currentTexture = self.entityNode!.texture {
-                    self.createDashTrail(texture: currentTexture, scene: scene)
-                }
-            },
-            SKAction.wait(forDuration: trailInterval)
-        ]), count: Int(dashDuration / trailInterval))
-
-        // Run the dash and trail actions in parallel
-        self.entityNode!.run(SKAction.group([dashAction, trailAction]))
-    }
 
 }
