@@ -84,7 +84,7 @@ class AnimationComponent: GKComponent {
 
     func playDashTrailEffect() {
         let trailInterval: TimeInterval = 0.05
-        let dashDuration: TimeInterval = 0.5
+        let dashDuration: TimeInterval = 0.1
         
         // Add a repeating trail during the dash
         let trailAction = SKAction.repeat(SKAction.sequence([

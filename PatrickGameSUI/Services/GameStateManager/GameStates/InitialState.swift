@@ -42,10 +42,7 @@ class InitialState: GameState {
             x: playerPosition.x + cameraXPositionOffset,
             y: playerPosition.y + cameraYPositionOffset)
         meteorDropper.update(deltaTime: deltaTime)
-        /*if let sensorNode = scene.childNode(withName: "sensorNode") {
-            sensorNode.position = playerPosition
-        }*/
-
+        //scene.camera?.position = playerPosition
     }
     
     private func startTimerActions(scene: GameScene) {

@@ -8,37 +8,13 @@ class GameScene: SKScene {
     weak var gameOverDelegate: GameOverDelegate?
     //weak var homeButtonDelegate: HomeButtonDelegate?
     var entityManager: EntityController?
-    let playerData: PlayerData
-    private var touchHandler: SceneTouchHandler
-    private var contactHandler: SceneContactHandler
+    var playerData: PlayerData!
+    var touchHandler: SceneTouchHandler!
+    var contactHandler: SceneContactHandler!
     var mainLabel: RoundedLabelNode!
     var messageLabel: RoundedLabelNode!
     var combinationProgressBar: ProgressBar!
     
-    init(size: CGSize, playerData: PlayerData) {
-        self.playerData = playerData
-        self.contactHandler = DependencyFactory.createSceneContactHandler(type: .gameScene)
-        self.touchHandler = DependencyFactory.createSceneTouchHandler(type: .gameScene)
-        super.init(size: size)
-        self.entityManager = DependencyFactory.createEntityManager(scene: self)
-        touchHandler.setScene(self)
-        contactHandler.setScene(self)
-        
-    }
-    
-    /*required init?(coder aDecoder: NSCoder, playerData: PlayerData) {
-        self.playerData = playerData
-        self.contactHandler = DependencyFactory.createSceneContactHandler(type: .gameScene)
-        self.touchHandler = DependencyFactory.createSceneTouchHandler(type: .gameScene)
-        super.init(coder: aDecoder)
-        self.entityManager = DependencyFactory.createEntityManager(scene: self)
-        touchHandler.setScene(self)
-        contactHandler.setScene(self)
-    }*/
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 extension GameScene {
@@ -84,7 +60,7 @@ extension GameScene {
     private func setupSceneView(_ view: SKView) {
         view.isMultipleTouchEnabled = true
         physicsWorld.contactDelegate = self
-       // physicsWorld.gravity = .zero
+
         backgroundColor = .clear
         let meteorDropper = DependencyFactory.createMeteorDropper(scene: self)
         let pointsCounter = DependencyFactory.createPointsCounter()

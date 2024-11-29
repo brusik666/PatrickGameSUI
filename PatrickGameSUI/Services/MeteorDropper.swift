@@ -30,7 +30,7 @@ class MeteorDropper: MeteorDroppingService {
             guard let self = self else { return }
             Task {
                 if let playerPosition = await self.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position {
-                    await self.dropMeteor(playerPosition: playerPosition)
+                    await self.dropMeteor()
                 }
             }
         }
@@ -59,14 +59,14 @@ class MeteorDropper: MeteorDroppingService {
     }
 
     @MainActor
-    private func dropMeteor(playerPosition: CGPoint) async {
+    private func dropMeteor() async {
         let activeMeteors = await meteorManager.getActiveMeteors()
         guard activeMeteors.count < maxMeteors else { return }
-        
+
         let meteorType = meteorTypes.randomElement()!
         let meteor = await meteorManager.getPooledMeteor(ofType: meteorType)
             ?? EntitiesFactory.createMeteorEntity(type: meteorType, position: .zero)
-        
+
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
             spriteNode.removeFromParent() // Ensure it's removed before reuse
             spriteNode.physicsBody?.velocity = .zero // Reset physics state
@@ -74,25 +74,25 @@ class MeteorDropper: MeteorDroppingService {
         }
 
         entityManager?.addEntity(entity: meteor)
-        
+
         if let spriteNode = meteor.component(ofType: SpriteComponent.self)?.node {
-            let spawnX = CGFloat.random(in: playerPosition.x - scene.frame.midX...playerPosition.x + scene.frame.midX)
-            let spawnPosition = CGPoint(x: spawnX, y: scene.frame.maxY)
+            // Get visible bounds with a buffer just above the screen
+            let visibleBounds = getVisibleScreenBounds(withBuffer: 100) // Buffer of 100 pixels above
+            let spawnX = CGFloat.random(in: visibleBounds.minX...visibleBounds.maxX)
+            let spawnY = visibleBounds.maxY // Just above the visible screen area
+            let spawnPosition = CGPoint(x: spawnX, y: spawnY)
             spriteNode.position = spawnPosition
-            
-            let targetPosition: CGPoint
-            if CGFloat.random(in: 0...1) < targetingProbability {
-                targetPosition = playerPosition
-            } else {
-                let randomX = spawnX
-                targetPosition = CGPoint(x: randomX, y: scene.frame.minY)
-            }
-            
+
+            // Random target position at the bottom of the screen
+            let targetX = CGFloat.random(in: visibleBounds.minX...visibleBounds.maxX)
+            let targetPosition = CGPoint(x: targetX, y: visibleBounds.minY)
+
             let vector = calculateForceVector(from: spawnPosition, to: targetPosition, forceMagnitude: 7000)
             spriteNode.physicsBody?.applyImpulse(vector)
             await meteorManager.addMeteor(meteor)
         }
     }
+
 
     
     func removeMeteor(_ meteor: Meteor) {
@@ -123,7 +123,7 @@ class MeteorDropper: MeteorDroppingService {
         return CGRect(
             x: cameraPosition.x - halfWidth - buffer,
             y: cameraPosition.y - halfHeight - buffer,
-            width: scene.size.width + buffer * 2,
+            width: scene.size.width + buffer * 4,
             height: scene.size.height + buffer * 2
         )
     }

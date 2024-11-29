@@ -53,7 +53,6 @@ class PlayerMovementComponent: GKComponent {
     func increaseSpeed() {
         guard movementState == .normal else { return }
         movementState = .speedUp
-
         guard let sprite = entityNode,
               let physicsBody = sprite.physicsBody else { return }
         physicsBody.applyImpulse(CGVector(dx: 10000, dy: 0))

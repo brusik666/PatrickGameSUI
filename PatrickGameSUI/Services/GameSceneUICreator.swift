@@ -22,7 +22,7 @@ class GameSceneUICreator: SceneUICreator {
     
     func createUI() {
         
-        //addBackgroundToScene()
+        addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
         addAllLabels()
