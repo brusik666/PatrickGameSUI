@@ -43,16 +43,20 @@ class Player: GKEntity {
         addComponent(movementComponent)
         
         let movementAtlas = TextureProvider.shared.getAtlas(named: "run")
-        let animationComponent = AnimationComponent(spriteNode: spriteComponent.node, atlases: [AnimationNames.playerMovement.rawValue : movementAtlas])
+        let fastMovementAtlas = TextureProvider.shared.getAtlas(named: "fastMove")
+        let animationComponent = AnimationComponent(spriteNode: spriteComponent.node, atlases: [
+            AnimationNames.playerMovement.rawValue : movementAtlas,
+            AnimationNames.playerFastMovement.rawValue : fastMovementAtlas
+        ])
         addComponent(animationComponent)
-        
-        animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue)
         
         let detectionNodeHeightCoefficient: CGFloat = 1.5
         let detectionNodeRadius = playerHeight * detectionNodeHeightCoefficient
         let detectionNode = SKNode()
         let meteorDetectionComponent = MeteorDetectionComponent(detectionNode: detectionNode, height: detectionNodeRadius)
         addComponent(meteorDetectionComponent)
+        
+        animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue, loop: true)
         
     }
     

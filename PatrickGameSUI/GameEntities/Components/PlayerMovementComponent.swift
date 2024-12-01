@@ -19,7 +19,7 @@ class PlayerMovementComponent: GKComponent {
     private var movementForce: CGVector
     private var maxVelocity: CGFloat
     private var speedMultiplier: CGFloat
-    private var movementState: MovementState
+    private var movementState: MovementState 
     
     init(movementForce: CGVector, maxVelocity: CGFloat) {
         self.movementForce = movementForce
@@ -39,7 +39,7 @@ class PlayerMovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        //move()
+        move()
     }
     
     func stopPlayer() {
@@ -57,6 +57,7 @@ class PlayerMovementComponent: GKComponent {
               let physicsBody = sprite.physicsBody else { return }
         physicsBody.applyImpulse(CGVector(dx: 10000, dy: 0))
         if let animationComponent = entity?.component(ofType: AnimationComponent.self) {
+            animationComponent.playAnimation(named: AnimationNames.playerFastMovement.rawValue, loop: true)
             animationComponent.playDashTrailEffect()
         }
          Task {
@@ -86,7 +87,10 @@ class PlayerMovementComponent: GKComponent {
     private func resetSpeed() {
         speedMultiplier = 1.0
         movementState = .normal
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { return }
+        animationComponent.playAnimation(named: AnimationNames.playerMovement.rawValue, loop: true)
     }
+    
     
     private func move() {
         guard let node = entityNode, let physicsBody = node.physicsBody else { return }

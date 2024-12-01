@@ -25,8 +25,9 @@ class GameSceneUICreator: SceneUICreator {
         addBackgroundToScene()
         addObstacleBlock()
         addCameraToScene()
-        addAllLabels()
         addCombinationProgressBarToScene()
+        addAllLabels()
+        
         
     }
     
@@ -37,11 +38,17 @@ class GameSceneUICreator: SceneUICreator {
     }
     
     private func addMainLabel() {
-        guard let gameScene = scene else { return }
+        guard let gameScene = scene,
+              let evasionTimerBar = gameScene.evasionTimerBar else {
+            print("There is no existing evasionTimerBar!")
+            return
+        }
         let label = RoundedLabelNode(text: "", fontColor: .purple, fontSize: 35)
-        label.isHidden = true
-        label.position = .zero
-        label.position.y -= gameScene.size.height/15
+        label.isHidden = false
+        label.position = CGPoint(
+            x: evasionTimerBar.position.x,
+            y: evasionTimerBar.position.y + 30
+        )
         gameScene.mainLabel = label
         gameScene.camera?.addChild(label)
     }
@@ -60,10 +67,10 @@ class GameSceneUICreator: SceneUICreator {
         
         let barSize = CGSize(width: gameScene.size.width * 0.2, height: gameScene.size.height * 0.07)
         let barPosition = CGPoint(x: -gameScene.size.width / 2 + barSize.width, y: gameScene.size.height / 3)
-        let progressBar = ProgressBar(size: barSize, position: barPosition)
-        progressBar.zPosition = ZPositions.cameraElements.rawValue
-        gameScene.camera?.addChild(progressBar)
-        gameScene.combinationProgressBar = progressBar
+        let timeRemainBar = TimeRemainBar(size: barSize, position: barPosition)
+        timeRemainBar.zPosition = ZPositions.cameraElements.rawValue
+        gameScene.camera?.addChild(timeRemainBar)
+        gameScene.evasionTimerBar = timeRemainBar
     }
     
     private func addCoinsLabel() {

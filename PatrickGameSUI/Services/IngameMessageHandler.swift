@@ -6,21 +6,16 @@
 import SpriteKit
 
 struct SceneMessageLabelHandler {
-    static func showMessage(label: SKLabelNode,text: String, presentationTime: CGFloat) async {
-        await MainActor.run {
-            label.text = text
-            label.isHidden = false
-        }
+    static func showMessage(label: SKLabelNode, text: String, presentationTime: CGFloat) {
         
-        let nanoseconds = UInt64(presentationTime * 1_000_000_000)
+        label.text = text
+        label.isHidden = false
+
+        let delay = DispatchTime.now() + Double(presentationTime)
         
-        do {
-            try await Task.sleep(nanoseconds: nanoseconds)
-        } catch {
-            print("Task was cancelled: \(error)")
-        }
-        await MainActor.run {
+        DispatchQueue.main.asyncAfter(deadline: delay) {
             label.isHidden = true
         }
     }
 }
+

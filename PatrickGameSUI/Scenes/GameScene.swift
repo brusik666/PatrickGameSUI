@@ -13,7 +13,9 @@ class GameScene: SKScene {
     var contactHandler: SceneContactHandler!
     var mainLabel: RoundedLabelNode!
     var messageLabel: RoundedLabelNode!
-    var combinationProgressBar: ProgressBar!
+    var evasionTimerBar: TimeRemainBar!
+    var gamePointsManager: PointsManager!
+    private var timeBarController: TimeBarController?
     
 }
 
@@ -26,6 +28,9 @@ extension GameScene {
     
     override func didMove(to view: SKView) {
         setupSceneView(view)
+        gamePointsManager.pointsUpdated = { [weak self] points in
+            self?.updateMainLabel(with: points)
+        }
         playerData.coinsUpdated = { [weak self] newCount in
             self?.updateCoinLabel(with: newCount)
         }
@@ -63,15 +68,19 @@ extension GameScene {
 
         backgroundColor = .clear
         let meteorDropper = DependencyFactory.createMeteorDropper(scene: self)
-        let pointsCounter = DependencyFactory.createPointsCounter()
-        GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper, pointsCounter: pointsCounter), scene: self)
+        GameStateManager.shared.transition(to: InitialState(meteorDropper: meteorDropper), scene: self)
         view.showsPhysics = true
         view.showsFPS = true
         name = "asd"
+        timeBarController = TimeBarController(timeBar: evasionTimerBar)
     }
     
     private func updateCoinLabel(with count: Int) {
         let coinLabel = camera?.childNode(withName: "coinLabel") as! SKLabelNodeWithSprite
         coinLabel.labelNode.text = String(count)
+    }
+    
+    private func updateMainLabel(with points: Int) {
+        mainLabel.text = String(points)
     }
 }

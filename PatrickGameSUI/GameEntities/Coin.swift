@@ -35,6 +35,6 @@ class Coin: GKEntity {
     }
     
     deinit {
-        print("Coin entity deinitialized")
+        //print("Coin entity deinitialized")
     }
 }

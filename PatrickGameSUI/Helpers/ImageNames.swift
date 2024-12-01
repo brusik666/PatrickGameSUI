@@ -27,7 +27,7 @@ enum ImageName {
 }
 
 enum AnimationNames: String {
-    case playerMovement
+    case playerMovement, playerFastMovement
 }
 
 enum ActionNames: String {

@@ -79,7 +79,6 @@ class GameSceneTouchHandler: SceneTouchHandler {
             playerMoveComponent.slowDown()
         } else {
             playerMoveComponent.increaseSpeed()
-            gameScene.combinationProgressBar.decreaseProgress(over: 3)
         }
     }
 }

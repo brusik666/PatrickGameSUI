@@ -17,7 +17,7 @@ class Meteor: GKEntity {
         super.init()
         
         let spriteTexture = SKTexture(imageNamed: "meteor")
-        let heigt = CGFloat.random(in: 35...50)
+        let heigt = CGFloat.random(in: 35...100)
         let spriteComponent = SpriteComponent(texture: spriteTexture, height: heigt, position: position)
         let spriteNode = spriteComponent.node
         spriteNode.entity = self
@@ -75,11 +75,11 @@ enum MeteorType {
     var mass: CGFloat {
         switch self {
         case .smallMeteor:
-            5
+            1
         case .mediumMeteor:
-            10
+            5
         case .bigMeteor:
-            20
+            10
         }
     }
     
@@ -87,7 +87,7 @@ enum MeteorType {
         switch self {
         case .smallMeteor: true
         case .mediumMeteor: true
-        case .bigMeteor: false
+        case .bigMeteor: true
         }
     }
     

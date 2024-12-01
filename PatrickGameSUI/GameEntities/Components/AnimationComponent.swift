@@ -22,16 +22,17 @@ class AnimationComponent: GKComponent {
     private func setupAnimations(with atlases: [String: SKTextureAtlas]) {
         for (key, atlas) in atlases {
             let textures = atlas.textureNames.sorted().compactMap { atlas.textureNamed($0) }
-            let action1 = SKAction.repeatForever(SKAction.animate(with: textures, timePerFrame: 0.04, resize: false, restore: true))
-            animations[key] = action1
+            animations[key] = SKAction.animate(with: textures, timePerFrame: 0.04, resize: false, restore: true)
         }
     }
     
-    func playAnimation(named name: String) {
-        guard let animation = animations[name] else {
+    func playAnimation(named name: String, loop: Bool = true) {
+        guard let baseAnimation = animations[name] else {
             print("Animation \(name) not found")
             return
         }
+        
+        let animation = loop ? SKAction.repeatForever(baseAnimation) : baseAnimation
         spriteNode.run(animation, withKey: name)
     }
 

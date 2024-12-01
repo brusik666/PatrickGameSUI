@@ -30,7 +30,9 @@ struct SpriteKitView: UIViewRepresentable {
         gameScene.size = size
         // Inject dependencies
         let playerData = PlayerData()
+        let gamePointsManager = DependencyFactory.createPointsManager(scene: gameScene)
         gameScene.playerData = playerData
+        gameScene.gamePointsManager = gamePointsManager
         gameScene.entityManager = DependencyFactory.createEntityManager(scene: gameScene)
         gameScene.touchHandler = DependencyFactory.createSceneTouchHandler(type: .gameScene)
         gameScene.contactHandler = DependencyFactory.createSceneContactHandler(type: .gameScene)

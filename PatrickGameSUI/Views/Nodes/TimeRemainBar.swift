@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class ProgressBar: SKNode {
+class TimeRemainBar: SKNode {
     private let backgroundBar: SKSpriteNode
     private let foregroundBar: SKSpriteNode
 
@@ -25,6 +25,7 @@ class ProgressBar: SKNode {
         foregroundBar.anchorPoint = CGPoint(x: 0, y: 0.5)
 
         super.init()
+        self.isHidden = true
         self.position = position
         // Add bars to the node
         addChild(backgroundBar)
@@ -40,8 +41,20 @@ class ProgressBar: SKNode {
     }
 
     // Function to animate progress reduction over time
-    func decreaseProgress(over timeInterval: TimeInterval) {
+    func startTimer(over timeInterval: TimeInterval) {
+        resetTimer()
+        isHidden = false
         let action = SKAction.resize(toWidth: 0, duration: timeInterval)
-        foregroundBar.run(action)
+        let completionAction = SKAction.run { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.isHidden = true
+        }
+        let sequence = SKAction.sequence([action, completionAction])
+        foregroundBar.run(sequence)
+    }
+    
+    private func resetTimer() {
+        foregroundBar.removeAllActions() // Stop any ongoing animations
+        foregroundBar.size.width = backgroundBar.size.width * 0.9 // Reset to original size
     }
 }
