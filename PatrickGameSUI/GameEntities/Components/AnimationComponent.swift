@@ -51,6 +51,7 @@ class AnimationComponent: GKComponent {
         guard let texture = spriteNode.texture else { return }
         let trailNode = SKSpriteNode(texture: texture)
         trailNode.position = spriteNode.position
+        trailNode.alpha = 0.1
         trailNode.size = spriteNode.size
         trailNode.zPosition = spriteNode.zPosition - 1 // Place behind the player
         trailNode.color = .black // Start with some darkness
@@ -84,8 +85,8 @@ class AnimationComponent: GKComponent {
 
 
     func playDashTrailEffect() {
-        let trailInterval: TimeInterval = 0.05
-        let dashDuration: TimeInterval = 0.1
+        let trailInterval: TimeInterval = 0.005
+        let dashDuration: TimeInterval = 0.5
         
         // Add a repeating trail during the dash
         let trailAction = SKAction.repeat(SKAction.sequence([

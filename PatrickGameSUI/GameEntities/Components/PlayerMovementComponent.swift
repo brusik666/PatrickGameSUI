@@ -55,35 +55,34 @@ class PlayerMovementComponent: GKComponent {
         movementState = .speedUp
         guard let sprite = entityNode,
               let physicsBody = sprite.physicsBody else { return }
+        
+        if let customCamera = sprite.scene?.camera as? CustomCamera {
+            customCamera.startAcceleration()
+        }
         physicsBody.applyImpulse(CGVector(dx: 10000, dy: 0))
+        
         if let animationComponent = entity?.component(ofType: AnimationComponent.self) {
             animationComponent.playAnimation(named: AnimationNames.playerFastMovement.rawValue, loop: true)
             animationComponent.playDashTrailEffect()
         }
-         Task {
-             await resetSpeedAfterDelay()
-         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.resetSpeed()
+        }
     }
-    
-    
+
     func slowDown() {
         guard movementState == .normal else { return }
         movementState = .slowDown
         speedMultiplier = 0.3
-        //print("SLOW DOWN")
-        Task {
-            await resetSpeedAfterDelay()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            if let customCamera = self?.entityNode?.scene?.camera as? CustomCamera {
+                customCamera.stopAcceleration()
+            }
+            self?.resetSpeed()
         }
     }
-    
-    private func resetSpeedAfterDelay() async {
-        try? await Task.sleep(nanoseconds: 500_000_000)
-        resetSpeed()
-    }
-    
-    
-    
-    
+
     private func resetSpeed() {
         speedMultiplier = 1.0
         movementState = .normal

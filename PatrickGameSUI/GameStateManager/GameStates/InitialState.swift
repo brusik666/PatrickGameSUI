@@ -31,11 +31,9 @@ class InitialState: GameState {
     func update(deltaTime: TimeInterval, scene: GameScene) {
         let playerPosition = scene.entityManager?.player?.component(ofType: SpriteComponent.self)?.node.position ?? .zero
         
-        let cameraXPositionOffset = scene.size.width / 3
-        let cameraYPositionOffset = scene.size.height / 4
-        scene.camera?.position = CGPoint(
-            x: playerPosition.x + cameraXPositionOffset,
-            y: playerPosition.y + cameraYPositionOffset)
+        if let customCamera = scene.camera as? CustomCamera {
+            customCamera.updateCameraPosition(playerPosition: playerPosition)
+        }
         meteorDropper.update(deltaTime: deltaTime)
         guard let pointsManager = scene.gamePointsManager else { return }
         pointsManager.updatePlayerProgress(playerXPosition: playerPosition.x)

@@ -54,13 +54,6 @@ class GameSceneContactHandler: SceneContactHandler {
                         }
                     }
                 }
-                /*Task {
-                    await explosionComponent.exploid()
-                    //await scene?.entityManager?.removeEntity(entity: entity)
-                    if let currentState = GameStateManager.shared.currentState as? InitialState {
-                        currentState.meteorDropper.removeMeteor(meteorEntity)
-                    }
-                }*/
             }
         }
         

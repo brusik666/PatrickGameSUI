@@ -133,7 +133,8 @@ class GameSceneUICreator: SceneUICreator {
         //let constraints = [
           //  SKConstraint.positionY(SKRange(lowerLimit: gameScene.frame.midY))
         //]
-        let camera = SKCameraNode()
+        let camera = CustomCamera()
+        camera.configure(baseOffset: CGPoint(x: gameScene.size.width / 10, y: gameScene.size.height / 10), smoothingFactor: 0.1)
         //camera.constraints = constraints
         camera.setScale(1)
         gameScene.camera = camera
